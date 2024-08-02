@@ -1,7 +1,7 @@
 import React, { ChangeEvent, MouseEventHandler, useId, useRef } from "react";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { classnames } from "../util/classnames";
+
+import { classnames } from "../../util/classnames";
+import NumberSpinButtons from "./NumberSpinButtons";
 
 interface InputProps
   extends Omit<
@@ -29,7 +29,12 @@ export default function Input({
   const inputRef = useRef<HTMLInputElement>(null);
   const id = useId();
 
-  const createChangeEvent = () => {
+  /**
+   * Creates a ChangeEvent to pass onto ChangeEvent handlers
+   *
+   * @returns {ChangeEvent<HTMLInputElement>}
+   */
+  const createChangeEvent = (): ChangeEvent<HTMLInputElement> => {
     const event = new Event("change");
     Object.defineProperty(event, "target", {
       writable: true,
@@ -38,37 +43,46 @@ export default function Input({
     return event as unknown as ChangeEvent<HTMLInputElement>;
   };
 
+  /**
+   * Increments number-type inputs by `step` if lesser than or equal to `max`.
+   *
+   * @param e
+   */
   const handleIncrement: MouseEventHandler = (e) => {
     e.preventDefault();
-    const { onChange } = inputAttributes;
+    const { onChange, step = 1 } = inputAttributes;
     if (onChange) {
       const inputEl = inputRef.current!;
-      const newValue = Number(inputEl.value) + 1;
+      const newValue = Number(inputEl.value) + Number(step);
       const isLesserThanOrEqualToMax =
         newValue <=
         (inputAttributes.max !== undefined
           ? Number(inputAttributes.max)
           : Infinity);
       if (isLesserThanOrEqualToMax) {
-        inputEl.value = String(Number(inputEl.value) + 1);
+        inputEl.value = String(newValue);
         const changeEvent = createChangeEvent();
         onChange(changeEvent);
       }
     }
   };
 
+  /**
+   * Decrements number-type inputs by `step` if greater than or equal to `min`.
+   *
+   * @param e
+   */
   const handleDecrement: MouseEventHandler = (e) => {
     e.preventDefault();
-    const { onChange } = inputAttributes;
+    const { onChange, step = 1 } = inputAttributes;
     if (onChange) {
       const inputEl = inputRef.current!;
-      const newValue = Number(inputEl.value) - 1;
+      const newValue = Number(inputEl.value) - Number(step);
       const isGreaterThanOrEqualToMin =
         newValue >=
         (inputAttributes.min !== undefined
           ? Number(inputAttributes.min)
           : -Infinity);
-
       if (isGreaterThanOrEqualToMin) {
         inputEl.value = String(newValue);
         const changeEvent = createChangeEvent();
@@ -103,32 +117,20 @@ export default function Input({
         id={inputAttributes.id ?? id}
         className={classnames(
           "input",
-          "w-full border-app-yellow border-2 rounded-3xl bg-app-slate-blue text-white px-4 h-10 focus:outline-none",
+          "w-full border-app-yellow border-2 rounded-3xl bg-app-slate-blue text-white px-4 h-10",
+          "focus:outline-none",
+          "disabled:opacity-50",
           inputClassName
         )}
         {...inputAttributes}
       />
+
       {inputAttributes.type === "number" && (
-        <div className="flex flex-col absolute bottom-0 right-4">
-          <button
-            type="button"
-            onClick={handleIncrement}
-            aria-label="increment"
-            className="w-5 h-5 centered"
-            autoFocus={false}
-          >
-            <ArrowDropUpIcon style={{ fontSize: "20px" }} />
-          </button>
-          <button
-            type="button"
-            onClick={handleDecrement}
-            aria-label="decrement"
-            className="w-5 h-5 centered"
-            autoFocus={false}
-          >
-            <ArrowDropDownIcon style={{ fontSize: "20px" }} />
-          </button>
-        </div>
+        <NumberSpinButtons
+          handleIncrement={handleIncrement}
+          handleDecrement={handleDecrement}
+          disabled={inputAttributes.disabled ?? false}
+        />
       )}
     </div>
   );
