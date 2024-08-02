@@ -12,3 +12,9 @@
     @apply appearance-none; /* Custom class for Firefox */
   }
 }
+
+@layer utilities {
+  .centered {
+    @apply flex justify-center items-center;
+  }
+}
