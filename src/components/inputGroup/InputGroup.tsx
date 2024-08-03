@@ -2,6 +2,8 @@ import React, { ChangeEvent, MouseEventHandler, useId, useRef } from "react";
 
 import { classnames } from "../../util/classnames";
 import NumberSpinButtons from "./NumberSpinButtons";
+import { TooltipProps } from "../tooltip/Tooltip";
+import InputLabel from "./InputLabel";
 
 interface InputProps
   extends Omit<
@@ -16,9 +18,11 @@ interface InputProps
   inputGroupClassName?: string;
   labelClassName?: string;
   inputClassName?: string;
+  tooltipProps?: Omit<TooltipProps, "children">;
 }
 
 export default function Input({
+  tooltipProps,
   label,
   showLabel,
   inputGroupClassName,
@@ -99,17 +103,13 @@ export default function Input({
         inputGroupClassName
       )}
     >
-      {showLabel && (
-        <label
-          className={classnames(
-            "label",
-            "text-sm translate-x-4 opacity-80",
-            labelClassName
-          )}
-          htmlFor={inputAttributes.id ?? id}
-        >
-          {label}
-        </label>
+      {showLabel && label !== undefined && (
+        <InputLabel
+          id={inputAttributes.id ?? id}
+          tooltipProps={tooltipProps}
+          labelClassName={labelClassName}
+          label={label}
+        />
       )}
       <input
         ref={inputRef}
