@@ -21,7 +21,7 @@ interface InputProps
   tooltipProps?: Omit<TooltipProps, "children">;
 }
 
-export default function Input({
+export default function InputGroup({
   tooltipProps,
   label,
   showLabel,
@@ -117,8 +117,8 @@ export default function Input({
         id={inputAttributes.id ?? id}
         className={classnames(
           "input",
-          "w-full border-app-yellow border-2 rounded-3xl bg-app-slate-blue text-white px-4 h-10",
-          "focus:outline-none",
+          "w-full border-slate-600 border-2 rounded-3xl bg-app-slate-blue text-white px-4 h-10",
+          "focus:outline-none focus:border-app-yellow",
           "disabled:opacity-50",
           inputClassName
         )}

@@ -5,15 +5,15 @@ import Accordion from "../../components/accordion/Accordion";
 
 export default function Navigation() {
   return (
-    <nav className={classnames("navigation", "min-w-72 bg-app-dark-blue")}>
+    <nav className={classnames("navigation", "min-w-64 bg-app-dark-blue")}>
       <h1
         className={classnames(
           "navigation__header",
-          "flex items-center h-16 px-4 text-xl font-bold text-app-dark-blue bg-app-yellow"
+          "centered h-16 px-4 text-2xl font-bold bg-app-dark-blue border-b-2 border-b-slate-600"
         )}
       >
         <Link to="/">
-          <span className="">JS</span> Visual
+          <span className="text-app-yellow">JS</span> Visual
         </Link>
       </h1>
       <ul className={classnames("navigation__list", "h-full overflow-y-auto")}>
@@ -26,16 +26,7 @@ export default function Navigation() {
               )}
               key={route.category}
             >
-              <Accordion
-                title={
-                  <h2>
-                    {route.category}{" "}
-                    <span className="text-app-yellow">
-                      {route.children.length}
-                    </span>
-                  </h2>
-                }
-              >
+              <Accordion title={<h2>{route.category}</h2>}>
                 {route.children !== undefined && (
                   <ul className="navigation__list__category__links">
                     {route.children.map((child) => {
