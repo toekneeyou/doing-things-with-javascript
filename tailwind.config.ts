@@ -10,6 +10,15 @@ const config: Config = {
   content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      keyframes: {
+        slideRight: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+      },
+      animation: {
+        slideRight: "slideRight 500ms linear forwards", // You can set a default duration and fill mode here
+      },
       colors: {
         "app-yellow": yellow,
         "app-black": black,
