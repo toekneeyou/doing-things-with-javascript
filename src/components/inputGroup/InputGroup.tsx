@@ -5,7 +5,7 @@ import NumberSpinButtons from "./NumberSpinButtons";
 import { TooltipProps } from "../tooltip/Tooltip";
 import InputLabel from "./InputLabel";
 
-interface InputProps
+export interface InputGroupProps
   extends Omit<
     React.DetailedHTMLProps<
       React.InputHTMLAttributes<HTMLInputElement>,
@@ -29,7 +29,7 @@ export default function InputGroup({
   labelClassName,
   inputClassName,
   ...inputAttributes
-}: InputProps) {
+}: InputGroupProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const id = useId();
 
@@ -99,7 +99,7 @@ export default function InputGroup({
     <div
       className={classnames(
         "input-group",
-        "flex flex-col min-w-40 relative",
+        "flex flex-col min-w-40 relative gap-y-1",
         inputGroupClassName
       )}
     >
