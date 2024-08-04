@@ -1,6 +1,10 @@
 import { RouteObject } from "react-router-dom";
 import App from "../App";
 import DebounceView from "../views/debounceView/DebounceView";
+import ThrottleView from "../views/throttleView/ThrottleView";
+import MergeSortView from "../views/mergeSortView/MergeSortView";
+import TwoSumView from "../views/twoSumView/TwoSumView";
+import StackView from "../views/stackView/StackView";
 
 class SiteRoute<T> {
   name: string;
@@ -44,7 +48,7 @@ export const dataStructuresRoute = new SiteRoute(
 export const stackRoute = new SiteRoute(
   "Stack",
   "stack",
-  () => <div />, // TODO: No view for this route yet
+  StackView,
   dataStructuresRoute
 );
 dataStructuresRoute.addChild(stackRoute);
@@ -60,7 +64,7 @@ export const algorithmsRoute = new SiteRoute(
 export const mergeSortRoute = new SiteRoute(
   "Merge Sort",
   "merge-sort",
-  () => <div />, // TODO: No view for this route yet
+  MergeSortView,
   algorithmsRoute
 );
 algorithmsRoute.addChild(mergeSortRoute);
@@ -76,13 +80,13 @@ export const utilityFunctionsRoute = new SiteRoute(
 export const debounceRoute = new SiteRoute(
   "Debounce",
   "debounce",
-  () => <div />, // TODO: No view for this route yet,
+  DebounceView,
   utilityFunctionsRoute
 );
 export const throttleRoute = new SiteRoute(
   "Throttle",
   "throttle",
-  () => <div />, // TODO: No view for this route yet,
+  ThrottleView,
   utilityFunctionsRoute
 );
 utilityFunctionsRoute.addChild(debounceRoute);
@@ -99,7 +103,7 @@ export const leetCodeRoute = new SiteRoute(
 export const twoSumRoute = new SiteRoute(
   "Two Sum",
   "two-sum",
-  () => <div />, // TODO: No view for this route yet
+  TwoSumView,
   leetCodeRoute
 );
 leetCodeRoute.addChild(twoSumRoute);
