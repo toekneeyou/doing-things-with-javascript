@@ -68,6 +68,7 @@ export function debounce<T extends (...args: any[]) => void>(
     if (timerId) {
       clearTimeout(timerId);
       timerId = null;
+      handleWait?.(false);
     }
   }
 
