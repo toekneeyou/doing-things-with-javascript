@@ -3,7 +3,6 @@ import App from "../App";
 import DebounceView from "../views/debounceView/DebounceView";
 import ThrottleView from "../views/throttleView/ThrottleView";
 import MergeSortView from "../views/mergeSortView/MergeSortView";
-import TwoSumView from "../views/twoSumView/TwoSumView";
 import StackView from "../views/stackView/StackView";
 
 class SiteRoute<T> {
@@ -91,27 +90,10 @@ export const throttleRoute = new SiteRoute(
 );
 utilityFunctionsRoute.addChild(debounceRoute);
 utilityFunctionsRoute.addChild(throttleRoute);
-/**
- * Leet Code Routes
- */
-export const leetCodeRoute = new SiteRoute(
-  "Leet Code",
-  "leet-code",
-  () => <div />, // TODO: No view for this route yet
-  homeRoute
-);
-export const twoSumRoute = new SiteRoute(
-  "Two Sum",
-  "two-sum",
-  TwoSumView,
-  leetCodeRoute
-);
-leetCodeRoute.addChild(twoSumRoute);
 
 homeRoute.addChild(dataStructuresRoute);
 homeRoute.addChild(algorithmsRoute);
 homeRoute.addChild(utilityFunctionsRoute);
-homeRoute.addChild(leetCodeRoute);
 
 // Used for Navigation component
 export const navRoutes: {

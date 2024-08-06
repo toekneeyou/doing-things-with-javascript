@@ -19,7 +19,7 @@ export const classnames = (
 ): undefined | string => {
   if (args.filter(Boolean).length === 0) return undefined;
 
-  let classNames: string[] = [];
+  const classNames: string[] = [];
 
   const recursivelyHandleArgs = (arg: ClassNameArg) => {
     if (Array.isArray(arg)) {
@@ -32,9 +32,7 @@ export const classnames = (
       });
     } else if (typeof arg === "string") {
       if (arg) classNames.push(arg.trim());
-    } else {
-      if (arg) classNames.push(arg);
-    }
+    } else if (arg) classNames.push(arg);
   };
 
   args.forEach(recursivelyHandleArgs);

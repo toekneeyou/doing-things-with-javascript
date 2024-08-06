@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
+import { InfoOutlined } from "@mui/icons-material";
 import { classnames } from "../../util/classnames";
 import Tooltip from "../../components/tooltip/Tooltip";
-import { InfoOutlined } from "@mui/icons-material";
 import InputGroup, {
   InputGroupProps,
 } from "../../components/inputGroup/InputGroup";
@@ -18,7 +18,7 @@ export interface VisualizationOptions {
 interface VisualizationLayoutProps {
   title: string;
   children?: ReactNode;
-  tooltip?: string;
+  tooltip?: ReactNode;
   options?: VisualizationOptions[];
 }
 
@@ -72,7 +72,7 @@ export default function VisualizationLayout({
               "text-2xl font-bold p-4 text-center border-b-2 border-b-slate-600"
             )}
           >
-            Options:
+            Options
           </h2>
           <form
             className={classnames(
@@ -94,7 +94,8 @@ export default function VisualizationLayout({
                     {...option.inputGroupProps}
                   />
                 );
-              } else if (option.type === "dropdown" && option.dropdownProps) {
+              }
+              if (option.type === "dropdown" && option.dropdownProps) {
                 return (
                   <DropdownGroup
                     key={option.dropdownProps.label}

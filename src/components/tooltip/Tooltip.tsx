@@ -1,14 +1,7 @@
-import {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { ReactNode, useCallback, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { classnames } from "../../util/classnames";
 import { debounce } from "../../util/debounce";
-import { createPortal } from "react-dom";
 import useTooltipPosition from "./useTooltipPosition";
 
 type TooltipPosition = "top" | "right" | "bottom" | "left";

@@ -15,9 +15,15 @@ const config: Config = {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(100%)" },
         },
+        yellowRing: {
+          "0%": { border: "4px solid transparent" },
+          "50%": { border: `4px solid ${yellow}` },
+          "100%": { border: "4px solid transparent" },
+        },
       },
       animation: {
         slideRight: "slideRight 500ms linear forwards", // You can set a default duration and fill mode here
+        yellowRing: "yellowRing 300ms linear forwards",
       },
       colors: {
         "app-yellow": yellow,

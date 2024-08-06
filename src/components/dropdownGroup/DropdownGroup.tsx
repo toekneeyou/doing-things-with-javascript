@@ -62,14 +62,12 @@ export default function DropdownGroup<T>({
         )}
         {...selectAttributes}
       >
-        {options.map(({ ...optionAttributes }) => {
-          return (
-            <option
-              {...optionAttributes}
-              key={`${optionAttributes.label}-${optionAttributes.value}`}
-            />
-          );
-        })}
+        {options.map(({ ...optionAttributes }) => (
+          <option
+            {...optionAttributes}
+            key={`${optionAttributes.label}-${optionAttributes.value}`}
+          />
+        ))}
       </select>
     </div>
   );

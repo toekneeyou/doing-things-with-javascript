@@ -1,8 +1,8 @@
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler, createElement, useState } from "react";
 import { VisualizationOptions } from "../../layouts/visualizationLayout/VisualizationLayout";
 
-export default function useDebounceOptions() {
-  const [isLeading, setIsLeading] = useState<"true" | "false">("false");
+export default function useThrottleOptions() {
+  const [isLeading, setIsLeading] = useState<"true" | "false">("true");
   const [isTrailing, setIsTrailing] = useState<"true" | "false">("true");
   const [isCancellable, setIsCancellable] = useState<"true" | "false">("true");
   const [wait, setWait] = useState("1000");
@@ -32,8 +32,14 @@ export default function useDebounceOptions() {
         min: 0,
         step: 100,
         tooltipProps: {
-          content:
-            "This is the waiting period. Any attempt to call the debounced function during the waiting period will reset it.",
+          content: (
+            <p>
+              This is the waiting period. Any attempt to call the throttled
+              function will result in one call at the end of the waiting period
+              if <span className="code">isTrailing</span> is{" "}
+              <span className="code">true</span>.
+            </p>
+          ),
         },
       },
     },
@@ -50,8 +56,13 @@ export default function useDebounceOptions() {
           { value: "false", children: "false" },
         ],
         tooltipProps: {
-          content:
-            "If leading is set to true, the debounced function will execute once before initiating the waiting period.",
+          content: (
+            <p>
+              If <span className="code">isLeading</span> is{" "}
+              <span className="code">true</span>, the function will be called
+              before kicking off a waiting period.
+            </p>
+          ),
         },
       },
     },
@@ -68,8 +79,14 @@ export default function useDebounceOptions() {
           { value: "false", children: "false" },
         ],
         tooltipProps: {
-          content:
-            "If trailing is set to true, the debounced function will execute after the waiting period is over.",
+          content: (
+            <p>
+              If <span className="code">isTrailing</span> is{" "}
+              <span className="code">true</span>, any attempt to call the
+              throttled function will result in one call at the end of the
+              waiting period.
+            </p>
+          ),
         },
       },
     },
@@ -87,7 +104,7 @@ export default function useDebounceOptions() {
         ],
         tooltipProps: {
           content:
-            "This allows you to cancel the debounced function if it hasn't executed yet.",
+            "This allows you to cancel the throttled function if it hasn't executed yet.",
         },
       },
     },
