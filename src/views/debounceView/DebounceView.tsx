@@ -3,9 +3,7 @@ import InputGroup from "../../components/inputGroup/InputGroup";
 import { debounce } from "../../util/debounce";
 import useDebounceOptions from "./useDebounceOptions";
 import DebouncedResult from "./DebounceResult";
-import VisualizationLayout, {
-  VisualizationOptions,
-} from "../../layouts/visualizationLayout/VisualizationLayout";
+import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
 import Button from "../../components/Button";
 
 export default function DebounceView() {
@@ -14,16 +12,8 @@ export default function DebounceView() {
   const [result, setResult] = useState(inputString);
   const [isWaiting, setIsWaiting] = useState(false);
 
-  const {
-    isLeading,
-    handleLeading,
-    isTrailing,
-    handleTrailing,
-    isCancellable,
-    handleCancellable,
-    wait,
-    handleWait,
-  } = useDebounceOptions();
+  const { isLeading, isTrailing, isCancellable, wait, options } =
+    useDebounceOptions();
 
   const debouncedSetResult = useCallback(
     debounce(
@@ -59,79 +49,6 @@ export default function DebounceView() {
     setInputString(value);
     debouncedSetResult(value);
   };
-
-  const options: VisualizationOptions[] = [
-    {
-      type: "number",
-      inputGroupProps: {
-        label: "Wait(ms)",
-        showLabel: true,
-        value: wait,
-        onChange: handleWait,
-        name: "wait",
-        min: 0,
-        step: 100,
-        tooltipProps: {
-          content:
-            "This is the waiting period. Any attempt to call the debounced function during the waiting period will reset it.",
-        },
-      },
-    },
-    {
-      type: "dropdown",
-      dropdownProps: {
-        label: "Leading",
-        showLabel: true,
-        name: "leading",
-        value: isLeading,
-        onChange: handleLeading,
-        options: [
-          { value: "true", children: "true" },
-          { value: "false", children: "false" },
-        ],
-        tooltipProps: {
-          content:
-            "If leading is set to true, the debounced function will execute once before initiating the waiting period.",
-        },
-      },
-    },
-    {
-      type: "dropdown",
-      dropdownProps: {
-        label: "Trailing",
-        showLabel: true,
-        name: "trailing",
-        value: isTrailing,
-        onChange: handleTrailing,
-        options: [
-          { value: "true", children: "true" },
-          { value: "false", children: "false" },
-        ],
-        tooltipProps: {
-          content:
-            "If trailing is set to true, the debounced function will execute after the waiting period is over.",
-        },
-      },
-    },
-    {
-      type: "dropdown",
-      dropdownProps: {
-        label: "Cancellable",
-        showLabel: true,
-        name: "cancellable",
-        value: isCancellable,
-        onChange: handleCancellable,
-        options: [
-          { value: "true", children: "true" },
-          { value: "false", children: "false" },
-        ],
-        tooltipProps: {
-          content:
-            "This allows you to cancel the debounced function if it hasn't executed yet.",
-        },
-      },
-    },
-  ];
 
   return (
     <VisualizationLayout
