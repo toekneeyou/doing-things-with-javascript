@@ -18,7 +18,7 @@ export interface VisualizationOptions {
 interface VisualizationLayoutProps {
   title: string;
   children?: ReactNode;
-  tooltip?: string;
+  tooltip?: ReactNode;
   options?: VisualizationOptions[];
 }
 
@@ -72,7 +72,7 @@ export default function VisualizationLayout({
               "text-2xl font-bold p-4 text-center border-b-2 border-b-slate-600"
             )}
           >
-            Options:
+            Options
           </h2>
           <form
             className={classnames(
