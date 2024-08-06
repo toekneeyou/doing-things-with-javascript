@@ -6,7 +6,7 @@ const DebounceProgress = forwardRef(({}, ref) => {
     <div
       className={classnames(
         "debounced-result__progress-bar",
-        "w-96 bg-app-faded-blue h-2 overflow-hidden relative"
+        "w-96 bg-app-slate-blue h-2 overflow-hidden relative"
       )}
     >
       <div
