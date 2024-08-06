@@ -1,9 +1,10 @@
 import { classnames } from "./util/classnames";
-import "./main.css";
 import Navigation from "./features/navigation/Navigation";
 import { Outlet, useLocation } from "react-router-dom";
 import { homeRoute } from "./services/routes";
 import HomeView from "./views/homeView/HomeView";
+
+import "./main.css";
 
 export default function App() {
   const location = useLocation();
@@ -11,9 +12,7 @@ export default function App() {
 
   return (
     <div
-      className={classnames(
-        "h-screen w-full overflow-hidden text-white flex"
-      )}
+      className={classnames("h-screen w-full overflow-hidden text-white flex")}
       style={{
         background:
           "linear-gradient(126deg, rgba(38,42,50,1) 0%, rgba(42,55,82,1) 100%)",

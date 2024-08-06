@@ -1,6 +1,6 @@
 import { ReactNode, useRef, useState } from "react";
-import { classnames } from "../../util/classnames";
 import { ArrowDropDown } from "@mui/icons-material";
+import { classnames } from "../../util/classnames";
 
 interface AccordionProps {
   accordionClassName?: string;
@@ -42,7 +42,7 @@ export default function Accordion({
       >
         {title}
         <ArrowDropDown
-          style={{ transition: "transform", transitionDuration: `300ms` }}
+          style={{ transition: "transform", transitionDuration: "300ms" }}
           className={classnames({ "-rotate-180": isExpanded })}
         />
       </div>

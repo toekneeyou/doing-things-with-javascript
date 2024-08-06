@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
+import { InfoOutlined } from "@mui/icons-material";
 import { classnames } from "../../util/classnames";
 import Tooltip from "../../components/tooltip/Tooltip";
-import { InfoOutlined } from "@mui/icons-material";
 import InputGroup, {
   InputGroupProps,
 } from "../../components/inputGroup/InputGroup";
@@ -94,7 +94,8 @@ export default function VisualizationLayout({
                     {...option.inputGroupProps}
                   />
                 );
-              } else if (option.type === "dropdown" && option.dropdownProps) {
+              }
+              if (option.type === "dropdown" && option.dropdownProps) {
                 return (
                   <DropdownGroup
                     key={option.dropdownProps.label}

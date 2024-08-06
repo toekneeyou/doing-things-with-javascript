@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useMemo, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 
 interface TooltipPosition {
   top: number | undefined;
@@ -20,7 +20,10 @@ export default function useTooltipPosition(
 
   useEffect(() => {
     const observer = new ResizeObserver(() => {
-      let top, right, bottom, left: number | undefined;
+      let top: number | undefined;
+      let right: number | undefined;
+      let bottom: number | undefined;
+      let left: number | undefined;
       const anchorEl = anchorRef.current;
       const tooltipEl = tooltipRef.current;
 
@@ -47,7 +50,12 @@ export default function useTooltipPosition(
         }
       }
 
-      setTooltipPosition({ top, left, right, bottom });
+      setTooltipPosition({
+        top,
+        left,
+        right,
+        bottom,
+      });
     });
 
     observer.observe(document.body);

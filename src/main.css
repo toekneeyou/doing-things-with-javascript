@@ -17,4 +17,7 @@
   .centered {
     @apply flex justify-center items-center;
   }
+  .code {
+    @apply bg-app-black text-red-500 px-1;
+  }
 }
