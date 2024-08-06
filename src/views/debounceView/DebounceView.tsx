@@ -17,14 +17,14 @@ export default function DebounceView() {
 
   const debouncedSetResult = useCallback(
     debounce(
-      function (string: string) {
+      (string: string) => {
         setResult(string);
       },
       Number(wait),
       {
-        isLeading: isLeading === "true" ? true : false,
-        isTrailing: isTrailing === "true" ? true : false,
-        isCancellable: isCancellable === "true" ? true : false,
+        isLeading: isLeading === "true",
+        isTrailing: isTrailing === "true",
+        isCancellable: isCancellable === "true",
         handleWait: (newIsWaiting) => {
           const progressEl = progressRef.current;
           if (progressEl) {
@@ -61,13 +61,20 @@ export default function DebounceView() {
       <div className="centered h-full w-full flex-col">
         <div className="flex items-end space-x-2 mb-8 w-96">
           <InputGroup
-            showLabel={true}
+            showLabel
             label="Regular Input"
             value={inputString}
             onChange={handleInputString}
             inputGroupClassName="w-full"
             autoComplete="off"
             placeholder="Type Here..."
+            tooltipProps={{
+              content: (
+                <p>
+                  Start typing to see the debounced string in the box below.
+                </p>
+              ),
+            }}
           />
           {isCancellable === "true" && (
             <Button
