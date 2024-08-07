@@ -27,6 +27,11 @@ export default function throttle<T extends (...args: any[]) => void>(
     lastCall = Date.now();
   }
 
+  function cancelWait() {
+    handleWait?.(false);
+    waitTimeout = null;
+  }
+
   function throttledFunction(this: any, ...args: Parameters<T>) {
     const now = Date.now();
     const elapsedTime = now - lastCall;
@@ -47,43 +52,37 @@ export default function throttle<T extends (...args: any[]) => void>(
       handleWait?.(true, Math.random());
       callFunction(lastContext, lastArgs);
       clearTimeout(waitTimeout!);
-      waitTimeout = setTimeout(() => {
-        handleWait?.(false);
-        waitTimeout = null;
-      }, wait);
+      waitTimeout = setTimeout(cancelWait, wait);
       /**
        * Call Later
        */
-    } else {
-      if (isTrailing && !timeout && lastArgs) {
-        const actualWait = remainingTime > 0 ? remainingTime : wait;
-        if (actualWait === wait) {
-          handleWait?.(true, Math.random());
-        }
-
-        timeout = setTimeout(() => {
-          // throttle call after isLeading
-
-          clearTimeout(waitTimeout!);
-          handleWait?.(true, Math.random());
-          waitTimeout = setTimeout(() => {
-            handleWait?.(false);
-          }, wait);
-
-          callFunction(lastContext, lastArgs!);
-          lastContext = null;
-          lastArgs = null;
-          timeout = null;
-        }, actualWait);
+    } else if (isTrailing && !timeout && lastArgs) {
+      const actualWait = remainingTime > 0 ? remainingTime : wait;
+      if (actualWait === wait) {
+        handleWait?.(true, Math.random());
       }
+
+      timeout = setTimeout(() => {
+        // throttle call after isLeading
+        clearTimeout(waitTimeout!);
+        handleWait?.(true, Math.random());
+        waitTimeout = setTimeout(cancelWait, wait);
+        callFunction(lastContext, lastArgs!);
+        timeout = null;
+        lastContext = null;
+        lastArgs = null;
+      }, actualWait);
     }
   }
 
   if (isCancellable) {
     throttledFunction.cancel = () => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
+      clearTimeout(timeout!);
+      clearTimeout(waitTimeout!);
+      cancelWait();
+      timeout = null;
+      lastContext = null;
+      lastArgs = null;
     };
   }
 

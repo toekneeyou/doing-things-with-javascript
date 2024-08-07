@@ -3,10 +3,12 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { homeRoute, reactRouterRoutes } from "./services/routes";
 
+const Home = homeRoute.element!;
+
 const router = createBrowserRouter([
   {
     path: homeRoute.path,
-    element: <homeRoute.element />,
+    element: <Home />,
     children: reactRouterRoutes,
   },
 ]);

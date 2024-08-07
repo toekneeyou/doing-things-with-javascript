@@ -5,6 +5,7 @@ import useDebounceOptions from "./useDebounceOptions";
 import DebouncedResult from "./DebounceResult";
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
 import Button from "../../components/Button";
+import { error } from "../../../tailwind.config";
 
 export default function DebounceView() {
   const progressRef = useRef<HTMLDivElement>(null);
@@ -79,7 +80,7 @@ export default function DebounceView() {
           {isCancellable === "true" && (
             <Button
               disabled={!isWaiting}
-              className="bg-red-500 text-app-dark-blue"
+              color={error}
               onClick={() => {
                 debouncedSetResult.cancel?.();
                 setIsWaiting(false);

@@ -5,6 +5,7 @@ export const black = "#0d0d0d";
 export const slateBlue = "#262a32";
 export const darkBlue = "#202225";
 export const fadedBlue = "#3d4047";
+export const error = "#ef4444";
 
 const config: Config = {
   content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
@@ -31,6 +32,7 @@ const config: Config = {
         "app-slate-blue": slateBlue,
         "app-dark-blue": darkBlue,
         "app-faded-blue": fadedBlue,
+        "app-error": error,
       },
     },
   },

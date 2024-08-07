@@ -9,6 +9,7 @@ import { classnames } from "../../util/classnames";
 import Tooltip from "../../components/tooltip/Tooltip";
 import Card from "../../features/card/Card";
 import Badge from "../../features/badge/Badge";
+import { error } from "../../../tailwind.config";
 
 export default function ThrottleView() {
   const [count, setCount] = useState(0);
@@ -71,7 +72,7 @@ export default function ThrottleView() {
               <Button
                 onClick={cancelThrottle}
                 disabled={!isWaiting}
-                className="bg-red-500 text-app-dark-blue"
+                color={error}
               >
                 Cancel
               </Button>
