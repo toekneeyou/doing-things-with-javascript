@@ -1,10 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
-import InputGroup from "../../components/inputGroup/InputGroup";
-import { navRoutes, reactRouterRoutes } from "../../services/routes";
-import { useMemo, useState } from "react";
+import { reactRouterRoutes } from "../../services/routes";
+import { ChangeEventHandler, useState } from "react";
+import Search from "../../features/search/Search";
+import useRouteSearch from "./useRouteSearch";
+import { classnames } from "../../util/classnames";
 
 export default function HomeView() {
+  const [queryString, setQueryString] = useState("");
+  const { searchResults, searchRoutes } = useRouteSearch();
   const navigate = useNavigate();
 
   const randomize = () => {
@@ -14,18 +18,27 @@ export default function HomeView() {
     navigate(randomPath);
   };
 
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setQueryString(event.target.value);
+    searchRoutes(event.target.value);
+  };
+
   return (
-    <div className="h-full w-full centered">
-      <div className="centered flex-col">
-        <h1 className="text-9xl mb-8 font-bold">
-          <strong className="text-app-yellow">JS</strong> Visual
+    <div className={classnames("home-view", "h-full w-full centered")}>
+      <div className="centered flex-col mt-[-10%]">
+        <h1 className="mb-8 font-bold text-center">
+          <span className="text-6xl inline-block mb-2">Doing Things with</span>
+          <br />
+          <strong className="text-app-yellow text-8xl">JavaScript</strong>
         </h1>
+
         <div className="w-full flex items-center gap-x-4">
-          <InputGroup
-            inputGroupClassName="w-full"
-            placeholder="What are you looking for?"
+          <Search
+            handleChange={handleChange}
+            queryString={queryString}
+            results={searchResults}
           />
-          <Button onClick={randomize}>Randomize</Button>
+          <Button onClick={randomize}>Random</Button>
         </div>
       </div>
     </div>
