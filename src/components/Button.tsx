@@ -15,7 +15,13 @@ export interface ButtonProps
   > {
   children: ReactNode;
   className?: string;
-  variant?: "filled" | "outlined" | "text";
+  variant?:
+    | "filled"
+    | "outlined"
+    | "text"
+    | "icon-filled"
+    | "icon-outlined"
+    | "icon";
   color?:
     | typeof yellow
     | typeof slateBlue
@@ -31,16 +37,21 @@ export default function Button({
   color = yellow,
   ...buttonAttributes
 }: ButtonProps) {
-  const isFilled = variant === "filled";
-  const isBordered = variant === "outlined";
+  const isFilled = variant === "filled" || variant === "icon-filled";
+  const isBordered = variant === "outlined" || variant === "icon-outlined";
+  const isIcon =
+    variant === "icon" ||
+    variant === "icon-filled" ||
+    variant === "icon-outlined";
 
   return (
     <button
       className={classnames(
         "button",
-        "centered gap-x-2 h-10 border-2 border-app px-4 rounded-full whitespace-nowrap text-app-dark-blue font-semibold transition-transform",
-        "disabled:pointer-events-none disabled:grayscale",
+        "centered  border-2 border-app rounded-full whitespace-nowrap text-app-dark-blue font-semibold transition-transform",
+        "disabled:pointer-events-none disabled:grayscale disabled:opacity-50",
         "active:translate-y-1 active:scale-[.99]",
+        { "gap-x-2 h-10 px-4": !isIcon, "h-10 w-10": isIcon },
         {
           "bg-app-yellow": isFilled && color === yellow,
           "bg-app-error": isFilled && color === error,
