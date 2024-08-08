@@ -11,6 +11,7 @@ const config: Config = {
   content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      gap: { standard: "0.25rem" },
       keyframes: {
         slideRight: {
           "0%": { transform: "translateX(0)" },
@@ -33,6 +34,10 @@ const config: Config = {
         "app-dark-blue": darkBlue,
         "app-faded-blue": fadedBlue,
         "app-error": error,
+      },
+      fontSize: {
+        xxs: "0.625rem",
+        xxxs: "0.5rem",
       },
     },
   },

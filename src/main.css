@@ -17,7 +17,13 @@
   .centered {
     @apply flex justify-center items-center;
   }
+  .between {
+    @apply flex items-center justify-between;
+  }
   .code {
     @apply bg-app-black text-red-500 px-1;
+  }
+  .transition-setting {
+    @apply duration-300 ease-in-out;
   }
 }
