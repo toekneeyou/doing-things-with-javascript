@@ -33,7 +33,7 @@ export default function SearchResultItem({
             {name}
           </button>
         ) : (
-          <span className="flex-grow h-full px-4 flex items-center">
+          <span className="flex-grow h-full px-4 flex items-center text-gray-400 text-sm">
             {name}
           </span>
         )}

@@ -107,7 +107,11 @@ export default function BubbleSortView() {
             New Array
           </Button>
           <div className="flex gap-x-4 items-center">
-            <Button onClick={pauseSorting} variant="outlined">
+            <Button
+              onClick={pauseSorting}
+              variant="outlined"
+              disabled={isSorted}
+            >
               Pause
             </Button>
             <Button

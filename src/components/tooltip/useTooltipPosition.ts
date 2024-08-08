@@ -19,7 +19,7 @@ export default function useTooltipPosition(
   });
 
   useEffect(() => {
-    const observer = new ResizeObserver(() => {
+    const calculatePosition = () => {
       let top: number | undefined;
       let right: number | undefined;
       let bottom: number | undefined;
@@ -56,6 +56,10 @@ export default function useTooltipPosition(
         right,
         bottom,
       });
+    };
+
+    const observer = new ResizeObserver(() => {
+      calculatePosition();
     });
 
     observer.observe(document.body);
