@@ -20,7 +20,7 @@ export default function Badge({
       aria-live="polite"
       className={classnames(
         "badge",
-        "centered rounded-full bg-app-slate-blue",
+        "centered rounded-full bg-app-slate-blue transition-all",
         {
           "h-4 w-4": size === "sm",
           "h-8 w-8": size === "md",

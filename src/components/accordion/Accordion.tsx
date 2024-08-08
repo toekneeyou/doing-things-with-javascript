@@ -1,4 +1,4 @@
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useId, useRef, useState } from "react";
 import { ArrowDropDown } from "@mui/icons-material";
 import { classnames } from "../../util/classnames";
 
@@ -19,6 +19,8 @@ export default function Accordion({
 }: AccordionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const accordionBodyRef = useRef<HTMLDivElement>(null);
+  const tabId = useId();
+  const panelId = useId();
 
   const toggleAccordion = () => {
     setIsExpanded((p) => !p);
@@ -31,28 +33,36 @@ export default function Accordion({
         "min-h-12 bg-app-dark-blue",
         accordionClassName
       )}
+      role="tablist"
     >
-      <div
-        onClick={toggleAccordion}
+      <button
+        id={tabId}
+        role="tab"
+        aria-controls={panelId}
+        aria-expanded={isExpanded ? "true" : "false"}
         className={classnames(
           "accordion__title",
           "h-12 flex items-center px-4 justify-between cursor-pointer",
           accordionTitleClassName
         )}
+        onClick={toggleAccordion}
       >
         {title}
         <ArrowDropDown
           style={{ transition: "transform", transitionDuration: "300ms" }}
           className={classnames({ "-rotate-180": isExpanded })}
         />
-      </div>
+      </button>
       <div
-        ref={accordionBodyRef}
+        id={panelId}
+        role="tabpanel"
+        aria-labelledby={tabId}
         className={classnames(
           "accordion__body",
           "bg-app-faded-blue transition-all duration-300 ease-in-out overflow-hidden",
           accordionBodyClassName
         )}
+        ref={accordionBodyRef}
         style={{
           maxHeight: isExpanded ? accordionBodyRef.current?.scrollHeight : 0,
         }}

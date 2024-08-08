@@ -1,56 +1,67 @@
+import { useCallback } from "react";
 import { InfoOutlined } from "@mui/icons-material";
 import Button from "../../components/Button";
 import Tooltip from "../../components/tooltip/Tooltip";
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
-import useStackOptions from "./useStackOptions";
-import { useCallback, useRef } from "react";
+import useQueueOptions from "./useQueueOptions";
+import throttle from "../../util/throttle";
 
 const MAX_STACK_LENGTH = 8;
 
-export default function StackView() {
-  const { stack, push, pop, peek, clear, isEmpty } = useStackOptions({
-    maxLength: MAX_STACK_LENGTH,
-  });
-  let popTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+export default function QueueView() {
+  const { queue, enqueue, dequeue, front, size, isEmpty, clear } =
+    useQueueOptions({
+      maxLength: MAX_STACK_LENGTH,
+    });
 
-  const handlePeek = () => {
+  const handleFront = () => {
     if (!isEmpty()) {
-      const lastNum = peek();
-      const lastEl = document.getElementById(`stack-${lastNum}`)!;
-      lastEl.classList.toggle("animate-yellowRing");
+      const firstNum = front();
+      const firstEl = document.getElementById(`queue-${firstNum}`)!;
+      firstEl.classList.toggle("animate-yellowRing");
       setTimeout(() => {
-        lastEl.classList.toggle("animate-yellowRing");
+        firstEl.classList.toggle("animate-yellowRing");
       }, 300);
     }
   };
 
-  const handlePop = useCallback(() => {
-    if (!isEmpty()) {
-      clearTimeout(popTimeout.current!);
-      const lastNum = peek();
-      const lastEl = document.getElementById(`stack-${lastNum}`)!;
-      lastEl.style.transform = "translateX(100%)";
-      popTimeout.current = setTimeout(() => {
-        pop();
-        popTimeout.current = null;
-      }, 100);
+  const handleDequeue = () => {
+    const firstEl = document.getElementById(`queue-${queue[0]}`);
+    if (firstEl) {
+      throttleDequeue(firstEl);
     }
-  }, [stack]);
+  };
+
+  const throttleDequeue = useCallback(
+    throttle(
+      (el) => {
+        el.style.transform = "translateX(100%)";
+        el.style.transform = "225ms";
+        setTimeout(() => {
+          dequeue();
+        }, 250);
+      },
+      500,
+      { isLeading: true, isTrailing: true }
+    ),
+    []
+  );
 
   return (
     <VisualizationLayout
-      title="Stack"
+      title="Queue"
       tooltip={
-        "A stack is a data structure that follows the Last In, First Out (LIFO) principle. Elements are added and removed from the top."
+        "A queue is a data structure that follows the First In, First Out (FIFO) principle."
       }
     >
       <div className="w-full h-full centered flex-col gap-y-8">
         <div className="centered gap-x-4">
           <ul className="duration-100 overflow-hidden border-2 gap-y-1 border-t-0 border-app-white w-40 pt-4 h-[25rem] flex justify-start flex-col-reverse">
-            {stack.map((num) => {
+            {queue.map((num) => {
               return (
                 <li
-                  id={`stack-${num}`}
+                  key={num}
+                  id={`queue-${num}`}
                   className="transition-transform w-full centered h-10 bg-app-faded-blue"
                 >
                   {num}
@@ -59,23 +70,16 @@ export default function StackView() {
             })}
           </ul>
         </div>
+
         <ul className="grid grid-cols-4 gap-x-4">
           <li className="w-full">
             <Button
               className="w-full"
-              onClick={push}
-              disabled={stack.length === MAX_STACK_LENGTH}
+              onClick={enqueue}
+              disabled={queue.length === MAX_STACK_LENGTH}
             >
-              Push
-              <Tooltip content="Incrementally add a number into the stack.">
-                <InfoOutlined />
-              </Tooltip>
-            </Button>
-          </li>
-          <li className="w-full">
-            <Button className="w-full" onClick={handlePop} disabled={isEmpty()}>
-              Pop
-              <Tooltip content="Remove the last element from the top of the stack.">
+              Enqueue
+              <Tooltip content="Incrementally add a number into the queue.">
                 <InfoOutlined />
               </Tooltip>
             </Button>
@@ -83,11 +87,23 @@ export default function StackView() {
           <li className="w-full">
             <Button
               className="w-full"
-              onClick={handlePeek}
+              onClick={handleDequeue}
               disabled={isEmpty()}
             >
-              Peek
-              <Tooltip content="Look at the last element in the stack.">
+              Dequeue
+              <Tooltip content="Remove the first element from the queue.">
+                <InfoOutlined />
+              </Tooltip>
+            </Button>
+          </li>
+          <li className="w-full">
+            <Button
+              className="w-full"
+              onClick={handleFront}
+              disabled={isEmpty()}
+            >
+              Front
+              <Tooltip content="Look at the first element in the queue.">
                 <InfoOutlined />
               </Tooltip>
             </Button>
@@ -95,7 +111,7 @@ export default function StackView() {
           <li className="w-full">
             <Button className="w-full" onClick={clear} disabled={isEmpty()}>
               Clear
-              <Tooltip content="Clear the stack.">
+              <Tooltip content="Clear the queue.">
                 <InfoOutlined />
               </Tooltip>
             </Button>
