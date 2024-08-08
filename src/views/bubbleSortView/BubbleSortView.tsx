@@ -89,7 +89,7 @@ export default function BubbleSortView() {
       tooltip="Bubble sort repeatedly steps through an unsorted array, compares adjacent elements, and swaps them if they are in the wrong order."
     >
       <div className="w-full h-full centered flex-col gap-y-8">
-        <ul className="flex min-w-[25rem] w-[75%] gap-x-1 h-[330px] items-end px-8 py-4 bg-app-faded-blue rounded-xl shadow-md">
+        <ul className="flex min-w-[25rem] w-[44rem] gap-x-1 h-[330px] items-end px-8 py-4 bg-app-faded-blue rounded-xl shadow-md">
           {unsortedArray.map(({ value, id }) => {
             return (
               <li
@@ -104,7 +104,7 @@ export default function BubbleSortView() {
           })}
         </ul>
 
-        <div className="min-w-96 w-[75%] between">
+        <div className="min-w-96 w-[44rem] between">
           <Button
             onClick={createUnsortedArray}
             variant="text"
