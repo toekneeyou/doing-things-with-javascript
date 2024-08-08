@@ -25,7 +25,7 @@ export default function HomeView() {
 
   return (
     <div className={classnames("home-view", "h-full w-full centered")}>
-      <div className="centered flex-col mt-[-10%]">
+      <div className="centered flex-col -mt-20">
         <h1 className="mb-8 font-bold text-center">
           <span className="text-6xl inline-block mb-2">Doing Things with</span>
           <br />
