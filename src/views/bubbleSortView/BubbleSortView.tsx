@@ -102,11 +102,11 @@ export default function BubbleSortView() {
           })}
         </ul>
 
-        <div className="w-96 flex items-center justify-between">
+        <div className="w-96 between">
           <Button onClick={createUnsortedArray} variant="outlined">
             New Array
           </Button>
-          <div className="flex gap-x-4 items-center">
+          <div className="flex gap-x-standard items-center">
             <Button
               onClick={pauseSorting}
               variant="outlined"

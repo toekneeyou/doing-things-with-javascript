@@ -32,7 +32,7 @@ export default function HomeView() {
           <strong className="text-app-yellow text-8xl">JavaScript</strong>
         </h1>
 
-        <div className="w-full flex items-center gap-x-4">
+        <div className="w-full flex items-center gap-x-standard">
           <Search
             handleChange={handleChange}
             queryString={queryString}

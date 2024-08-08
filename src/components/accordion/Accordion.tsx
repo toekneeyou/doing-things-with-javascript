@@ -50,7 +50,7 @@ export default function Accordion({
         aria-expanded={isExpanded ? "true" : "false"}
         className={classnames(
           "accordion__title",
-          "h-12 w-full flex items-center px-4 justify-between cursor-pointer",
+          "h-12 w-full between px-4 cursor-pointer",
           accordionTitleClassName
         )}
         onClick={toggleAccordion}
