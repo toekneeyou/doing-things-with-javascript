@@ -5,6 +5,7 @@ import useQueueOptions from "./useQueueOptions";
 import throttle from "../../util/throttle";
 import { classnames } from "../../util/classnames";
 import TallArray from "../../features/tallArray/TallArray";
+import { Add, Clear, ClearAll, Delete, Remove } from "@mui/icons-material";
 
 const MAX_STACK_LENGTH = 8;
 
@@ -82,6 +83,7 @@ export default function QueueView() {
               onClick={enqueue}
               disabled={queue.length === MAX_STACK_LENGTH}
             >
+              <Add />
               Enqueue
             </Button>
           </li>
@@ -92,6 +94,7 @@ export default function QueueView() {
               onClick={handleDequeue}
               disabled={isEmpty()}
             >
+              <Remove />
               Dequeue
             </Button>
           </li>
@@ -102,6 +105,7 @@ export default function QueueView() {
               onClick={handleClear}
               disabled={isEmpty()}
             >
+              <Clear />
               Clear
             </Button>
           </li>

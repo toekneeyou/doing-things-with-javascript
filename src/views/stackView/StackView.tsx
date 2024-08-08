@@ -1,4 +1,4 @@
-import { InfoOutlined } from "@mui/icons-material";
+import { Add, Clear, InfoOutlined, Remove } from "@mui/icons-material";
 import Button from "../../components/Button";
 import Tooltip from "../../components/tooltip/Tooltip";
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
@@ -65,11 +65,13 @@ export default function StackView() {
               onClick={push}
               disabled={stack.length === MAX_STACK_LENGTH}
             >
+              <Add />
               Push
             </Button>
           </li>
           <li className="w-full">
             <Button className="w-full" onClick={handlePop} disabled={isEmpty()}>
+              <Remove />
               Pop
             </Button>
           </li>
@@ -80,6 +82,7 @@ export default function StackView() {
               onClick={handleClear}
               disabled={isEmpty()}
             >
+              <Clear />
               Clear
             </Button>
           </li>

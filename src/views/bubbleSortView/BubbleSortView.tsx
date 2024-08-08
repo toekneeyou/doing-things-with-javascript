@@ -4,6 +4,8 @@ import Button from "../../components/Button";
 import wait from "../../util/wait";
 
 import { classnames } from "../../util/classnames";
+import { yellow } from "../../../tailwind.config";
+import { Pause, Refresh, Sort } from "@mui/icons-material";
 
 const createArray = (numberOfElements: number, maxValue: number) => {
   return new Array(numberOfElements).fill(1).map((_, i) => ({
@@ -31,12 +33,12 @@ export default function BubbleSortView() {
   };
 
   const createUnsortedArray = () => {
-    setUnsortedArray(createArray(NUM_OF_ELEMENTS, MAX_VALUE));
     setI(0);
     setJ(0);
     setIsSorting(false);
     setIsSorted(false);
     setCurrId(null);
+    setUnsortedArray(createArray(NUM_OF_ELEMENTS, MAX_VALUE));
   };
 
   // Ref to track the current array state
@@ -87,14 +89,14 @@ export default function BubbleSortView() {
       tooltip="Bubble sort repeatedly steps through an unsorted array, compares adjacent elements, and swaps them if they are in the wrong order."
     >
       <div className="w-full h-full centered flex-col gap-y-8">
-        <ul className="flex w-[25rem] gap-x-1 h-[330px] items-end px-8 py-4 bg-app-faded-blue rounded-xl shadow-md">
+        <ul className="flex min-w-[25rem] w-[44rem] gap-x-1 h-[330px] items-end px-8 py-4 bg-app-faded-blue rounded-xl shadow-md">
           {unsortedArray.map(({ value, id }) => {
             return (
               <li
                 key={id}
                 className={classnames("flex-grow", {
-                  "bg-app-error": id === currId,
-                  "bg-app-yellow": id !== currId,
+                  "bg-app-yellow": id === currId,
+                  "bg-white": id !== currId,
                 })}
                 style={{ height: `${value * 2.8}px` }}
               />
@@ -102,16 +104,19 @@ export default function BubbleSortView() {
           })}
         </ul>
 
-        <div className="w-96 between">
-          <Button onClick={createUnsortedArray} variant="outlined">
+        <div className="min-w-96 w-[44rem] between">
+          <Button
+            onClick={createUnsortedArray}
+            variant="text"
+            color={yellow}
+            disabled={isSorting}
+          >
+            <Refresh />
             New Array
           </Button>
           <div className="flex gap-x-standard items-center">
-            <Button
-              onClick={pauseSorting}
-              variant="outlined"
-              disabled={isSorted}
-            >
+            <Button onClick={pauseSorting} disabled={isSorted} variant="text">
+              <Pause />
               Pause
             </Button>
             <Button
@@ -124,6 +129,7 @@ export default function BubbleSortView() {
                 }
               }}
             >
+              <Sort />
               Sort
             </Button>
           </div>
