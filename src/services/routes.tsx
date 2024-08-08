@@ -2,9 +2,9 @@ import { RouteObject } from "react-router-dom";
 import App from "../App";
 import DebounceView from "../views/debounceView/DebounceView";
 import ThrottleView from "../views/throttleView/ThrottleView";
-import MergeSortView from "../views/mergeSortView/MergeSortView";
 import StackView from "../views/stackView/StackView";
 import QueueView from "../views/queueView/QueueView";
+import BubbleSortView from "../views/bubbleSortView/BubbleSortView";
 
 export class SiteRoute<T> {
   name: string;
@@ -91,13 +91,13 @@ export const algorithmsRoute = new SiteRoute({
   disabled: true,
   parent: homeRoute,
 });
-export const mergeSortRoute = new SiteRoute({
-  name: "Merge Sort",
-  path: "merge-sort",
-  element: MergeSortView,
+export const bubbleSortRoute = new SiteRoute({
+  name: "Bubble Sort",
+  path: "bubble-sort",
+  element: BubbleSortView,
   parent: algorithmsRoute,
 });
-algorithmsRoute.addChild(mergeSortRoute);
+algorithmsRoute.addChild(bubbleSortRoute);
 /**
  * Utility Function Routes
  */
