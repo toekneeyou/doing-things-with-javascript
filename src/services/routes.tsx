@@ -4,6 +4,7 @@ import DebounceView from "../views/debounceView/DebounceView";
 import ThrottleView from "../views/throttleView/ThrottleView";
 import MergeSortView from "../views/mergeSortView/MergeSortView";
 import StackView from "../views/stackView/StackView";
+import QueueView from "../views/queueView/QueueView";
 
 export class SiteRoute<T> {
   name: string;
@@ -73,6 +74,13 @@ export const stackRoute = new SiteRoute({
   element: StackView,
   parent: dataStructuresRoute,
 });
+export const queueRoute = new SiteRoute({
+  name: "Queue",
+  path: "queue",
+  element: QueueView,
+  parent: dataStructuresRoute,
+});
+dataStructuresRoute.addChild(queueRoute);
 dataStructuresRoute.addChild(stackRoute);
 /**
  * Algorithm Routes
