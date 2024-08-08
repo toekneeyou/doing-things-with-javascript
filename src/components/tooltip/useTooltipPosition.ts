@@ -63,6 +63,10 @@ export default function useTooltipPosition(
     });
 
     observer.observe(document.body);
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return tooltipPosition;

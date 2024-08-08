@@ -55,7 +55,7 @@ export default function QueueView() {
       }
     >
       <div className="w-full h-full centered flex-col gap-y-8">
-        <div className="centered gap-x-4">
+        <div className="centered gap-x-standard">
           <ul className="duration-100 overflow-hidden border-2 gap-y-1 border-t-0 border-app-white w-40 pt-4 h-[25rem] flex justify-start flex-col-reverse">
             {queue.map((num) => {
               return (
@@ -71,7 +71,7 @@ export default function QueueView() {
           </ul>
         </div>
 
-        <ul className="grid grid-cols-4 gap-x-4">
+        <ul className="grid grid-cols-4 gap-x-standard">
           <li className="w-full">
             <Button
               className="w-full"

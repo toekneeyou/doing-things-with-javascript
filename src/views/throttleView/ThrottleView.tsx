@@ -60,7 +60,7 @@ export default function ThrottleView() {
     >
       <div className="w-full h-full centered flex-col gap-y-4">
         <div className="w-[528px] space-y-4">
-          <div className="centered gap-x-4">
+          <div className="centered gap-x-standard">
             <div>0ms</div>
             <ThrottleProgress
               key={throttleKey}
