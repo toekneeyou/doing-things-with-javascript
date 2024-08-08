@@ -1,4 +1,4 @@
-import { ReactNode, useId, useRef, useState } from "react";
+import { ReactNode, useId, useLayoutEffect, useRef, useState } from "react";
 import { ArrowDropDown } from "@mui/icons-material";
 import { classnames } from "../../util/classnames";
 
@@ -8,6 +8,7 @@ interface AccordionProps {
   accordionBodyClassName?: string;
   title: ReactNode;
   children: ReactNode;
+  defaultIsExpanded?: boolean;
 }
 
 export default function Accordion({
@@ -16,8 +17,10 @@ export default function Accordion({
   accordionBodyClassName,
   title,
   children,
+  defaultIsExpanded = false,
 }: AccordionProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(defaultIsExpanded);
+  const [maxHeight, setMaxHeight] = useState<number>();
   const accordionBodyRef = useRef<HTMLDivElement>(null);
   const tabId = useId();
   const panelId = useId();
@@ -25,6 +28,11 @@ export default function Accordion({
   const toggleAccordion = () => {
     setIsExpanded((p) => !p);
   };
+
+  useLayoutEffect(() => {
+    const accordionBodyEl = accordionBodyRef.current!;
+    setMaxHeight(isExpanded ? accordionBodyEl.scrollHeight : 0);
+  }, [isExpanded]);
 
   return (
     <div
@@ -42,7 +50,7 @@ export default function Accordion({
         aria-expanded={isExpanded ? "true" : "false"}
         className={classnames(
           "accordion__title",
-          "h-12 flex items-center px-4 justify-between cursor-pointer",
+          "h-12 w-full flex items-center px-4 justify-between cursor-pointer",
           accordionTitleClassName
         )}
         onClick={toggleAccordion}
@@ -64,7 +72,7 @@ export default function Accordion({
         )}
         ref={accordionBodyRef}
         style={{
-          maxHeight: isExpanded ? accordionBodyRef.current?.scrollHeight : 0,
+          maxHeight,
         }}
       >
         {children}
