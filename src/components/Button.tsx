@@ -8,7 +8,7 @@ import {
   yellow,
 } from "../../tailwind.config";
 
-interface ButtonProps
+export interface ButtonProps
   extends React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
@@ -38,7 +38,7 @@ export default function Button({
     <button
       className={classnames(
         "button",
-        "centered w-max h-10 border-2 border-app px-4 rounded-full whitespace-nowrap text-app-dark-blue font-semibold transition-transform",
+        "centered gap-x-2 h-10 border-2 border-app px-4 rounded-full whitespace-nowrap text-app-dark-blue font-semibold transition-transform",
         "disabled:pointer-events-none disabled:grayscale",
         "active:translate-y-1 active:scale-[.99]",
         {
