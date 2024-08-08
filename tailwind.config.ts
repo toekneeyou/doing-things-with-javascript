@@ -11,7 +11,7 @@ const config: Config = {
   content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      gap: { standard: "0.25rem" },
+      gap: { standard: "1rem" },
       keyframes: {
         slideRight: {
           "0%": { transform: "translateX(0)" },

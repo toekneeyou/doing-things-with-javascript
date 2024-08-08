@@ -20,14 +20,14 @@ export default function Card({
     <div
       className={classnames(
         "card",
-        "flex flex-col rounded-xl overflow-hidden min-w-48",
+        "flex flex-col rounded-xl overflow-hidden min-w-48 shadow-md",
         cardClassName
       )}
     >
       {!!title && (
         <div
           className={classnames(
-            "card-header",
+            "card__header",
             "centered px-4 space-x-2 bg-app-dark-blue h-20 text-xl",
             cardHeaderClassname
           )}
@@ -37,7 +37,7 @@ export default function Card({
       )}
       <div
         className={classnames(
-          "card-body",
+          "card__body",
           "bg-app-faded-blue h-max min-h-24",
           cardBodyClassName
         )}
