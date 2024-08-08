@@ -35,9 +35,11 @@ export default function Search({
         ) ?? [];
 
       firstLis.forEach((li, i) => {
+        const liEl = li as HTMLLIElement;
         if (i !== firstLis.length - 1) {
-          const liEl = li as HTMLLIElement;
           liEl.style.borderBottom = "1px solid #475569";
+        } else {
+          liEl.style.borderBottom = "";
         }
       });
     };
