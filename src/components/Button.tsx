@@ -40,6 +40,7 @@ export default function Button({
 }: ButtonProps) {
   const isFilled = variant === "filled" || variant === "icon-filled";
   const isBordered = variant === "outlined" || variant === "icon-outlined";
+  const isText = variant === "text";
   const isIcon =
     variant === "icon" ||
     variant === "icon-filled" ||
@@ -72,14 +73,15 @@ export default function Button({
           "border-transparent": !isBordered,
         },
         {
-          "text-app-yellow": isBordered && color === yellow,
-          "text-app-error": isBordered && color === error,
-          "text-app-slate-blue": isBordered && color === slateBlue,
-          "text-app-dark-blue": isBordered && color === darkBlue,
-          "text-app-faded-blue": isBordered && color === fadedBlue,
-          "text-white": isBordered && color === "white",
-          "border-transparent": !isBordered,
+          "text-app-yellow": (isBordered || isText) && color === yellow,
+          "text-app-error": (isBordered || isText) && color === error,
+          "text-app-slate-blue": (isBordered || isText) && color === slateBlue,
+          "text-app-dark-blue": (isBordered || isText) && color === darkBlue,
+          "text-app-faded-blue": (isBordered || isText) && color === fadedBlue,
+          "text-white": (isBordered || isText) && color === "white",
+          "border-transparent": !(isBordered || isText),
         },
+
         className
       )}
       {...buttonAttributes}
