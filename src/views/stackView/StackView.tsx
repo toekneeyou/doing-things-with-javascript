@@ -4,23 +4,34 @@ import Tooltip from "../../components/tooltip/Tooltip";
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
 import useStackOptions from "./useStackOptions";
 import { useCallback, useRef } from "react";
+import { classnames } from "../../util/classnames";
+import TallArray from "../../features/tallArray/TallArray";
 
 const MAX_STACK_LENGTH = 8;
 
 export default function StackView() {
+  const stackContainerRef = useRef<HTMLUListElement>(null);
   const { stack, push, pop, peek, clear, isEmpty } = useStackOptions({
     maxLength: MAX_STACK_LENGTH,
   });
   let popTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handlePeek = () => {
-    if (!isEmpty()) {
-      const lastNum = peek();
-      const lastEl = document.getElementById(`stack-${lastNum}`)!;
-      lastEl.classList.toggle("animate-yellowRing");
+  const handleClear = () => {
+    const queueContainerEl = stackContainerRef.current;
+    if (queueContainerEl) {
+      const items = queueContainerEl.querySelectorAll("li");
+      let delay = 0;
+
+      for (let i = items.length - 1; i >= 0; i--) {
+        const liEl = items[i] as HTMLLIElement;
+        liEl.style.transform = "translateX(100%)";
+        liEl.style.transitionDelay = `${delay}ms`;
+        delay += 50;
+      }
+
       setTimeout(() => {
-        lastEl.classList.toggle("animate-yellowRing");
-      }, 300);
+        clear();
+      }, delay + 300);
     }
   };
 
@@ -45,21 +56,9 @@ export default function StackView() {
       }
     >
       <div className="w-full h-full centered flex-col gap-y-8">
-        <div className="centered gap-x-standard">
-          <ul className="duration-100 overflow-hidden border-2 gap-y-1 border-t-0 border-app-white w-40 pt-4 h-[25rem] flex justify-start flex-col-reverse">
-            {stack.map((num) => {
-              return (
-                <li
-                  id={`stack-${num}`}
-                  className="transition-transform w-full centered h-10 bg-app-faded-blue"
-                >
-                  {num}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <ul className="grid grid-cols-4 gap-x-standard">
+        <TallArray ref={stackContainerRef} array={stack} />
+
+        <ul className="grid grid-cols-3 gap-x-standard">
           <li className="w-full">
             <Button
               className="w-full"
@@ -67,37 +66,21 @@ export default function StackView() {
               disabled={stack.length === MAX_STACK_LENGTH}
             >
               Push
-              <Tooltip content="Incrementally add a number into the stack.">
-                <InfoOutlined />
-              </Tooltip>
             </Button>
           </li>
           <li className="w-full">
             <Button className="w-full" onClick={handlePop} disabled={isEmpty()}>
               Pop
-              <Tooltip content="Remove the last element from the top of the stack.">
-                <InfoOutlined />
-              </Tooltip>
             </Button>
           </li>
+
           <li className="w-full">
             <Button
               className="w-full"
-              onClick={handlePeek}
+              onClick={handleClear}
               disabled={isEmpty()}
             >
-              Peek
-              <Tooltip content="Look at the last element in the stack.">
-                <InfoOutlined />
-              </Tooltip>
-            </Button>
-          </li>
-          <li className="w-full">
-            <Button className="w-full" onClick={clear} disabled={isEmpty()}>
               Clear
-              <Tooltip content="Clear the stack.">
-                <InfoOutlined />
-              </Tooltip>
             </Button>
           </li>
         </ul>
