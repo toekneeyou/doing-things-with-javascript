@@ -27,7 +27,8 @@ export interface ButtonProps
     | typeof slateBlue
     | typeof error
     | typeof darkBlue
-    | typeof fadedBlue;
+    | typeof fadedBlue
+    | "white";
 }
 
 export default function Button({
@@ -58,6 +59,7 @@ export default function Button({
           "bg-app-slate-blue": isFilled && color === slateBlue,
           "bg-app-dark-blue": isFilled && color === darkBlue,
           "bg-app-faded-blue": isFilled && color === fadedBlue,
+          "bg-white": isFilled && color === "white",
           "bg-transparent": !isFilled,
         },
         {
@@ -66,6 +68,7 @@ export default function Button({
           "border-app-slate-blue": isBordered && color === slateBlue,
           "border-app-dark-blue": isBordered && color === darkBlue,
           "border-app-faded-blue": isBordered && color === fadedBlue,
+          "border-white": isBordered && color === "white",
           "border-transparent": !isBordered,
         },
         {
@@ -74,6 +77,7 @@ export default function Button({
           "text-app-slate-blue": isBordered && color === slateBlue,
           "text-app-dark-blue": isBordered && color === darkBlue,
           "text-app-faded-blue": isBordered && color === fadedBlue,
+          "text-white": isBordered && color === "white",
           "border-transparent": !isBordered,
         },
         className
