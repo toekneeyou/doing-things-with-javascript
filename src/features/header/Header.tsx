@@ -21,7 +21,7 @@ export default function Header() {
     >
       <ToggleMenuButton isShowing={isShowing} />
 
-      <div className="opacity-50">|</div>
+      <div className="opacity-50 mr-2">|</div>
 
       <LogoLink />
     </header>
@@ -54,13 +54,13 @@ function LogoLink() {
   return (
     <h1 className={classnames("logo-link", "font-bold")}>
       <Link to="/" className="flex items-center">
-        <span className="text-xxs leading-none flex-col flex">
+        <span className="text-xs leading-none flex-col flex">
           <span>
-            Doing <span className="text-gray-500">w/</span>
+            Doing <span className="text-gray-500"> w/</span>
           </span>
           <span>Things</span>
         </span>
-        <span className="text-app-yellow text-2xl">JS</span>
+        <span className="text-app-yellow text-3xl">JS</span>
       </Link>
     </h1>
   );
