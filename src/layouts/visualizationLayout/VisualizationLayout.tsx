@@ -8,11 +8,15 @@ import InputGroup, {
 import DropdownGroup, {
   DropdownProps,
 } from "../../components/dropdownGroup/DropdownGroup";
+import SwitchGroup, {
+  SwitchGroupProps,
+} from "../../components/switchGroup/SwitchGroup";
 
 export interface VisualizationOptions {
-  type: "text" | "number" | "dropdown";
+  type: "text" | "number" | "dropdown" | "switch";
   inputGroupProps?: InputGroupProps;
   dropdownProps?: DropdownProps;
+  switchGroupProps?: SwitchGroupProps;
 }
 
 interface VisualizationLayoutProps {
@@ -63,7 +67,7 @@ export default function VisualizationLayout({
         <div
           className={classnames(
             "visualization-layout__options",
-            "min-w-64 bg-app-dark-blue"
+            "w-52  bg-app-dark-blue"
           )}
         >
           <h2
@@ -101,6 +105,15 @@ export default function VisualizationLayout({
                     key={option.dropdownProps.label}
                     dropdownGroupClassName="w-full"
                     {...option.dropdownProps}
+                  />
+                );
+              }
+              if (option.type === "switch" && option.switchGroupProps) {
+                return (
+                  <SwitchGroup
+                    key={option.switchGroupProps.label}
+                    switchGroupClassName="w-full between"
+                    {...option.switchGroupProps}
                   />
                 );
               }

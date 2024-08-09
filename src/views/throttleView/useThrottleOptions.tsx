@@ -1,20 +1,29 @@
-import { ChangeEventHandler, createElement, useState } from "react";
+import { ChangeEventHandler, useState } from "react";
 import { VisualizationOptions } from "../../layouts/visualizationLayout/VisualizationLayout";
 
 export default function useThrottleOptions() {
-  const [isLeading, setIsLeading] = useState<"true" | "false">("true");
-  const [isTrailing, setIsTrailing] = useState<"true" | "false">("true");
-  const [isCancellable, setIsCancellable] = useState<"true" | "false">("true");
+  const [isLeading, setIsLeading] = useState(true);
+  const [isTrailing, setIsTrailing] = useState(true);
+  const [isCancellable, setIsCancellable] = useState(true);
   const [wait, setWait] = useState("1000");
 
-  const handleLeading: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setIsLeading(e.target.value as "true" | "false");
+  const handleLeading: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) => void = (e, checked) => {
+    setIsLeading(checked);
   };
-  const handleTrailing: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setIsTrailing(e.target.value as "true" | "false");
+  const handleTrailing: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) => void = (e, checked) => {
+    setIsTrailing(checked);
   };
-  const handleCancellable: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setIsCancellable(e.target.value as "true" | "false");
+  const handleCancellable: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) => void = (e, checked) => {
+    setIsCancellable(checked);
   };
   const handleWait: ChangeEventHandler<HTMLInputElement> = (e) => {
     setWait(e.target.value);
@@ -44,17 +53,13 @@ export default function useThrottleOptions() {
       },
     },
     {
-      type: "dropdown",
-      dropdownProps: {
+      type: "switch",
+      switchGroupProps: {
         label: "Leading",
         showLabel: true,
-        name: "leading",
-        value: isLeading,
+        checked: isLeading,
         onChange: handleLeading,
-        options: [
-          { value: "true", children: "true" },
-          { value: "false", children: "false" },
-        ],
+        name: "leading",
         tooltipProps: {
           content: (
             <p>
@@ -67,17 +72,13 @@ export default function useThrottleOptions() {
       },
     },
     {
-      type: "dropdown",
-      dropdownProps: {
+      type: "switch",
+      switchGroupProps: {
         label: "Trailing",
         showLabel: true,
-        name: "trailing",
-        value: isTrailing,
+        checked: isTrailing,
         onChange: handleTrailing,
-        options: [
-          { value: "true", children: "true" },
-          { value: "false", children: "false" },
-        ],
+        name: "trailing",
         tooltipProps: {
           content: (
             <p>
@@ -91,17 +92,13 @@ export default function useThrottleOptions() {
       },
     },
     {
-      type: "dropdown",
-      dropdownProps: {
+      type: "switch",
+      switchGroupProps: {
         label: "Cancellable",
         showLabel: true,
-        name: "cancellable",
-        value: isCancellable,
+        checked: isCancellable,
         onChange: handleCancellable,
-        options: [
-          { value: "true", children: "true" },
-          { value: "false", children: "false" },
-        ],
+        name: "cancellable",
         tooltipProps: {
           content:
             "This allows you to cancel the throttled function if it hasn't executed yet.",

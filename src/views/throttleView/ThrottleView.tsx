@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { InfoOutlined } from "@mui/icons-material";
+import { Add, InfoOutlined } from "@mui/icons-material";
 import Button from "../../components/Button";
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
 import throttle from "../../util/throttle";
@@ -26,9 +26,9 @@ export default function ThrottleView() {
       },
       Number(wait),
       {
-        isLeading: isLeading === "true",
-        isTrailing: isTrailing === "true",
-        isCancellable: isCancellable === "true",
+        isLeading,
+        isTrailing,
+        isCancellable,
         handleWait: (iw, tk) => {
           setIsWaiting(iw);
           if (tk !== undefined) {
@@ -103,9 +103,10 @@ export default function ThrottleView() {
 
             <Button
               onClick={handleIncrement}
-              className="absolute left-60 top-16"
+              className="absolute left-[15.125rem] top-16"
+              variant="icon-filled"
             >
-              +
+              <Add />
             </Button>
 
             <Card

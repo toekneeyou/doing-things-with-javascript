@@ -5,7 +5,7 @@ import useQueueOptions from "./useQueueOptions";
 import throttle from "../../util/throttle";
 import { classnames } from "../../util/classnames";
 import TallArray from "../../features/tallArray/TallArray";
-import { Add, Clear, ClearAll, Delete, Remove } from "@mui/icons-material";
+import { Add, Clear, Remove } from "@mui/icons-material";
 
 const MAX_STACK_LENGTH = 8;
 
@@ -35,7 +35,7 @@ export default function QueueView() {
   };
 
   const handleDequeue = () => {
-    const firstEl = document.getElementById(`queue-${queue[0]}`);
+    const firstEl = document.getElementById(`array-${queue[0]}`);
     if (firstEl) {
       throttleDequeue(firstEl);
     }

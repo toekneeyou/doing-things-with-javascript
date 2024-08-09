@@ -1,17 +1,15 @@
-import { Add, Clear, InfoOutlined, Remove } from "@mui/icons-material";
+import { Add, Clear, Remove } from "@mui/icons-material";
 import Button from "../../components/Button";
-import Tooltip from "../../components/tooltip/Tooltip";
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
 import useStackOptions from "./useStackOptions";
 import { useCallback, useRef } from "react";
-import { classnames } from "../../util/classnames";
 import TallArray from "../../features/tallArray/TallArray";
 
 const MAX_STACK_LENGTH = 8;
 
 export default function StackView() {
   const stackContainerRef = useRef<HTMLUListElement>(null);
-  const { stack, push, pop, peek, clear, isEmpty } = useStackOptions({
+  const { stack, push, pop, clear, isEmpty } = useStackOptions({
     maxLength: MAX_STACK_LENGTH,
   });
   let popTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -36,10 +34,10 @@ export default function StackView() {
   };
 
   const handlePop = useCallback(() => {
-    if (!isEmpty()) {
+    if (stack.length > 0) {
       clearTimeout(popTimeout.current!);
-      const lastNum = peek();
-      const lastEl = document.getElementById(`stack-${lastNum}`)!;
+      const lastNum = stack[stack.length - 1];
+      const lastEl = document.getElementById(`array-${lastNum}`)!;
       lastEl.style.transform = "translateX(100%)";
       popTimeout.current = setTimeout(() => {
         pop();
