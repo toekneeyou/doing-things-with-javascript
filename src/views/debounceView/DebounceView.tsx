@@ -7,7 +7,7 @@ import VisualizationLayout from "../../layouts/visualizationLayout/Visualization
 import Button from "../../components/Button";
 import { error } from "../../../tailwind.config";
 
-export default function DebounceView() {
+export function DebounceView() {
   const progressRef = useRef<HTMLDivElement>(null);
   const [inputString, setInputString] = useState("");
   const [result, setResult] = useState(inputString);

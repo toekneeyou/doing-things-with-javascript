@@ -11,7 +11,7 @@ import Card from "../../features/card/Card";
 import Badge from "../../features/badge/Badge";
 import { error } from "../../../tailwind.config";
 
-export default function ThrottleView() {
+export function ThrottleView() {
   const [count, setCount] = useState(0);
   const [throttledCount, setThrottledCount] = useState(0);
   const [isWaiting, setIsWaiting] = useState(false);

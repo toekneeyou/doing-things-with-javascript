@@ -1,15 +1,11 @@
-import { RouteObject } from "react-router-dom";
+import { LazyRouteFunction, RouteObject } from "react-router-dom";
 import App from "../App";
-import DebounceView from "../views/debounceView/DebounceView";
-import ThrottleView from "../views/throttleView/ThrottleView";
-import StackView from "../views/stackView/StackView";
-import QueueView from "../views/queueView/QueueView";
-import BubbleSortView from "../views/bubbleSortView/BubbleSortView";
 
 export class SiteRoute<T> {
   name: string;
   path: string;
   element: T | undefined;
+  lazy?: LazyRouteFunction<RouteObject>;
   parent: SiteRoute<T> | undefined;
   children: SiteRoute<T>[];
   disabled: boolean;
@@ -18,6 +14,7 @@ export class SiteRoute<T> {
     name,
     path,
     element,
+    lazy,
     parent,
     children,
     disabled,
@@ -25,6 +22,7 @@ export class SiteRoute<T> {
     name: string;
     path: string;
     element?: T | undefined;
+    lazy?: LazyRouteFunction<RouteObject>;
     parent?: SiteRoute<T> | undefined;
     children?: SiteRoute<T>[];
     disabled?: boolean;
@@ -32,6 +30,7 @@ export class SiteRoute<T> {
     this.name = name;
     this.path = path;
     this.element = element;
+    this.lazy = lazy;
     this.parent = parent;
     this.children = children ?? [];
     this.disabled = disabled ?? false;
@@ -71,13 +70,19 @@ export const dataStructuresRoute = new SiteRoute({
 export const stackRoute = new SiteRoute({
   name: "Stack",
   path: "stack",
-  element: StackView,
+  lazy: async () => {
+    const { StackView } = await import("../views/stackView/StackView");
+    return { Component: StackView };
+  },
   parent: dataStructuresRoute,
 });
 export const queueRoute = new SiteRoute({
   name: "Queue",
   path: "queue",
-  element: QueueView,
+  lazy: async () => {
+    const { QueueView } = await import("../views/queueView/QueueView");
+    return { Component: QueueView };
+  },
   parent: dataStructuresRoute,
 });
 dataStructuresRoute.addChild(queueRoute);
@@ -94,7 +99,12 @@ export const algorithmsRoute = new SiteRoute({
 export const bubbleSortRoute = new SiteRoute({
   name: "Bubble Sort",
   path: "bubble-sort",
-  element: BubbleSortView,
+  lazy: async () => {
+    const { BubbleSortView } = await import(
+      "../views/bubbleSortView/BubbleSortView"
+    );
+    return { Component: BubbleSortView };
+  },
   parent: algorithmsRoute,
 });
 algorithmsRoute.addChild(bubbleSortRoute);
@@ -110,13 +120,19 @@ export const utilityFunctionsRoute = new SiteRoute({
 export const debounceRoute = new SiteRoute({
   name: "Debounce",
   path: "debounce",
-  element: DebounceView,
+  lazy: async () => {
+    const { DebounceView } = await import("../views/debounceView/DebounceView");
+    return { Component: DebounceView };
+  },
   parent: utilityFunctionsRoute,
 });
 export const throttleRoute = new SiteRoute({
   name: "Throttle",
   path: "throttle",
-  element: ThrottleView,
+  lazy: async () => {
+    const { ThrottleView } = await import("../views/throttleView/ThrottleView");
+    return { Component: ThrottleView };
+  },
   parent: utilityFunctionsRoute,
 });
 utilityFunctionsRoute.addChild(debounceRoute);
@@ -138,8 +154,11 @@ homeRoute.children.forEach((categoryRoute) => {
   const category = {
     category: categoryRoute.name,
     children: categoryRoute.children.map((item) => {
-      if (item.element) {
-        reactRouterRoutes.push({ path: item.path, element: <item.element /> });
+      if (item.lazy) {
+        reactRouterRoutes.push({
+          path: item.path,
+          lazy: item.lazy,
+        });
       } else {
         reactRouterRoutes.push({ path: item.path });
       }

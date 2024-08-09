@@ -9,7 +9,7 @@ import { Add, Clear, Remove } from "@mui/icons-material";
 
 const MAX_STACK_LENGTH = 8;
 
-export default function QueueView() {
+export function QueueView() {
   const queueContainerRef = useRef<HTMLUListElement>(null);
   const { queue, enqueue, dequeue, isEmpty, clear } = useQueueOptions({
     maxLength: MAX_STACK_LENGTH,

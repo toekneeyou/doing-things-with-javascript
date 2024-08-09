@@ -18,7 +18,7 @@ const createArray = (numberOfElements: number, maxValue: number) => {
 const NUM_OF_ELEMENTS = 30;
 const MAX_VALUE = 100;
 
-export default function BubbleSortView() {
+export function BubbleSortView() {
   const [unsortedArray, setUnsortedArray] = useState<
     { id: number; value: number; className?: string }[]
   >(createArray(NUM_OF_ELEMENTS, MAX_VALUE));

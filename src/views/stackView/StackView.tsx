@@ -7,7 +7,7 @@ import TallArray from "../../features/tallArray/TallArray";
 
 const MAX_STACK_LENGTH = 8;
 
-export default function StackView() {
+export function StackView() {
   const stackContainerRef = useRef<HTMLUListElement>(null);
   const { stack, push, pop, clear, isEmpty } = useStackOptions({
     maxLength: MAX_STACK_LENGTH,
