@@ -18,7 +18,7 @@ const TallArray = forwardRef(({ array }: TallArrayProps, ref) => {
         return (
           <li
             key={num}
-            id={`queue-${num}`}
+            id={`array-${num}`}
             className="transition-transform transition-setting w-full centered h-10 bg-app-faded-blue z-[1]"
           >
             {num}
