@@ -23,9 +23,9 @@ export default function DebounceView() {
       },
       Number(wait),
       {
-        isLeading: isLeading === "true",
-        isTrailing: isTrailing === "true",
-        isCancellable: isCancellable === "true",
+        isLeading,
+        isTrailing,
+        isCancellable,
         handleWait: (newIsWaiting) => {
           const progressEl = progressRef.current;
           if (progressEl) {
@@ -59,39 +59,41 @@ export default function DebounceView() {
                 the last invocation attempt."
       options={options}
     >
-      <div className="centered h-full w-full flex-col">
-        <div className="flex items-end space-x-2 mb-8 w-96">
-          <InputGroup
-            showLabel
-            label="Regular Input"
-            value={inputString}
-            onChange={handleInputString}
-            inputGroupClassName="w-full"
-            autoComplete="off"
-            placeholder="Type Here..."
-            tooltipProps={{
-              content: (
-                <p>
-                  Start typing to see the debounced string in the box below.
-                </p>
-              ),
-            }}
-          />
-          {isCancellable === "true" && (
-            <Button
-              disabled={!isWaiting}
-              color={error}
-              onClick={() => {
-                debouncedSetResult.cancel?.();
-                setIsWaiting(false);
+      <div className="h-full w-full centered">
+        <div className="centered flex-col gap-y-8">
+          <div className="flex items-end space-x-2 w-96">
+            <InputGroup
+              showLabel
+              label="Regular Input"
+              value={inputString}
+              onChange={handleInputString}
+              inputGroupClassName="w-full"
+              autoComplete="off"
+              placeholder="Type Here..."
+              tooltipProps={{
+                content: (
+                  <p>
+                    Start typing to see the debounced string in the box below.
+                  </p>
+                ),
               }}
-            >
-              Cancel
-            </Button>
-          )}
-        </div>
+            />
+            {isCancellable && (
+              <Button
+                disabled={!isWaiting}
+                color={error}
+                onClick={() => {
+                  debouncedSetResult.cancel?.();
+                  setIsWaiting(false);
+                }}
+              >
+                Cancel
+              </Button>
+            )}
+          </div>
 
-        <DebouncedResult result={result} ref={progressRef} />
+          <DebouncedResult result={result} ref={progressRef} />
+        </div>
       </div>
     </VisualizationLayout>
   );
