@@ -1,10 +1,8 @@
-import { Add, Clear, InfoOutlined, Remove } from "@mui/icons-material";
+import { Add, Clear, Remove } from "@mui/icons-material";
 import Button from "../../components/Button";
-import Tooltip from "../../components/tooltip/Tooltip";
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
 import useStackOptions from "./useStackOptions";
 import { useCallback, useRef } from "react";
-import { classnames } from "../../util/classnames";
 import TallArray from "../../features/tallArray/TallArray";
 
 const MAX_STACK_LENGTH = 8;
