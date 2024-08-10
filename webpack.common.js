@@ -5,10 +5,10 @@ module.exports = {
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    filename: "[name].[contenthash].js",
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"],
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   module: {
     rules: [
@@ -17,20 +17,11 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"],
-        exclude: /node_modules/,
-      },
     ],
-  },
-  devServer: {
-    compress: true,
-    port: 9000,
-    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
+      title: "Doing Things with JavaScript",
       template: "./src/index.html",
     }),
   ],
