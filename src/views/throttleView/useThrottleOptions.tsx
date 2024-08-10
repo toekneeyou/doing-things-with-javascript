@@ -7,23 +7,20 @@ export default function useThrottleOptions() {
   const [isCancellable, setIsCancellable] = useState(true);
   const [wait, setWait] = useState("1000");
 
-  const handleLeading: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    checked: boolean
-  ) => void = (e, checked) => {
-    setIsLeading(checked);
+  const handleLeading: (event: React.ChangeEvent<HTMLInputElement>) => void = (
+    e
+  ) => {
+    setIsLeading(true);
   };
-  const handleTrailing: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    checked: boolean
-  ) => void = (e, checked) => {
-    setIsTrailing(checked);
+  const handleTrailing: (event: React.ChangeEvent<HTMLInputElement>) => void = (
+    e
+  ) => {
+    setIsTrailing(true);
   };
   const handleCancellable: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    checked: boolean
-  ) => void = (e, checked) => {
-    setIsCancellable(checked);
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void = (e) => {
+    setIsCancellable(true);
   };
   const handleWait: ChangeEventHandler<HTMLInputElement> = (e) => {
     setWait(e.target.value);

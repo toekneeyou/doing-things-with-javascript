@@ -1,6 +1,5 @@
 import { MouseEventHandler } from "react";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
 import { classnames } from "../../util/classnames";
 
 interface NumberSpinButtonsProps {
@@ -24,7 +23,7 @@ export default function NumberSpinButtons({
         autoFocus={false}
         disabled={disabled}
       >
-        <ArrowDropUpIcon style={{ fontSize: "20px" }} />
+        <ChevronUpIcon className="size-4 text-white" />
       </button>
       <button
         type="button"
@@ -34,7 +33,7 @@ export default function NumberSpinButtons({
         autoFocus={false}
         disabled={disabled}
       >
-        <ArrowDropDownIcon style={{ fontSize: "20px" }} />
+        <ChevronDownIcon className="size-4 text-white" />
       </button>
     </div>
   );

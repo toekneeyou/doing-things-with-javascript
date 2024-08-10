@@ -5,7 +5,7 @@ import useQueueOptions from "./useQueueOptions";
 import throttle from "../../util/throttle";
 import { classnames } from "../../util/classnames";
 import TallArray from "../../features/tallArray/TallArray";
-import { Add, Clear, Remove } from "@mui/icons-material";
+import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 const MAX_STACK_LENGTH = 8;
 
@@ -83,7 +83,7 @@ export function QueueView() {
               onClick={enqueue}
               disabled={queue.length === MAX_STACK_LENGTH}
             >
-              <Add />
+              <PlusIcon className="size-6" />
               Enqueue
             </Button>
           </li>
@@ -94,7 +94,7 @@ export function QueueView() {
               onClick={handleDequeue}
               disabled={isEmpty()}
             >
-              <Remove />
+              <MinusIcon className="size-6" />
               Dequeue
             </Button>
           </li>
@@ -105,7 +105,7 @@ export function QueueView() {
               onClick={handleClear}
               disabled={isEmpty()}
             >
-              <Clear />
+              <XMarkIcon className="size-6" />
               Clear
             </Button>
           </li>

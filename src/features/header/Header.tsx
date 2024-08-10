@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
 import { classnames } from "../../util/classnames";
 import Button from "../../components/Button";
-import { Menu, MenuOpen } from "@mui/icons-material";
 import {
   useSideNavigationActionContext,
   useSideNavigationValueContext,
 } from "../../context/SideNavigationContext";
-import { yellow } from "../../../tailwind.config";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 
 export default function Header() {
   const { isShowing } = useSideNavigationValueContext();
@@ -42,9 +41,9 @@ function ToggleMenuButton({ isShowing }: ToggleMenuButtonProps) {
       variant="icon"
     >
       {isShowing ? (
-        <MenuOpen htmlColor={yellow} />
+        <XMarkIcon className="size-6 text-app-yellow" />
       ) : (
-        <Menu htmlColor={yellow} />
+        <Bars3Icon className="size-6 text-app-yellow" />
       )}
     </Button>
   );

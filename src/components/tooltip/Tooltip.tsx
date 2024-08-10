@@ -48,7 +48,7 @@ export default function Tooltip({
   };
 
   return (
-    <div className={classnames("tooltip", "centered relative z-20", className)}>
+    <div className={classnames("tooltip", "centered relative", className)}>
       <div
         ref={anchorElRef}
         className="tooltip-anchor"
@@ -67,7 +67,7 @@ export default function Tooltip({
           onMouseLeave={debouncedHandleMouseLeave}
           className={classnames(
             "absolute",
-            "w-[max-content] max-w-72 bg-app-dark-blue p-4 rounded-3xl transition-opacity text-white",
+            "z-20 w-[max-content] max-w-72 bg-app-dark-blue p-4 rounded-3xl transition-opacity text-white",
             {
               "opacity-0 pointer-events-none select-none": !isOpen,
               "opacity-95": isOpen,

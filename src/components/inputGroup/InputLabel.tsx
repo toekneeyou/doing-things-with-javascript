@@ -1,4 +1,4 @@
-import { InfoOutlined } from "@mui/icons-material";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { classnames } from "../../util/classnames";
 import Tooltip, { TooltipProps } from "../tooltip/Tooltip";
 
@@ -36,11 +36,11 @@ export default function InputLabel({
         <Tooltip
           className={classnames(
             "input-label__tooltip",
-            "ml-1 -translate-y-[2px]"
+            "ml-1"
           )}
           {...tooltipProps}
         >
-          <InfoOutlined style={{ fontSize: "16px" }} />
+          <InformationCircleIcon className="size-4 text-white" />
         </Tooltip>
       )}
     </div>

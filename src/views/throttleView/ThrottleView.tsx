@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { Add, InfoOutlined } from "@mui/icons-material";
 import Button from "../../components/Button";
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
 import throttle from "../../util/throttle";
@@ -10,6 +9,7 @@ import Tooltip from "../../components/tooltip/Tooltip";
 import Card from "../../features/card/Card";
 import Badge from "../../features/badge/Badge";
 import { error } from "../../../tailwind.config";
+import { InformationCircleIcon, PlusIcon } from "@heroicons/react/24/solid";
 
 export function ThrottleView() {
   const [count, setCount] = useState(0);
@@ -85,7 +85,7 @@ export function ThrottleView() {
                 <>
                   <h2>Regular Increment</h2>
                   <Tooltip content="This count will increment with every click.">
-                    <InfoOutlined />
+                    <InformationCircleIcon className="size-6" />
                   </Tooltip>
                 </>
               }
@@ -106,7 +106,7 @@ export function ThrottleView() {
               className="absolute left-[15.125rem] top-16"
               variant="icon-filled"
             >
-              <Add />
+              <PlusIcon className="size-6" />
             </Button>
 
             <Card
@@ -115,7 +115,7 @@ export function ThrottleView() {
                 <>
                   <h2>Throttled Increment</h2>
                   <Tooltip content="This count will be set only once within the specified wait period. This can happen before and/or after the waiting period.">
-                    <InfoOutlined />
+                    <InformationCircleIcon className="size-6" />
                   </Tooltip>
                 </>
               }

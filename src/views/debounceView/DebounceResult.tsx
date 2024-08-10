@@ -1,9 +1,9 @@
-import { InfoOutlined } from "@mui/icons-material";
 import { forwardRef } from "react";
 import Tooltip from "../../components/tooltip/Tooltip";
 import DebounceProgress from "./DebounceProgress";
 import { classnames } from "../../util/classnames";
 import Card from "../../features/card/Card";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
 
 interface DebounceResultProps {
   result: string;
@@ -19,7 +19,7 @@ const DebounceResult = forwardRef(({ result }: DebounceResultProps, ref) => (
           content="Depending on how you configured your debounced function, your
 debounced string might show up immediately or after a delay."
         >
-          <InfoOutlined />
+          <InformationCircleIcon className="size-6 text-app-white" />
         </Tooltip>
       </>
     }
