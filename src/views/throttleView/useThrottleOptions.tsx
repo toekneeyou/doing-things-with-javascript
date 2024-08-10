@@ -10,17 +10,17 @@ export default function useThrottleOptions() {
   const handleLeading: (event: React.ChangeEvent<HTMLInputElement>) => void = (
     e
   ) => {
-    setIsLeading(true);
+    setIsLeading(e.target.checked);
   };
   const handleTrailing: (event: React.ChangeEvent<HTMLInputElement>) => void = (
     e
   ) => {
-    setIsTrailing(true);
+    setIsTrailing(e.target.checked);
   };
   const handleCancellable: (
     event: React.ChangeEvent<HTMLInputElement>
   ) => void = (e) => {
-    setIsCancellable(true);
+    setIsCancellable(e.target.checked);
   };
   const handleWait: ChangeEventHandler<HTMLInputElement> = (e) => {
     setWait(e.target.value);
