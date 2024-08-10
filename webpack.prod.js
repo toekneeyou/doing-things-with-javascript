@@ -25,7 +25,7 @@ module.exports = merge(common, {
     minimize: true,
     minimizer: [
       new TerserPlugin(), // minimizes JS with terser. Use only in prod
-      new BundleAnalyzerPlugin(), // used for bundle analysis
+      // new BundleAnalyzerPlugin(), // used for bundle analysis
       new MiniCssExtractPlugin(), // Extracts CSS into separate files for better caching and parallel loading.
     ],
     splitChunks: {
