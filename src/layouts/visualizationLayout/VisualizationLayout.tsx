@@ -1,16 +1,14 @@
-import { ReactNode } from "react";
-import { InfoOutlined } from "@mui/icons-material";
+import { lazy, ReactNode } from "react";
 import { classnames } from "../../util/classnames";
 import Tooltip from "../../components/tooltip/Tooltip";
-import InputGroup, {
-  InputGroupProps,
-} from "../../components/inputGroup/InputGroup";
-import DropdownGroup, {
-  DropdownProps,
-} from "../../components/dropdownGroup/DropdownGroup";
-import SwitchGroup, {
-  SwitchGroupProps,
-} from "../../components/switchGroup/SwitchGroup";
+import { InputGroupProps } from "../../components/inputGroup/InputGroup";
+import { DropdownProps } from "../../components/dropdownGroup/DropdownGroup";
+import { SwitchGroupProps } from "../../components/switchGroup/SwitchGroup";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
+
+const VisualizationOptionsPanel = lazy(
+  () => import("./VisualizationOptionsPanel")
+);
 
 export interface VisualizationOptions {
   type: "text" | "number" | "dropdown" | "switch";
@@ -50,7 +48,7 @@ export default function VisualizationLayout({
           <h1 className="font-bold text-6xl">{title}</h1>
           {tooltip !== undefined && (
             <Tooltip content={<p className="w-full font-normal">{tooltip}</p>}>
-              <InfoOutlined />
+              <InformationCircleIcon className="size-6 text-white" />
             </Tooltip>
           )}
         </div>
@@ -63,64 +61,7 @@ export default function VisualizationLayout({
           {children}
         </div>
       </div>
-      {options !== undefined && (
-        <div
-          className={classnames(
-            "visualization-layout__options",
-            "w-52  bg-app-dark-blue"
-          )}
-        >
-          <h2
-            className={classnames(
-              "debounced-options__header",
-              "text-2xl font-bold p-4 text-center border-b-2 border-b-slate-600"
-            )}
-          >
-            Options
-          </h2>
-          <form
-            className={classnames(
-              "debounced-options__form",
-              "flex flex-col items-start gap-y-6 p-4"
-            )}
-          >
-            {options.map((option) => {
-              if (
-                (option.type === "text" || option.type === "number") &&
-                option.inputGroupProps
-              ) {
-                return (
-                  <InputGroup
-                    key={option.inputGroupProps.label}
-                    inputGroupClassName="w-full"
-                    type={option.type}
-                    autoComplete="off"
-                    {...option.inputGroupProps}
-                  />
-                );
-              }
-              if (option.type === "dropdown" && option.dropdownProps) {
-                return (
-                  <DropdownGroup
-                    key={option.dropdownProps.label}
-                    dropdownGroupClassName="w-full"
-                    {...option.dropdownProps}
-                  />
-                );
-              }
-              if (option.type === "switch" && option.switchGroupProps) {
-                return (
-                  <SwitchGroup
-                    key={option.switchGroupProps.label}
-                    switchGroupClassName="w-full between"
-                    {...option.switchGroupProps}
-                  />
-                );
-              }
-            })}
-          </form>
-        </div>
-      )}
+      {options !== undefined && <VisualizationOptionsPanel options={options} />}
     </div>
   );
 }
