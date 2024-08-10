@@ -1,28 +1,82 @@
-import { ReactNode, useCallback, useRef, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { classnames } from "../../util/classnames";
 import { debounce } from "../../util/debounce";
-import useTooltipPosition from "./useTooltipPosition";
 
 type TooltipPosition = "top" | "right" | "bottom" | "left";
 
 export interface TooltipProps {
   className?: string;
   children: ReactNode;
-  position?: TooltipPosition;
   content: ReactNode | string;
 }
 
 export default function Tooltip({
   children,
-  position = "bottom",
   content,
   className,
 }: TooltipProps) {
   const [isOpen, setIsOpen] = useState(false);
   const anchorElRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
-  const tooltipPosition = useTooltipPosition(anchorElRef, tooltipRef);
+  const [tooltipPosition, setTooltipPosition] = useState<
+    Record<TooltipPosition, number | undefined>
+  >({
+    top: undefined,
+    right: undefined,
+    bottom: undefined,
+    left: undefined,
+  });
+
+  useEffect(() => {
+    const calculatePosition = () => {
+      let top: number | undefined;
+      let right: number | undefined;
+      let bottom: number | undefined;
+      let left: number | undefined;
+      const anchorEl = anchorElRef.current;
+      const tooltipEl = tooltipRef.current;
+
+      if (anchorEl && tooltipEl) {
+        const {
+          top: anchorTop,
+          left: anchorLeft,
+          height: anchorHeight,
+          width: anchorWidth,
+        } = anchorEl.getBoundingClientRect();
+        const { height: tooltipHeight, width: tooltipWidth } =
+          tooltipEl.getBoundingClientRect();
+        // tooltip's default position is to the bottom and right of the anchor element
+        top = anchorTop + anchorHeight;
+        left = anchorLeft + anchorWidth;
+        // if the tooltip flows out of the right window boundary, move it to the left
+        if (left + tooltipWidth > window.innerWidth) {
+          left = anchorLeft - tooltipWidth;
+        }
+        // if the tooltip flows out of the lower window boundary, move it to the top
+        if (top + tooltipHeight > window.innerHeight) {
+          top = anchorTop - tooltipHeight;
+        }
+      }
+
+      setTooltipPosition({
+        top,
+        left,
+        right,
+        bottom,
+      });
+    };
+
+    const observer = new ResizeObserver(() => {
+      calculatePosition();
+    });
+
+    observer.observe(document.body);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isOpen]);
 
   // add a short delay before closing so users can mouse over the tooltip if they want to
   const debouncedHandleMouseLeave = useCallback(
@@ -48,7 +102,7 @@ export default function Tooltip({
   };
 
   return (
-    <div className={classnames("tooltip", "centered relative z-20", className)}>
+    <div className={classnames("tooltip", "centered relative", className)}>
       <div
         ref={anchorElRef}
         className="tooltip-anchor"
@@ -67,11 +121,10 @@ export default function Tooltip({
           onMouseLeave={debouncedHandleMouseLeave}
           className={classnames(
             "absolute",
-            "w-[max-content] max-w-72 bg-app-dark-blue p-4 rounded-3xl transition-opacity text-white",
+            "z-20 w-[max-content] max-w-72 bg-app-dark-blue p-4 rounded-3xl transition-opacity text-white",
             {
               "opacity-0 pointer-events-none select-none": !isOpen,
               "opacity-95": isOpen,
-              "top-0": position === "bottom",
             }
           )}
           style={{

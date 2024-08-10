@@ -1,6 +1,6 @@
 import { ReactNode, useId, useLayoutEffect, useRef, useState } from "react";
-import { ArrowDropDown } from "@mui/icons-material";
 import { classnames } from "../../util/classnames";
+import { ChevronDownIcon } from "@heroicons/react/16/solid";
 
 interface AccordionProps {
   accordionClassName?: string;
@@ -56,9 +56,11 @@ export default function Accordion({
         onClick={toggleAccordion}
       >
         {title}
-        <ArrowDropDown
+        <ChevronDownIcon
           style={{ transition: "transform", transitionDuration: "300ms" }}
-          className={classnames({ "-rotate-180": isExpanded })}
+          className={classnames("size-4 text-white", {
+            "-rotate-180": isExpanded,
+          })}
         />
       </button>
       <div
@@ -67,7 +69,7 @@ export default function Accordion({
         aria-labelledby={tabId}
         className={classnames(
           "accordion__body",
-          "bg-app-faded-blue transition-all duration-300 ease-in-out overflow-hidden",
+          "bg-app-faded-blue transition-all transition-setting overflow-hidden",
           accordionBodyClassName
         )}
         ref={accordionBodyRef}

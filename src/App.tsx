@@ -21,8 +21,7 @@ export default function App() {
           "h-screen w-full overflow-hidden text-white flex"
         )}
         style={{
-          background:
-            "linear-gradient(126deg, rgba(38,42,50,1) 0%, rgba(42,55,82,1) 100%)",
+          background: "linear-gradient(126deg, #222 0%, rgba(42,55,82,1) 100%)",
         }}
       >
         <Header />

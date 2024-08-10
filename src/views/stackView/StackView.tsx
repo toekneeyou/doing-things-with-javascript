@@ -1,13 +1,13 @@
-import { Add, Clear, Remove } from "@mui/icons-material";
 import Button from "../../components/Button";
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
 import useStackOptions from "./useStackOptions";
 import { useCallback, useRef } from "react";
 import TallArray from "../../features/tallArray/TallArray";
+import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 const MAX_STACK_LENGTH = 8;
 
-export default function StackView() {
+export function StackView() {
   const stackContainerRef = useRef<HTMLUListElement>(null);
   const { stack, push, pop, clear, isEmpty } = useStackOptions({
     maxLength: MAX_STACK_LENGTH,
@@ -63,13 +63,13 @@ export default function StackView() {
               onClick={push}
               disabled={stack.length === MAX_STACK_LENGTH}
             >
-              <Add />
+              <PlusIcon className="size-6" />
               Push
             </Button>
           </li>
           <li className="w-full">
             <Button className="w-full" onClick={handlePop} disabled={isEmpty()}>
-              <Remove />
+              <MinusIcon className="size-6" />
               Pop
             </Button>
           </li>
@@ -80,7 +80,7 @@ export default function StackView() {
               onClick={handleClear}
               disabled={isEmpty()}
             >
-              <Clear />
+              <XMarkIcon className="size-6" />
               Clear
             </Button>
           </li>

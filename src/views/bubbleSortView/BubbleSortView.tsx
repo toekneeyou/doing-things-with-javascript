@@ -5,7 +5,11 @@ import wait from "../../util/wait";
 
 import { classnames } from "../../util/classnames";
 import { yellow } from "../../../tailwind.config";
-import { Pause, Refresh, Sort } from "@mui/icons-material";
+import {
+  ArrowPathIcon,
+  Bars3BottomRightIcon,
+  PauseIcon,
+} from "@heroicons/react/24/solid";
 
 const createArray = (numberOfElements: number, maxValue: number) => {
   return new Array(numberOfElements).fill(1).map((_, i) => ({
@@ -18,7 +22,7 @@ const createArray = (numberOfElements: number, maxValue: number) => {
 const NUM_OF_ELEMENTS = 30;
 const MAX_VALUE = 100;
 
-export default function BubbleSortView() {
+export function BubbleSortView() {
   const [unsortedArray, setUnsortedArray] = useState<
     { id: number; value: number; className?: string }[]
   >(createArray(NUM_OF_ELEMENTS, MAX_VALUE));
@@ -111,12 +115,12 @@ export default function BubbleSortView() {
             color={yellow}
             disabled={isSorting}
           >
-            <Refresh />
+            <ArrowPathIcon className="size-6 text-app-yellow" />
             New Array
           </Button>
           <div className="flex gap-x-standard items-center">
             <Button onClick={pauseSorting} disabled={isSorted} variant="text">
-              <Pause />
+              <PauseIcon className="size-6" />
               Pause
             </Button>
             <Button
@@ -129,7 +133,7 @@ export default function BubbleSortView() {
                 }
               }}
             >
-              <Sort />
+              <Bars3BottomRightIcon className="size-6" />
               Sort
             </Button>
           </div>

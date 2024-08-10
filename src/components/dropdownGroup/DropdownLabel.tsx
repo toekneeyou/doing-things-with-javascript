@@ -1,4 +1,4 @@
-import { InfoOutlined } from "@mui/icons-material";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { classnames } from "../../util/classnames";
 import Tooltip, { TooltipProps } from "../tooltip/Tooltip";
 
@@ -40,7 +40,7 @@ export default function DropdownLabel({
           )}
           {...tooltipProps}
         >
-          <InfoOutlined style={{ fontSize: "16px" }} />
+          <InformationCircleIcon className="size-4" />
         </Tooltip>
       )}
     </div>
