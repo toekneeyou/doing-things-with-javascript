@@ -5,7 +5,7 @@ export default function StackInfo() {
     <div className={classnames("stack-info", "w-96")}>
       <div>
         <h2 className="text-2xl mb-4 font-bold">Stack</h2>
-        <p>
+        <p className="text-gray-400">
           A stack is a data structure that follows the{" "}
           <strong>Last In, First Out (LIFO)</strong> principle. Elements are
           added and removed from the top.
@@ -14,7 +14,7 @@ export default function StackInfo() {
       <hr className="my-8 opacity-50" />
       <div>
         <h3 className="text-xl mb-4 font-bold">Instructions</h3>
-        <ul>
+        <ul className="text-gray-400 space-y-2">
           <li>
             - Use the <strong className="text-app-yellow">Push</strong> button
             to add an element to the top of the stack.

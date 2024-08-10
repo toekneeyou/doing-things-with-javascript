@@ -6,6 +6,7 @@ import throttle from "../../util/throttle";
 import { classnames } from "../../util/classnames";
 import TallArray from "../../features/tallArray/TallArray";
 import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import QueueModalButton from "./QueueModalButton";
 
 const MAX_STACK_LENGTH = 8;
 
@@ -57,12 +58,7 @@ export function QueueView() {
   );
 
   return (
-    <VisualizationLayout
-      title="Queue"
-      tooltip={
-        "A queue is a data structure that follows the First In, First Out (FIFO) principle."
-      }
-    >
+    <VisualizationLayout title="Queue" moreInfo={<QueueModalButton />}>
       <div
         className={classnames(
           "queue",
