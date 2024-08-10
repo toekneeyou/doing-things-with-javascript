@@ -3,29 +3,18 @@ import VisualizationLayout from "../../layouts/visualizationLayout/Visualization
 import useStackOptions from "./useStackOptions";
 import { useCallback, useEffect, useRef } from "react";
 import TallArray from "../../features/tallArray/TallArray";
-import {
-  InformationCircleIcon,
-  MinusIcon,
-  PlusIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/solid";
-import Modal from "../../components/modal/Modal";
+import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useModalActionContext } from "../../context/ModalContext";
-import StackInfo from "./StackInfo";
+import StackModalButton from "./StackModalButton";
 
 const MAX_STACK_LENGTH = 8;
 
 export function StackView() {
   const stackContainerRef = useRef<HTMLUListElement>(null);
-  const { openModal, closeModal } = useModalActionContext();
   const { stack, push, pop, clear, isEmpty } = useStackOptions({
     maxLength: MAX_STACK_LENGTH,
   });
   let popTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    console.log("open modal");
-  }, [openModal]);
 
   const handleClear = () => {
     const queueContainerEl = stackContainerRef.current;
@@ -59,15 +48,8 @@ export function StackView() {
     }
   }, [stack]);
 
-  const handleOpenModal = () => {
-    openModal(<StackInfo />);
-  };
-
   return (
-    <VisualizationLayout
-      title="Stack"
-      moreInfo={<Button onClick={handleOpenModal}>More Info</Button>}
-    >
+    <VisualizationLayout title="Stack" moreInfo={<StackModalButton />}>
       <div className="w-full h-full centered flex-col gap-y-8">
         <TallArray ref={stackContainerRef} array={stack} />
         <ul className="grid grid-cols-3 gap-x-standard">
