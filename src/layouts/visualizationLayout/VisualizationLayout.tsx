@@ -22,6 +22,7 @@ interface VisualizationLayoutProps {
   children?: ReactNode;
   tooltip?: ReactNode;
   options?: VisualizationOptions[];
+  moreInfo?: ReactNode;
 }
 
 export default function VisualizationLayout({
@@ -29,6 +30,7 @@ export default function VisualizationLayout({
   children,
   tooltip,
   options,
+  moreInfo,
 }: VisualizationLayoutProps) {
   return (
     <div className={classnames("visualization-layout", "h-screen w-full flex")}>
@@ -51,6 +53,7 @@ export default function VisualizationLayout({
               <InformationCircleIcon className="size-6 text-white" />
             </Tooltip>
           )}
+          {moreInfo !== undefined && moreInfo}
         </div>
         <div
           className={classnames(
