@@ -61,7 +61,7 @@ export default function Search({
   }, [results, queryString]);
 
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
+    <ClickAwayListener onClickAway={handleClickAway} className="w-full">
       <div className={classnames("search", "w-full relative", className)}>
         <InputGroup
           value={queryString}

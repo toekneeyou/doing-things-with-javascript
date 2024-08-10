@@ -4,16 +4,18 @@ import { classnames } from "../../util/classnames";
 interface ClickAwayListenerProps {
   onClickAway: () => void;
   children: ReactNode;
+  className?: string;
 }
 
 export default function ClickAwayListener({
   children,
   onClickAway,
+  className,
 }: ClickAwayListenerProps) {
   const clickAwayListenerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (
         clickAwayListenerRef.current &&
         !clickAwayListenerRef.current.contains(event.target as Node)
@@ -33,7 +35,7 @@ export default function ClickAwayListener({
   return (
     <div
       ref={clickAwayListenerRef}
-      className={classnames("click-away-listener")}
+      className={classnames("click-away-listener", className)}
     >
       {children}
     </div>
