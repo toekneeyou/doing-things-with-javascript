@@ -14,7 +14,7 @@ export default function StackInfo() {
       <hr className="my-8 opacity-50" />
       <div>
         <h3 className="text-xl mb-4 font-bold">Instructions</h3>
-        <ul className="text-gray-400">
+        <ul className="text-gray-400 space-y-2">
           <li>
             - Use the <strong className="text-app-yellow">Push</strong> button
             to add an element to the top of the stack.
