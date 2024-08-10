@@ -15,7 +15,6 @@ const DebounceResult = forwardRef(({ result }: DebounceResultProps, ref) => (
       <>
         <h2 className="text-xl">Debounced Result</h2>
         <Tooltip
-          position="bottom"
           content="Depending on how you configured your debounced function, your
 debounced string might show up immediately or after a delay."
         >
