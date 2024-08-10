@@ -1,109 +1,110 @@
-import { Switch as MuiSwitch, styled, SwitchProps } from "@mui/material";
-import { slateBlue, yellow } from "../../../tailwind.config";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { classnames } from "../../util/classnames";
 import Tooltip, { TooltipProps } from "../tooltip/Tooltip";
-import { InfoOutlined } from "@mui/icons-material";
-import { useId } from "react";
+import { MouseEventHandler, useId, useRef } from "react";
 
-export interface SwitchGroupProps extends SwitchProps {
+const SWITCH_TRACK_CLASS = "switch__track";
+const SWITCH_THUMB_CLASS = "switch__thumb";
+const SWITCH_INPUT_CLASS = "switch__input";
+
+export interface SwitchGroupProps
+  extends Omit<
+    React.DetailedHTMLProps<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      HTMLInputElement
+    >,
+    "className" | "type"
+  > {
   label?: string;
   showLabel?: boolean;
-  id?: string;
-  tooltipProps?: Omit<TooltipProps, "children">;
   switchGroupClassName?: string;
+  labelClassName?: string;
+  inputClassName?: string;
+  tooltipProps?: Omit<TooltipProps, "children">;
 }
 
-const SwitchGroup = styled(
-  ({
-    label,
-    showLabel,
-    id,
-    tooltipProps,
-    switchGroupClassName,
-    ...switchProps
-  }: SwitchGroupProps) => {
-    const defaultId = useId();
+export default function SwitchGroup({
+  label,
+  showLabel,
+  switchGroupClassName,
+  inputClassName,
+  labelClassName,
+  tooltipProps,
+  checked,
+  onChange,
+  ...inputAttributes
+}: SwitchGroupProps) {
+  const thumbRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const id = useId();
 
-    return (
+  const handleClick: MouseEventHandler<HTMLDivElement> = (e) => {
+    const el = e.target as HTMLElement;
+    if (
+      el.classList.contains(SWITCH_INPUT_CLASS) ||
+      el.classList.contains(SWITCH_THUMB_CLASS) ||
+      el.classList.contains(SWITCH_TRACK_CLASS)
+    ) {
+      inputRef.current?.click();
+    }
+  };
+
+  return (
+    <div
+      className={classnames("switch-group", "relative", switchGroupClassName)}
+    >
+      {showLabel && label !== undefined && (
+        <div
+          className={classnames(
+            "switch-group__label",
+            "flex items-center gap-x-2 text-sm"
+          )}
+        >
+          {tooltipProps !== undefined && (
+            <Tooltip {...tooltipProps}>
+              <InformationCircleIcon className="size-4" />
+            </Tooltip>
+          )}
+          <label htmlFor={inputAttributes.id ?? id}>{label}</label>
+        </div>
+      )}
       <div
-        className={classnames(
-          "switch-group",
-          "flex items-center gap-x-standard",
-          switchGroupClassName
-        )}
+        className={classnames("switch", "flex items-center h-4 relative")}
+        onClick={handleClick}
       >
-        {showLabel && label !== undefined && (
-          <div
-            className={classnames(
-              "switch-group__label",
-              "flex items-center gap-x-2 text-sm"
-            )}
-          >
-            {tooltipProps !== undefined && (
-              <Tooltip {...tooltipProps}>
-                <InfoOutlined style={{ fontSize: "16px" }} />
-              </Tooltip>
-            )}
-            <label htmlFor={id ?? defaultId}>{label}</label>
-          </div>
-        )}
-        <MuiSwitch
-          aria-label={label}
-          id={id ?? defaultId}
-          focusVisibleClassName=".Mui-focusVisible"
-          disableRipple
-          {...switchProps}
+        <div
+          className={classnames(
+            "switch__track",
+            "rounded-full w-8 h-3 transition-[background] transition-setting",
+            { "bg-app-faded-blue": !checked, "bg-app-yellow": !!checked }
+          )}
+        />
+        <div
+          ref={thumbRef}
+          className={classnames(
+            "switch__thumb",
+            "rounded-full h-5 w-5 bg-white shadow-md",
+            "transition-all transition-setting",
+            "absolute",
+            {
+              "left-0": !checked,
+              "left-4": !!checked,
+            }
+          )}
+        ></div>
+        <input
+          ref={inputRef}
+          type="checkbox"
+          checked={checked}
+          onChange={onChange}
+          {...inputAttributes}
+          id={inputAttributes.id ?? id}
+          className={classnames(
+            "switch__input",
+            "opacity-0 pointer-events-none absolute"
+          )}
         />
       </div>
-    );
-  }
-)(({ theme }) => ({
-  width: 42,
-  height: 26,
-  padding: 0,
-  "& .MuiSwitch-switchBase": {
-    padding: 0,
-    margin: 2,
-    transitionDuration: "300ms",
-    "&.Mui-checked": {
-      transform: "translateX(16px)",
-      color: "#fff",
-      "& + .MuiSwitch-track": {
-        backgroundColor: yellow,
-        opacity: 1,
-        border: 0,
-      },
-      "&.Mui-disabled + .MuiSwitch-track": {
-        opacity: 0.5,
-      },
-    },
-    "&.Mui-focusVisible .MuiSwitch-thumb": {
-      color: yellow,
-      border: "6px solid #fff",
-    },
-    "&.Mui-disabled .MuiSwitch-thumb": {
-      color:
-        theme.palette.mode === "light"
-          ? theme.palette.grey[100]
-          : theme.palette.grey[600],
-    },
-    "&.Mui-disabled + .MuiSwitch-track": {
-      opacity: 0.75,
-    },
-  },
-  "& .MuiSwitch-thumb": {
-    boxSizing: "border-box",
-    width: 22,
-    height: 22,
-  },
-  "& .MuiSwitch-track": {
-    borderRadius: 26 / 2,
-    backgroundColor: slateBlue,
-    opacity: 1,
-    transition: theme.transitions.create(["background-color"], {
-      duration: 500,
-    }),
-  },
-}));
-
-export default SwitchGroup;
+    </div>
+  );
+}
