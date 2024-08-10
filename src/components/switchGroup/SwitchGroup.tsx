@@ -75,7 +75,7 @@ export default function SwitchGroup({
         <div
           className={classnames(
             "switch__track",
-            "rounded-full w-8 h-3 transition-[background] transition-setting",
+            "rounded-full w-8 h-3 transition-[background] transition-setting cursor-pointer",
             { "bg-app-faded-blue": !checked, "bg-app-yellow": !!checked }
           )}
         />
@@ -83,7 +83,7 @@ export default function SwitchGroup({
           ref={thumbRef}
           className={classnames(
             "switch__thumb",
-            "rounded-full h-5 w-5 bg-white shadow-md",
+            "rounded-full h-5 w-5 bg-white shadow-md cursor-pointer",
             "transition-all transition-setting",
             "absolute",
             {
