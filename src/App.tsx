@@ -31,7 +31,7 @@ export default function App() {
           <Header />
 
           <SideNavigation />
-          <main className="flex-grow">
+          <main className="flex-grow overflow-hidden">
             {isHome && <HomeView />}
             <Outlet />
           </main>

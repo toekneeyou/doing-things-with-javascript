@@ -1,5 +1,5 @@
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
-import DebounceOptionsDescription from "./DebounceOptionsDescription";
+import DebounceInfo from "./DebounceInfo";
 import DebounceOptions from "./DebounceOptions";
 import DebounceVisual from "./DebounceVisual";
 import DebounceContextProvider from "../../context/DebounceContext";
@@ -11,13 +11,12 @@ export function DebounceView() {
         title="Debounce"
         description={
           <span>
-            This component debounces user input, updating the result after a
-            delay. The red bar shows the wait time, which resets with each
-            keystroke. Only the final input is processed, unless you tweak the
-            options below.
+            Debounce is a programming technique that ensures a function is only
+            executed after a specified period of inactivity, preventing it from
+            being called multiple times in quick succession.
           </span>
         }
-        optionsDescription={<DebounceOptionsDescription />}
+        moreInfo={<DebounceInfo />}
         options={<DebounceOptions />}
       >
         <DebounceVisual />

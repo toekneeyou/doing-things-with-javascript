@@ -1,6 +1,6 @@
 import { lazy, ReactNode, Suspense } from "react";
 import { classnames } from "../../util/classnames";
-import VisualizationInfoPanel from "./VIsualizationInfoPanel";
+import VisualizationInfoPanel from "./VisualizationInfoPanel";
 
 const VisualizationOptionsPanel = lazy(
   () => import("./VisualizationOptionsPanel")
@@ -9,18 +9,16 @@ const VisualizationOptionsPanel = lazy(
 interface VisualizationLayoutProps {
   title: string;
   children?: ReactNode;
-  tooltip?: ReactNode;
   options?: ReactNode;
   moreInfo?: ReactNode;
   description?: ReactNode;
-  optionsDescription?: ReactNode;
 }
 
 export default function VisualizationLayout({
   title,
   children,
   options,
-  optionsDescription,
+  moreInfo,
   description,
 }: VisualizationLayoutProps) {
   return (
@@ -39,7 +37,7 @@ export default function VisualizationLayout({
         <VisualizationInfoPanel
           title={title}
           description={description}
-          optionsDescription={optionsDescription}
+          moreInfo={moreInfo}
         />
 
         <div

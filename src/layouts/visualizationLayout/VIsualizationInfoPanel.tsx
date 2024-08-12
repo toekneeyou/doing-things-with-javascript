@@ -4,13 +4,13 @@ import { classnames } from "../../util/classnames";
 interface VisualizationInfoPanelProps {
   title: string;
   description: ReactNode;
-  optionsDescription: ReactNode;
+  moreInfo: ReactNode;
 }
 
 export default function VisualizationInfoPanel({
   title,
   description,
-  optionsDescription,
+  moreInfo,
 }: VisualizationInfoPanelProps) {
   return (
     <div
@@ -35,18 +35,20 @@ export default function VisualizationInfoPanel({
           {description}
         </p>
       </div>
-
-      <hr className="border-slate-600" />
-
-      <div
-        className={classnames(
-          "visualization-info-panel__details",
-          "flex-grow flex flex-col p-8 gap-y-4 overflow-y-auto"
-        )}
-      >
-        <h3 className="text-2xl font-bold">Options</h3>
-        <div className="flex-grow overflow-auto">{optionsDescription}</div>
-      </div>
+      {moreInfo !== undefined && (
+        <>
+          <hr className="border-slate-600" />
+          <div
+            className={classnames(
+              "visualization-info-panel__details",
+              "flex-grow flex flex-col p-8 gap-y-4 overflow-y-auto"
+            )}
+          >
+            <h3 className="text-2xl font-bold">More Info</h3>
+            <div className="flex-grow overflow-auto">{moreInfo}</div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
