@@ -10,19 +10,7 @@ interface DebounceResultProps {
 }
 
 const DebounceResult = forwardRef(({ result }: DebounceResultProps, ref) => (
-  <Card
-    title={
-      <>
-        <h2 className="text-xl">Debounced Result</h2>
-        <Tooltip
-          content="Depending on how you configured your debounced function, your
-debounced string might show up immediately or after a delay."
-        >
-          <InformationCircleIcon className="size-6 text-app-white" />
-        </Tooltip>
-      </>
-    }
-  >
+  <Card title={<h2 className="text-lg">Debounced Result</h2>}>
     <DebounceProgress ref={ref} />
     <div
       className={classnames(

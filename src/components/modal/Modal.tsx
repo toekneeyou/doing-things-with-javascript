@@ -29,7 +29,7 @@ export default function Modal({}: ModalProps) {
       className={classnames(
         "modal",
         "focus:border-none focus:outline-none bg-transparent",
-        "backdrop:bg-[rgba(0,0,0,0.5)]"
+        "backdrop:bg-[rgba(0,0,0,0.75)]"
       )}
     >
       <div
