@@ -28,7 +28,7 @@ export default function Card({
         <div
           className={classnames(
             "card__header",
-            "centered px-4 space-x-2 bg-app-dark-blue h-20 text-xl",
+            "centered px-4 space-x-2 bg-app-dark-blue h-16 text-lg",
             cardHeaderClassname
           )}
         >
