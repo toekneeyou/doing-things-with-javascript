@@ -51,7 +51,11 @@ export default function SwitchGroup({
 
   return (
     <div
-      className={classnames("switch-group", "relative", switchGroupClassName)}
+      className={classnames(
+        "switch-group",
+        "relative space-x-4",
+        switchGroupClassName
+      )}
     >
       {showLabel && label !== undefined && (
         <div
@@ -91,12 +95,13 @@ export default function SwitchGroup({
               "left-4": !!checked,
             }
           )}
-        ></div>
+        />
         <input
           ref={inputRef}
           type="checkbox"
           checked={checked}
           onChange={onChange}
+          aria-label={label}
           {...inputAttributes}
           id={inputAttributes.id ?? id}
           className={classnames(
