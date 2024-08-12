@@ -1,17 +1,17 @@
 import { ReactNode } from "react";
 import { classnames } from "../../util/classnames";
 
-interface VisualizationInfoPanelProps {
+interface VisualizationInfoProps {
   title: string;
   description: ReactNode;
   moreInfo: ReactNode;
 }
 
-export default function VisualizationInfoPanel({
+export default function VisualizationInfo({
   title,
   description,
   moreInfo,
-}: VisualizationInfoPanelProps) {
+}: VisualizationInfoProps) {
   return (
     <div
       className={classnames(

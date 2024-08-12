@@ -1,6 +1,6 @@
 import { lazy, ReactNode, Suspense } from "react";
 import { classnames } from "../../util/classnames";
-import VisualizationInfoPanel from "./VisualizationInfoPanel";
+import VisualizationInfo from "./VisualizationInfo";
 
 const VisualizationOptionsPanel = lazy(
   () => import("./VisualizationOptionsPanel")
@@ -34,7 +34,7 @@ export default function VisualizationLayout({
           "flex-grow flex overflow-hidden"
         )}
       >
-        <VisualizationInfoPanel
+        <VisualizationInfo
           title={title}
           description={description}
           moreInfo={moreInfo}
