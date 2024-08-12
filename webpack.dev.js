@@ -1,5 +1,6 @@
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
+const path = require("path");
 
 module.exports = merge(common, {
   mode: "development",
@@ -21,6 +22,10 @@ module.exports = merge(common, {
     compress: true,
     port: 9000,
     historyApiFallback: true,
+    static: {
+      directory: path.join(__dirname, "src", "assets"),
+      publicPath: "/",
+    },
   },
   optimization: {
     // runtimeChunk: true,
