@@ -17,10 +17,7 @@ export default function InputLabel({
 }: InputLabelProps) {
   return (
     <div
-      className={classnames(
-        "input-label",
-        "translate-x-4 flex items-center justify-start"
-      )}
+      className={classnames("input-label", "flex items-center justify-start")}
     >
       <label
         className={classnames(
@@ -34,10 +31,7 @@ export default function InputLabel({
       </label>
       {tooltipProps !== undefined && (
         <Tooltip
-          className={classnames(
-            "input-label__tooltip",
-            "ml-1"
-          )}
+          className={classnames("input-label__tooltip", "ml-1")}
           {...tooltipProps}
         >
           <InformationCircleIcon className="size-4 text-white" />

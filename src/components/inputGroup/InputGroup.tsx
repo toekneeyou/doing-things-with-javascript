@@ -15,6 +15,7 @@ export interface InputGroupProps
   > {
   label?: string;
   showLabel?: boolean;
+  labelPosition?: "top" | "left";
   inputGroupClassName?: string;
   labelClassName?: string;
   inputClassName?: string;
@@ -28,6 +29,7 @@ export default function InputGroup({
   inputGroupClassName,
   labelClassName,
   inputClassName,
+  labelPosition = "left",
   ...inputAttributes
 }: InputGroupProps) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -99,7 +101,11 @@ export default function InputGroup({
     <div
       className={classnames(
         "input-group",
-        "flex flex-col min-w-40 relative gap-y-1",
+        "flex min-w-40 relative",
+        {
+          "gap-x-1": labelPosition === "left",
+          "flex-col gap-y-1": labelPosition === "top",
+        },
         inputGroupClassName
       )}
     >
