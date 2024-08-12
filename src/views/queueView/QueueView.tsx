@@ -9,7 +9,10 @@ export function QueueView() {
       description={
         <span>
           A queue is a data structure that follows the{" "}
-          <strong>First In, First Out (FIFO) principle</strong>.
+          <strong className="text-white">
+            First In, First Out (FIFO) principle
+          </strong>
+          .
         </span>
       }
       moreInfo={<QueueInfo />}
