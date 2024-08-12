@@ -42,17 +42,12 @@ export default function useRouteSearch() {
 
       const newResults = standardizedRoutes
         .map((categoryRoute) => {
-          // if category matches queryString, push the whole thing in
-          if (matchNameToString(categoryRoute.name)) {
-            return categoryRoute;
-          } else {
-            return {
-              name: categoryRoute.name,
-              children: categoryRoute.children.filter((c) =>
-                matchNameToString(c.name)
-              ),
-            };
-          }
+          return {
+            name: categoryRoute.name,
+            children: categoryRoute.children.filter((c) =>
+              matchNameToString(c.name)
+            ),
+          };
         })
         .filter((cr) => cr.children.length > 0);
 
