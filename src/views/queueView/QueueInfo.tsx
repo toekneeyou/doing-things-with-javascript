@@ -1,6 +1,6 @@
 export default function QueueInfo() {
   return (
-    <ul className="space-y-2">
+    <ul className="text-gray-400 space-y-2">
       <li>
         - Use the <strong className="text-app-yellow">Enqueue</strong> button to
         add an element to the end of the queue.

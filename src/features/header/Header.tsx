@@ -6,6 +6,7 @@ import {
   useSideNavigationValueContext,
 } from "../../context/SideNavigationContext";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import VerticalDivider from "../../components/verticalDivider/VerticalDivider";
 
 export default function Header() {
   const { isShowing } = useSideNavigationValueContext();
@@ -20,7 +21,7 @@ export default function Header() {
     >
       <ToggleMenuButton isShowing={isShowing} />
 
-      <div className="opacity-50 mr-2">|</div>
+      <VerticalDivider className="mr-2" />
 
       <LogoLink />
     </header>

@@ -2,14 +2,14 @@ import InputGroup from "../../components/inputGroup/InputGroup";
 import SwitchGroup from "../../components/switchGroup/SwitchGroup";
 import VerticalDivider from "../../components/verticalDivider/VerticalDivider";
 import {
-  useDebounceActionContext,
-  useDebounceStateContext,
-} from "../../context/DebounceContext";
+  useThrottleActionContext,
+  useThrottleStateContext,
+} from "../../context/ThrottleContext";
 
-export default function DebounceOptions() {
-  const { wait, isLeading, isTrailing } = useDebounceStateContext();
+export default function ThrottleOptions() {
+  const { wait, isLeading, isTrailing } = useThrottleStateContext();
   const { handleLeading, handleTrailing, handleWait } =
-    useDebounceActionContext();
+    useThrottleActionContext();
 
   return (
     <>
