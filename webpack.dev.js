@@ -5,6 +5,11 @@ const path = require("path");
 module.exports = merge(common, {
   mode: "development",
   devtool: "eval-cheap-module-source-map",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].js",
+    publicPath: "/",
+  },
   module: {
     rules: [
       {
@@ -19,12 +24,13 @@ module.exports = merge(common, {
     ],
   },
   devServer: {
-    compress: true,
+    hot: true, // Enables Hot Module Replacement
+    open: true, // Automatically opens the browser when the server starts
+    compress: true, // Enables gzip compression for everything served
     port: 9000,
-    historyApiFallback: true,
+    historyApiFallback: true, // Enables support for HTML5 history API based routing by serving the index.html file for all 404 routes.
     static: {
-      directory: path.join(__dirname, "src", "assets"),
-      publicPath: "/",
+      directory: path.join(__dirname, "public"), // Directory in which all static files are served from
     },
   },
   optimization: {
