@@ -11,10 +11,13 @@ export default function SideNavigation() {
     <nav
       className={classnames(
         "side-navigation",
-        "transition-all w-52 pt-16 bg-app-dark-blue overflow-hidden transition-setting shadow-md",
+        "transition-all z-10 pt-16 bg-app-dark-blue overflow-hidden transition-setting shadow-md",
+        "absolute w-full h-screen",
+        "md:static md:w-52",
         {
-          "ml-0": isShowing,
-          "-ml-52": !isShowing,
+          "md:ml-0": isShowing,
+          "md:-ml-52": !isShowing,
+          "translate-x-[-100%] md:translate-x-0": !isShowing,
         }
       )}
     >
