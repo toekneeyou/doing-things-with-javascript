@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import useViewport from "../hooks/useViewport";
 
 const SideNavigationValueContext = createContext<SideNavigationValue | null>(
   null
@@ -50,7 +51,10 @@ const SideNavigationActionProvider = ({
 export default function SideNavigationContextProvider({
   children,
 }: SideNavigationContextProviderProps) {
-  const [isShowing, setIsShowing] = useState(true);
+  const viewportSize = useViewport();
+  const [isShowing, setIsShowing] = useState(
+    viewportSize === "lg" || viewportSize === "xl" || viewportSize === "xxl"
+  );
 
   const actions = useMemo(
     () => ({
