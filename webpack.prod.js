@@ -4,9 +4,17 @@ const TerserPlugin = require("terser-webpack-plugin");
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
+const path = require("path");
 
 module.exports = merge(common, {
   mode: "production",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].[contenthash].js",
+    publicPath: "/",
+    clean: true, // Automatically clean the output directory before each build
+  },
   module: {
     rules: [
       {
@@ -27,6 +35,14 @@ module.exports = merge(common, {
       new TerserPlugin(), // minimizes JS with terser. Use only in prod
       // new BundleAnalyzerPlugin(), // used for bundle analysis
       new MiniCssExtractPlugin(), // Extracts CSS into separate files for better caching and parallel loading.
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.resolve(__dirname, "public"), // Source folder
+            to: path.resolve(__dirname, "dist"), // Destination folder
+          },
+        ],
+      }),
     ],
     splitChunks: {
       chunks: "all", // Apply to all chunks (async and non-async)
