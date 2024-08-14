@@ -1,10 +1,10 @@
+import { useRef, useState } from "react";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
 import Button from "../../components/button/Button";
-import DebounceOptions from "./DebounceOptions";
-import { useRef, useState } from "react";
 import Modal from "../../components/modal/Modal";
+import ThrottleOptions from "./ThrottleOptions";
 
-export default function DebounceOptionsModal() {
+export default function ThrottleOptionsModal() {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +23,7 @@ export default function DebounceOptionsModal() {
       </Button>
       {isOpen && (
         <Modal isOpen={isOpen} handleClose={closeModal}>
-          <DebounceOptions />
+          <ThrottleOptions />
         </Modal>
       )}
     </div>

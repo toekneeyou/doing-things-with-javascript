@@ -5,6 +5,7 @@ import {
   useThrottleActionContext,
   useThrottleStateContext,
 } from "../../context/ThrottleContext";
+import VisualizationOptionsPanel from "../../layouts/visualizationLayout/VisualizationOptionsPanel";
 
 export default function ThrottleOptions() {
   const { wait, isLeading, isTrailing } = useThrottleStateContext();
@@ -12,7 +13,7 @@ export default function ThrottleOptions() {
     useThrottleActionContext();
 
   return (
-    <>
+    <VisualizationOptionsPanel>
       <InputGroup
         type="number"
         name="wait"
@@ -41,6 +42,6 @@ export default function ThrottleOptions() {
         onChange={handleTrailing}
         switchGroupClassName="flex items-center gap-x-standard"
       />
-    </>
+    </VisualizationOptionsPanel>
   );
 }
