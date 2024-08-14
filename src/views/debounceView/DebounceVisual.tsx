@@ -14,6 +14,7 @@ const DebounceVisual = ({ optionsModal }: DebounceVisualProps) => {
   const [inputString, setInputString] = useState("");
   const [result, setResult] = useState(inputString);
   const { isLeading, isTrailing, wait } = useDebounceStateContext();
+  const [isWaiting, setIsWaiting] = useState(false);
 
   const debouncedSetResult = useCallback(
     debounce(
@@ -37,6 +38,7 @@ const DebounceVisual = ({ optionsModal }: DebounceVisualProps) => {
               progressEl.classList.remove("animate-slideRight");
             }
           }
+          setIsWaiting(newIsWaiting);
         },
       }
     ),
@@ -74,7 +76,11 @@ const DebounceVisual = ({ optionsModal }: DebounceVisualProps) => {
           />
         </div>
 
-        <DebounceResult result={result} ref={progressRef} />
+        <DebounceResult
+          result={result}
+          ref={progressRef}
+          isWaiting={isWaiting}
+        />
       </div>
     </div>
   );
