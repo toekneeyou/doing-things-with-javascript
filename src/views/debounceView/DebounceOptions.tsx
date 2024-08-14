@@ -5,6 +5,7 @@ import {
   useDebounceActionContext,
   useDebounceStateContext,
 } from "../../context/DebounceContext";
+import VisualizationOptionsPanel from "../../layouts/visualizationLayout/VisualizationOptionsPanel";
 
 export default function DebounceOptions() {
   const { wait, isLeading, isTrailing } = useDebounceStateContext();
@@ -12,7 +13,7 @@ export default function DebounceOptions() {
     useDebounceActionContext();
 
   return (
-    <>
+    <VisualizationOptionsPanel>
       <InputGroup
         type="number"
         name="wait"
@@ -41,6 +42,6 @@ export default function DebounceOptions() {
         onChange={handleTrailing}
         switchGroupClassName="flex items-center gap-x-standard"
       />
-    </>
+    </VisualizationOptionsPanel>
   );
 }

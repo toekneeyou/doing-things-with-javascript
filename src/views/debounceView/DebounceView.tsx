@@ -4,6 +4,7 @@ import DebounceVisual from "./DebounceVisual";
 import DebounceContextProvider from "../../context/DebounceContext";
 import { useViewportStateContext } from "../../context/ViewportContext";
 import { lazy, Suspense } from "react";
+import VisualizationInfo from "../../layouts/visualizationLayout/VisualizationInfo";
 
 const DebounceOptionsModal = lazy(() => import("./DebounceOptionsModal"));
 
@@ -11,14 +12,21 @@ export function DebounceView() {
   return (
     <DebounceContextProvider>
       <VisualizationLayout
-        title="Debounce"
-        description={<DebounceDescription />}
-        moreInfo={<DebounceInfo />}
-        options={<DebounceOptions />}
-      >
-        <DebounceVisual optionsModal={<LazyDebounceOptionsModal />} />
-      </VisualizationLayout>
+        infoPanel={<DebounceInfoPanel />}
+        optionsPanel={<DebounceOptions />}
+        visual={<DebounceVisual optionsModal={<LazyDebounceOptionsModal />} />}
+      />
     </DebounceContextProvider>
+  );
+}
+
+function DebounceInfoPanel() {
+  return (
+    <VisualizationInfo
+      title="Debounce"
+      description={<DebounceDescription />}
+      moreInfo={<DebounceInfo />}
+    />
   );
 }
 
