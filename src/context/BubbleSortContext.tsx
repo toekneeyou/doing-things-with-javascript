@@ -80,7 +80,7 @@ export default function BubbleSortContextProvider({
   const [unsortedArray, setUnsortedArray] = useState<BubbleSortBar[]>(
     createArray(NUM_OF_ELEMENTS, MAX_VALUE)
   );
-  const [arrayKey, setArrayKey] = useState(1);
+  const [arrayKey, setArrayKey] = useState(1); // this is used to create a brand new array
   // sorting logic below
   const [isAutoSort, setIsAutoSorting] = useState(false);
   const [isSorted, setIsSorted] = useState(false);
@@ -105,6 +105,21 @@ export default function BubbleSortContextProvider({
    */
   const handleSort = useCallback(
     async (localI: number, localJ: number, isManual: boolean) => {
+      const makeElYellow = (el: HTMLLIElement) => {
+        el.classList.remove("bg-white");
+        el.classList.add("bg-app-yellow");
+      };
+
+      const makeElWhite = (el: HTMLLIElement) => {
+        el.classList.remove("bg-app-yellow");
+        el.classList.add("bg-white");
+      };
+
+      const makeElGray = (el: HTMLLIElement) => {
+        el.classList.remove("bg-white", "bg-app-yellow");
+        el.classList.add("bg-gray-600");
+      };
+
       const array = unsortedArrayCopy.current;
       const bubbleSortChart = bubbleSortChartRef.current!;
       // Don't interupt!
@@ -114,11 +129,10 @@ export default function BubbleSortContextProvider({
       // find curr and next el
       const curr = array.find((item) => item.position === localJ)!;
       const next = array.find((item) => item.position === localJ + 1)!;
-      // update colors
+      // make currEl yellow
       let currEl = bubbleSortChart.getElement(curr.originalPosition)!;
-      currEl.classList.remove("bg-white");
-      currEl.classList.add("bg-app-yellow");
-      // once colors are set, should wait a little for user to see which bar is the current bar
+      makeElYellow(currEl);
+      // once colors are set, wait a little for user to see which bar is the current bar
       if (!isManual || (isManual && localJ === 0)) {
         await wait(SORT_SPEED / speedRef.current);
       }
@@ -141,11 +155,9 @@ export default function BubbleSortContextProvider({
         }
         // no swapping necessary
         // update colors
-        currEl.classList.add("bg-white");
-        currEl.classList.remove("bg-app-yellow");
+        makeElWhite(currEl);
         currEl = bubbleSortChart.getElement(next.originalPosition);
-        currEl.classList.remove("bg-white");
-        currEl.classList.add("bg-app-yellow");
+        makeElYellow(currEl);
       }
       // update last element we're done looping through j
       const isEndOfIteration = localJ === array.length - 2 - localI;
@@ -155,25 +167,27 @@ export default function BubbleSortContextProvider({
       }
 
       setUnsortedArray([...array]);
+
       if (isEndOfIteration) {
-        currEl.classList.remove("bg-white", "bg-app-yellow");
-        currEl.classList.add("bg-gray-600");
+        makeElGray(currEl);
       }
+
       // update i, j
       const newJ = isEndOfIteration ? 0 : localJ + 1;
       let newI = isEndOfIteration ? localI + 1 : localI;
       const isFinishedSorting = newI >= array.length - 1;
+      setJ(newJ);
+      setI(newI);
+
       if (isFinishedSorting) {
         // make the last el gray
         const finalNum = unsortedArray.find((item) => item.position === 0)!;
         const finalEl = bubbleSortChart.getElement(finalNum.originalPosition)!;
-        finalEl.classList.remove("bg-white", "bg-app-yellow");
-        finalEl.classList.add("bg-gray-600");
+        makeElGray(finalEl);
+        // update state
         setIsSorted(true);
         setIsAutoSorting(false);
       }
-      setJ(newJ);
-      setI(newI);
       // can interupt now
       doNotInteruptManualSort.current = false;
     },
