@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { classnames } from "../../util/classnames";
-import Button from "../../components/Button";
+import Button from "../../components/button/Button";
 import {
   useSideNavigationActionContext,
   useSideNavigationValueContext,
@@ -9,17 +9,19 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import VerticalDivider from "../../components/verticalDivider/VerticalDivider";
 
 export default function Header() {
-  const { isShowing } = useSideNavigationValueContext();
-
   return (
     <header
       className={classnames(
         "header",
         "fixed left-0 top-0",
-        "flex items-center h-16 px-4 gap-x-standard z-50"
+        "flex items-center h-16 px-4 gap-x-standard z-50",
+        [
+          "w-full justify-between flex-row-reverse bg-app-dark-blue",
+          "lg:flex-row lg:justify-start lg:bg-transparent",
+        ]
       )}
     >
-      <ToggleMenuButton isShowing={isShowing} />
+      <ToggleMenuButton />
 
       <VerticalDivider className="mr-2" />
 
@@ -28,12 +30,9 @@ export default function Header() {
   );
 }
 
-interface ToggleMenuButtonProps {
-  isShowing: boolean;
-}
-
-function ToggleMenuButton({ isShowing }: ToggleMenuButtonProps) {
+function ToggleMenuButton({}) {
   const { toggleSideNavigation } = useSideNavigationActionContext();
+  const { isShowing } = useSideNavigationValueContext();
 
   return (
     <Button
