@@ -15,6 +15,7 @@ import useBubbleSortSpeed, {
   SORT_SPEED,
 } from "../views/bubbleSortView/useBubbleSortSpeed";
 import wait from "../util/wait";
+import { BubbleSortChartHandle } from "../views/bubbleSortView/BubbleSortChart";
 
 interface BSArrayStateContextValue {
   unsortedArray: BubbleSortBar[];
@@ -27,7 +28,7 @@ interface BSArrayActionContextValue {
 }
 
 interface BSRefContextValue {
-  bubbleSortChartRef: MutableRefObject<HTMLDivElement | null>;
+  bubbleSortChartRef: MutableRefObject<BubbleSortChartHandle | null>;
   speedRef: MutableRefObject<number>;
   speedButtonRef: MutableRefObject<HTMLButtonElement | null>;
 }
@@ -88,7 +89,7 @@ export default function BubbleSortContextProvider({
   const { speedRef, speedButtonRef, calculateSpeed } = useBubbleSortSpeed();
   const doNotInteruptManualSort = useRef(false); // prevents next from being called while bars are still animating
   const isEarlyTermination = useRef(false);
-  const bubbleSortChartRef = useRef<HTMLDivElement | null>(null);
+  const bubbleSortChartRef = useRef<BubbleSortChartHandle>(null);
   const unsortedArrayCopy = useRef(unsortedArray);
 
   /**
@@ -105,19 +106,16 @@ export default function BubbleSortContextProvider({
   const handleSort = useCallback(
     async (localI: number, localJ: number, isManual: boolean) => {
       const array = unsortedArrayCopy.current;
+      const bubbleSortChart = bubbleSortChartRef.current!;
       // Don't interupt!
       doNotInteruptManualSort.current = true;
       // Don't need to terminate prematurely
       isEarlyTermination.current = false;
-      // reset bar colors if any
-      //   let previousEl = previousElRef.current;
-      //   previousEl?.classList.add("bg-white");
-      //   previousEl?.classList.remove("bg-app-yellow");
       // find curr and next el
       const curr = array.find((item) => item.position === localJ)!;
       const next = array.find((item) => item.position === localJ + 1)!;
       // update colors
-      let currEl = document.getElementById(`bubble-${curr.originalPosition}`)!;
+      let currEl = bubbleSortChart.getElement(curr.originalPosition)!;
       currEl.classList.remove("bg-white");
       currEl.classList.add("bg-app-yellow");
       // once colors are set, should wait a little for user to see which bar is the current bar
@@ -145,7 +143,7 @@ export default function BubbleSortContextProvider({
         // update colors
         currEl.classList.add("bg-white");
         currEl.classList.remove("bg-app-yellow");
-        currEl = document.getElementById(`bubble-${next.originalPosition}`)!;
+        currEl = bubbleSortChart.getElement(next.originalPosition);
         currEl.classList.remove("bg-white");
         currEl.classList.add("bg-app-yellow");
       }
@@ -168,9 +166,7 @@ export default function BubbleSortContextProvider({
       if (isFinishedSorting) {
         // make the last el gray
         const finalNum = unsortedArray.find((item) => item.position === 0)!;
-        const finalEl = document.getElementById(
-          `bubble-${finalNum.originalPosition}`
-        )!;
+        const finalEl = bubbleSortChart.getElement(finalNum.originalPosition)!;
         finalEl.classList.remove("bg-white", "bg-app-yellow");
         finalEl.classList.add("bg-gray-600");
         setIsSorted(true);

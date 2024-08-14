@@ -1,3 +1,4 @@
+import { Ref, useImperativeHandle, useRef } from "react";
 import {
   useBSArrayStateContext,
   useBSRefContext,
@@ -6,15 +7,31 @@ import { classnames } from "../../util/classnames";
 import { SORT_SPEED } from "./useBubbleSortSpeed";
 
 interface BubbleSortChartProps {}
+export interface BubbleSortChartHandle {
+  getElement: (originalPosition: number) => HTMLLIElement;
+}
 
 export default function BubbleSortChart({}: BubbleSortChartProps) {
   const { arrayKey, unsortedArray } = useBSArrayStateContext();
   const { bubbleSortChartRef, speedRef } = useBSRefContext();
+  const localBubbleSortChartRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(bubbleSortChartRef as Ref<unknown>, () => {
+    const bubbleSortChart = localBubbleSortChartRef.current!;
+    const bubbleSortChartHandle: BubbleSortChartHandle = {
+      getElement(originalPosition: number) {
+        return bubbleSortChart.querySelector(
+          `#${createId(originalPosition)}`
+        ) as HTMLLIElement;
+      },
+    };
+    return bubbleSortChartHandle;
+  });
 
   return (
     <div
       className="p-4 pb-0 rounded-xl bg-app-dark-blue"
-      ref={bubbleSortChartRef}
+      ref={localBubbleSortChartRef}
     >
       <ul
         className={classnames(
@@ -25,7 +42,7 @@ export default function BubbleSortChart({}: BubbleSortChartProps) {
         {unsortedArray.map((item) => {
           return (
             <li
-              id={`bubble-${item.originalPosition}`}
+              id={createId(item.originalPosition)}
               key={`${arrayKey}-${item.originalPosition}`}
               style={{
                 height: `${item.value}%`,
@@ -42,3 +59,5 @@ export default function BubbleSortChart({}: BubbleSortChartProps) {
     </div>
   );
 }
+
+const createId = (originalPosition: number) => `bubble-${originalPosition}`;
