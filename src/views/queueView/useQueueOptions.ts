@@ -2,41 +2,23 @@ import { useState } from "react";
 
 export default function useQueueOptions({ maxLength }: { maxLength: number }) {
   const [queue, setQueue] = useState<number[]>([]);
-  const [num, setNum] = useState(1);
 
   const enqueue = () => {
-    if (size() < maxLength) {
-      setQueue((p) => [...p, Number(num)]);
-      setNum((p) => p + 1);
-    }
+    setQueue((prevQueue) => {
+      const last = prevQueue[prevQueue.length - 1] ?? 0;
+      const newQueue = [...prevQueue, last + 1];
+      return newQueue;
+    });
   };
 
   const dequeue = () => {
-    let firstItem: number | undefined;
-    setQueue((p) => {
-      firstItem = p.shift();
-      return [...p];
+    setQueue((prevQueue) => {
+      return prevQueue.slice(1) ?? [];
     });
-    return firstItem;
-  };
-
-  const front = () => {
-    if (!isEmpty()) {
-      return queue[0];
-    }
-  };
-
-  const size = () => {
-    return queue.length;
-  };
-
-  const isEmpty = () => {
-    return size() === 0;
   };
 
   const clear = () => {
     setQueue([]);
   };
-
-  return { queue, enqueue, dequeue, front, size, isEmpty, clear };
+  return { queue, enqueue, dequeue, clear };
 }
