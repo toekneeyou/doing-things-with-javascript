@@ -7,6 +7,7 @@ import {
 } from "../../context/SideNavigationContext";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import VerticalDivider from "../../components/verticalDivider/VerticalDivider";
+import { useCallback } from "react";
 
 export default function Header() {
   return (
@@ -34,18 +35,19 @@ function ToggleMenuButton({}) {
   const { toggleSideNavigation } = useSideNavigationActionContext();
   const { isShowing } = useSideNavigationValueContext();
 
+  const Icon = useCallback(
+    (props?: any) =>
+      isShowing ? <XMarkIcon {...props} /> : <Bars3Icon {...props} />,
+    [isShowing]
+  );
+
   return (
     <Button
       className="toggle-menu-button"
       onClick={toggleSideNavigation}
       variant="icon"
-    >
-      {isShowing ? (
-        <XMarkIcon className="size-6 text-app-yellow" />
-      ) : (
-        <Bars3Icon className="size-6 text-app-yellow" />
-      )}
-    </Button>
+      icon={Icon}
+    />
   );
 }
 
