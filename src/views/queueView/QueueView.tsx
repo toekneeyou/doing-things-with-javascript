@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import VisualizationInfo from "../../layouts/visualizationLayout/VisualizationInfo";
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
 import QueueVisual from "./QueueVisual";
