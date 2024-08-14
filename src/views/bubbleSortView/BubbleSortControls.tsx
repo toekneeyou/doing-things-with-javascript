@@ -51,12 +51,10 @@ function SortButton() {
     />
   );
 }
-
+const RefreshIcon = (props?: any) => <ArrowPathIcon {...props} />;
 function RefreshButton() {
   const { isAutoSort } = useBSSortStatusContext();
   const { handleRefresh } = useBSArrayActionContext();
-  const RefreshIcon = (props?: any) => <ArrowPathIcon {...props} />;
-
   return (
     <Button
       onClick={handleRefresh}
@@ -67,12 +65,10 @@ function RefreshButton() {
   );
 }
 
+const NextIcon = (props?: any) => <ForwardIcon {...props} />;
 function NextIterationButton() {
   const { isAutoSort, isSorted } = useBSSortStatusContext();
   const { nextIteration } = useBSManualSortContext();
-
-  const NextIcon = (props?: any) => <ForwardIcon {...props} />;
-
   return (
     <Button
       onClick={nextIteration}

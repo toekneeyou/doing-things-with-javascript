@@ -77,10 +77,6 @@ function QueueControls({
   isEmpty,
   isFull,
 }: QueueControlsProps) {
-  const EnqueueIcon = (props?: any) => <PlusIcon {...props} />;
-  const DequeueIcon = (props?: any) => <MinusIcon {...props} />;
-  const ClearIcon = (props?: any) => <XMarkIcon {...props} />;
-
   return (
     <ul
       className={classnames(
@@ -89,37 +85,74 @@ function QueueControls({
       )}
     >
       <li className="w-full">
-        <Button
-          className="w-full"
-          onClick={enqueue}
-          disabled={isFull}
-          iconLeft={EnqueueIcon}
-        >
-          Enqueue
-        </Button>
+        <EnqueueButton enqueue={enqueue} isDisabled={isFull} />
       </li>
-
       <li className="w-full">
-        <Button
-          className="w-full"
-          onClick={dequeue}
-          disabled={isEmpty}
-          iconLeft={DequeueIcon}
-        >
-          Dequeue
-        </Button>
+        <DequeueButton dequeue={dequeue} isDisabled={isEmpty} />
       </li>
-
       <li className="w-full">
-        <Button
-          className="w-full"
-          onClick={clear}
-          disabled={isEmpty}
-          iconLeft={ClearIcon}
-        >
-          Clear
-        </Button>
+        <ClearButton clear={clear} isDisabled={isEmpty} />
       </li>
     </ul>
+  );
+}
+
+const EnqueueIcon = (props?: any) => <PlusIcon {...props} />;
+function EnqueueButton({
+  enqueue,
+  isDisabled,
+}: {
+  enqueue: () => void;
+  isDisabled: boolean;
+}) {
+  return (
+    <Button
+      className="w-full"
+      onClick={enqueue}
+      disabled={isDisabled}
+      iconLeft={EnqueueIcon}
+    >
+      Enqueue
+    </Button>
+  );
+}
+
+const DequeueIcon = (props?: any) => <MinusIcon {...props} />;
+function DequeueButton({
+  dequeue,
+  isDisabled,
+}: {
+  dequeue: () => void;
+  isDisabled: boolean;
+}) {
+  return (
+    <Button
+      className="w-full"
+      onClick={dequeue}
+      disabled={isDisabled}
+      iconLeft={DequeueIcon}
+    >
+      Dequeue
+    </Button>
+  );
+}
+
+const ClearIcon = (props?: any) => <XMarkIcon {...props} />;
+function ClearButton({
+  clear,
+  isDisabled,
+}: {
+  clear: () => void;
+  isDisabled: boolean;
+}) {
+  return (
+    <Button
+      className="w-full"
+      onClick={clear}
+      disabled={isDisabled}
+      iconLeft={ClearIcon}
+    >
+      Clear
+    </Button>
   );
 }
