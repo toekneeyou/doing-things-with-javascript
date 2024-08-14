@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { homeRoute, reactRouterRoutes } from "./services/routes";
+import { StrictMode } from "react";
 
 const Home = homeRoute.element!;
 
@@ -16,4 +17,8 @@ const router = createBrowserRouter([
 const domNode = document.getElementById("root")!;
 const root = createRoot(domNode);
 
-root.render(<RouterProvider router={router} />);
+root.render(
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>
+);
