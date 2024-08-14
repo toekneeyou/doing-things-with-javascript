@@ -22,7 +22,7 @@ const TallArray = forwardRef(({ array }: TallArrayProps, ref) => {
           return tallArray.querySelectorAll(".tall-array__item");
         },
         getChild(num: number) {
-          return tallArray.querySelector(`#array-${num}`) as HTMLLIElement;
+          return tallArray.querySelector(`#${createId(num)}`) as HTMLLIElement;
         },
       };
       return tallArrayHandle;
@@ -42,7 +42,7 @@ const TallArray = forwardRef(({ array }: TallArrayProps, ref) => {
         return (
           <li
             key={num}
-            id={`array-${num}`}
+            id={createId(num)}
             className="tall-array__item transition-transform transition-setting w-full centered h-10 bg-app-faded-blue z-[1]"
           >
             {num}
@@ -62,3 +62,5 @@ const TallArray = forwardRef(({ array }: TallArrayProps, ref) => {
 });
 
 export default TallArray;
+
+const createId = (num: number) => `array-${num}`;
