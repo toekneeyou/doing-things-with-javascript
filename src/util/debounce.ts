@@ -1,4 +1,4 @@
-type DebounceOptions = {
+export type DebounceOptions = {
   isLeading?: boolean;
   isTrailing?: boolean;
   isCancellable?: boolean;

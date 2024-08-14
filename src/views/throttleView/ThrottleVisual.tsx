@@ -4,11 +4,15 @@ import ThrottleProgress from "./ThrottleProgress";
 import Card from "../../features/card/Card";
 import Badge from "../../features/badge/Badge";
 import { classnames } from "../../util/classnames";
-import Button from "../../components/Button";
+import Button from "../../components/button/Button";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import throttle from "../../util/throttle";
 
-export default function ThrottleVisual() {
+interface ThrottleVisualProps {
+  optionsModal: JSX.Element;
+}
+
+export default function ThrottleVisual({ optionsModal }: ThrottleVisualProps) {
   const [count, setCount] = useState(0);
   const [throttledCount, setThrottledCount] = useState(0);
   const [isWaiting, setIsWaiting] = useState(false);
@@ -44,9 +48,12 @@ export default function ThrottleVisual() {
     });
   };
 
+  const IncrementIcon = (props?: any) => <PlusIcon {...props} />;
+
   return (
     <div className="w-full h-full centered flex-col gap-y-4">
       <div className="w-[528px] space-y-4">
+        {optionsModal}
         <div className="centered gap-x-standard">
           <div>0ms</div>
           <ThrottleProgress
@@ -75,9 +82,8 @@ export default function ThrottleVisual() {
             onClick={handleIncrement}
             className="absolute left-[15.125rem] top-12"
             variant="icon-filled"
-          >
-            <PlusIcon className="size-6" />
-          </Button>
+            iconLeft={IncrementIcon}
+          />
 
           <Card cardClassName="w-64" title={<h2>Throttled Count</h2>}>
             <div className="centered h-44">

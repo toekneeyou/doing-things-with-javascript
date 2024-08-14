@@ -1,39 +1,50 @@
 import { forwardRef, LegacyRef, ReactNode } from "react";
-import { classnames } from "../util/classnames";
+import { classnames } from "../../util/classnames";
 import {
   darkBlue,
   error,
   fadedBlue,
   slateBlue,
   yellow,
-} from "../../tailwind.config";
+} from "../../../tailwind.config";
+import useButtonIcon from "./useButtonIcon";
+
+export type ButtonVariant =
+  | "filled"
+  | "outlined"
+  | "text"
+  | "icon-filled"
+  | "icon-outlined"
+  | "icon";
+
+export type ButtonColor =
+  | typeof yellow
+  | typeof slateBlue
+  | typeof error
+  | typeof darkBlue
+  | typeof fadedBlue
+  | "white";
 
 export interface ButtonProps
   extends React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  children: ReactNode;
+  iconLeft?: (props?: any) => JSX.Element;
+  iconRight?: (props?: any) => JSX.Element;
+  icon?: (props?: any) => JSX.Element;
+  children?: ReactNode;
   className?: string;
-  variant?:
-    | "filled"
-    | "outlined"
-    | "text"
-    | "icon-filled"
-    | "icon-outlined"
-    | "icon";
-  color?:
-    | typeof yellow
-    | typeof slateBlue
-    | typeof error
-    | typeof darkBlue
-    | typeof fadedBlue
-    | "white";
+  variant?: ButtonVariant;
+  color?: ButtonColor;
 }
 
 const Button = forwardRef(
   (
     {
+      iconLeft,
+      iconRight,
+      icon,
       children,
       className,
       variant = "filled",
@@ -42,6 +53,10 @@ const Button = forwardRef(
     }: ButtonProps,
     ref: LegacyRef<HTMLButtonElement>
   ) => {
+    const LeftIcon = useButtonIcon(iconLeft, { variant, color });
+    const RightIcon = useButtonIcon(iconRight, { variant, color });
+    const Icon = useButtonIcon(icon, { variant, color });
+
     const isFilled = variant === "filled" || variant === "icon-filled";
     const isBordered = variant === "outlined" || variant === "icon-outlined";
     const isText = variant === "text";
@@ -56,6 +71,7 @@ const Button = forwardRef(
         className={classnames(
           "button",
           "centered  border-2 border-app rounded-full whitespace-nowrap text-app-dark-blue font-semibold transition-transform",
+          "hover:contrast-125",
           "disabled:pointer-events-none disabled:grayscale disabled:opacity-50",
           "active:translate-y-1 active:scale-[.99]",
           { "gap-x-2 h-10 px-4": !isIcon, "h-10 w-10": isIcon },
@@ -93,7 +109,9 @@ const Button = forwardRef(
         )}
         {...buttonAttributes}
       >
-        {children}
+        {LeftIcon}
+        {isIcon ? Icon : children}
+        {RightIcon}
       </button>
     );
   }

@@ -2,11 +2,11 @@ import { classnames } from "../../util/classnames";
 import { ReactNode } from "react";
 
 interface VisualizationOptionsPanelProps {
-  options: ReactNode;
+  children: ReactNode;
 }
 
 export default function VisualizationOptionsPanel({
-  options,
+  children,
 }: VisualizationOptionsPanelProps) {
   return (
     <div
@@ -21,7 +21,7 @@ export default function VisualizationOptionsPanel({
           "centered gap-x-6 h-16"
         )}
       >
-        {options}
+        {children}
       </form>
     </div>
   );

@@ -1,23 +1,16 @@
-import { Outlet, useLocation } from "react-router-dom";
-
-import { classnames } from "./util/classnames";
-import SideNavigation from "./features/sideNavigation/SideNavigation";
-import { homeRoute } from "./services/routes";
-import HomeView from "./views/homeView/HomeView";
 import SideNavigationContextProvider from "./context/SideNavigationContext";
+import ViewportContextProvider from "./context/ViewportContext";
 import Header from "./features/header/Header";
-import Modal from "./components/modal/Modal";
-import ModalContextProvider from "./context/ModalContext";
+import SideNavigation from "./features/sideNavigation/SideNavigation";
+import Main from "./Main";
+import { classnames } from "./util/classnames";
 
 import "./main.css";
 
 export default function App() {
-  const location = useLocation();
-  const isHome = location.pathname === homeRoute.path;
-
   return (
-    <SideNavigationContextProvider>
-      <ModalContextProvider>
+    <ViewportContextProvider>
+      <SideNavigationContextProvider>
         <div
           className={classnames(
             "app",
@@ -29,15 +22,10 @@ export default function App() {
           }}
         >
           <Header />
-
           <SideNavigation />
-          <main className="flex-grow overflow-hidden">
-            {isHome && <HomeView />}
-            <Outlet />
-          </main>
+          <Main />
         </div>
-        <Modal />
-      </ModalContextProvider>
-    </SideNavigationContextProvider>
+      </SideNavigationContextProvider>
+    </ViewportContextProvider>
   );
 }

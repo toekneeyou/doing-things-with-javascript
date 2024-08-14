@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
+import Button from "../../components/button/Button";
 import { reactRouterRoutes } from "../../services/routes";
 import { ChangeEventHandler, useState } from "react";
 import Search from "../../features/search/Search";
@@ -26,13 +26,14 @@ export default function HomeView() {
   return (
     <div className={classnames("home-view", "h-full w-full centered")}>
       <div className="centered flex-col -mt-20">
-        <h1 className="mb-8 font-bold text-center">
-          <span className="text-6xl inline-block mb-2">Doing Things with</span>
-          <br />
-          <strong className="text-app-yellow text-8xl">JavaScript</strong>
-        </h1>
-
-        <div className="w-full flex items-center gap-x-standard">
+        <Title />
+        <div
+          className={classnames(
+            "w-full flex items-center gap-x-standard",
+            "gap-y-8 lg:gap-y-0 lg:gap-x-standard",
+            "flex-col lg:flex-row"
+          )}
+        >
           <Search
             handleChange={handleChange}
             queryString={queryString}
@@ -42,5 +43,19 @@ export default function HomeView() {
         </div>
       </div>
     </div>
+  );
+}
+
+function Title() {
+  return (
+    <h1 className="mb-8 font-bold text-center">
+      <span className={classnames("inline-block mb-2", "text-3xl lg:text-6xl")}>
+        Doing Things with
+      </span>
+      <br />
+      <strong className="text-app-yellow text-5xl lg:text-8xl">
+        JavaScript
+      </strong>
+    </h1>
   );
 }

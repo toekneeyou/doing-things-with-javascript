@@ -1,59 +1,45 @@
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import TallArray from "../../features/tallArray/TallArray";
 import { classnames } from "../../util/classnames";
-import useQueueOptions from "./useQueueOptions";
 import throttle from "../../util/throttle";
-import Button from "../../components/Button";
+import Button from "../../components/button/Button";
 import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import wait from "../../util/wait";
+import useQueueOptions from "./useQueueOptions";
 
-const MAX_STACK_LENGTH = 8;
+const MAX_QUEUE_LENGTH = 8;
 
 export default function QueueVisual() {
   const queueContainerRef = useRef<HTMLUListElement>(null);
-  const { queue, enqueue, dequeue, isEmpty, clear } = useQueueOptions({
-    maxLength: MAX_STACK_LENGTH,
-  });
+  const { queue, enqueue, dequeue, clear } = useQueueOptions();
 
-  const handleClear = () => {
-    const queueContainerEl = queueContainerRef.current;
-    if (queueContainerEl) {
-      const items = queueContainerEl.querySelectorAll("li");
-      let delay = 0;
+  const animateDequeue = async () => {
+    const firstEl = document.getElementById(`array-${queue[0]}`);
+    if (firstEl) {
+      firstEl.style.transform = "translateX(100%)";
+      firstEl.style.transitionDuration = "225ms";
+      await wait(250);
+      dequeue();
+    }
+  };
 
+  const throttledDequeue = throttle(animateDequeue, 500);
+
+  const animateClear = async () => {
+    const items = document.querySelectorAll(".tall-array__item");
+    let delay = 0;
+    if (items) {
       for (let i = 0; i < items.length; i++) {
         const liEl = items[i] as HTMLLIElement;
         liEl.style.transform = "translateX(100%)";
         liEl.style.transitionDelay = `${delay}ms`;
         delay += 50;
       }
-
-      setTimeout(() => {
-        clear();
-      }, delay + 300);
     }
+    await wait(delay + 300);
+    clear();
   };
 
-  const handleDequeue = () => {
-    const firstEl = document.getElementById(`array-${queue[0]}`);
-    if (firstEl) {
-      throttleDequeue(firstEl);
-    }
-  };
-
-  const throttleDequeue = useCallback(
-    throttle(
-      (el) => {
-        el.style.transform = "translateX(100%)";
-        el.style.transitionDuration = "225ms";
-        setTimeout(() => {
-          dequeue();
-        }, 250);
-      },
-      500,
-      { isLeading: true, isTrailing: true }
-    ),
-    []
-  );
   return (
     <div
       className={classnames(
@@ -63,41 +49,75 @@ export default function QueueVisual() {
     >
       <TallArray ref={queueContainerRef} array={queue} />
 
-      <ul
-        className={classnames(
-          "queue__controls",
-          "grid grid-cols-3 gap-x-standard"
-        )}
-      >
-        <li className="w-full">
-          <Button
-            className="w-full"
-            onClick={enqueue}
-            disabled={queue.length === MAX_STACK_LENGTH}
-          >
-            <PlusIcon className="size-6" />
-            Enqueue
-          </Button>
-        </li>
-
-        <li className="w-full">
-          <Button
-            className="w-full"
-            onClick={handleDequeue}
-            disabled={isEmpty()}
-          >
-            <MinusIcon className="size-6" />
-            Dequeue
-          </Button>
-        </li>
-
-        <li className="w-full">
-          <Button className="w-full" onClick={handleClear} disabled={isEmpty()}>
-            <XMarkIcon className="size-6" />
-            Clear
-          </Button>
-        </li>
-      </ul>
+      <QueueControls
+        enqueue={enqueue}
+        dequeue={throttledDequeue}
+        clear={animateClear}
+        isEmpty={queue.length === 0}
+        isFull={queue.length === MAX_QUEUE_LENGTH}
+      />
     </div>
+  );
+}
+
+interface QueueControlsProps {
+  enqueue: () => void;
+  dequeue: () => void;
+  clear: () => void;
+  isEmpty: boolean;
+  isFull: boolean;
+}
+
+function QueueControls({
+  enqueue,
+  dequeue,
+  clear,
+  isEmpty,
+  isFull,
+}: QueueControlsProps) {
+  const EnqueueIcon = (props?: any) => <PlusIcon {...props} />;
+  const DequeueIcon = (props?: any) => <MinusIcon {...props} />;
+  const ClearIcon = (props?: any) => <XMarkIcon {...props} />;
+
+  return (
+    <ul
+      className={classnames(
+        "queue__controls",
+        "grid grid-cols-3 gap-x-standard"
+      )}
+    >
+      <li className="w-full">
+        <Button
+          className="w-full"
+          onClick={enqueue}
+          disabled={isFull}
+          iconLeft={EnqueueIcon}
+        >
+          Enqueue
+        </Button>
+      </li>
+
+      <li className="w-full">
+        <Button
+          className="w-full"
+          onClick={dequeue}
+          disabled={isEmpty}
+          iconLeft={DequeueIcon}
+        >
+          Dequeue
+        </Button>
+      </li>
+
+      <li className="w-full">
+        <Button
+          className="w-full"
+          onClick={clear}
+          disabled={isEmpty}
+          iconLeft={ClearIcon}
+        >
+          Clear
+        </Button>
+      </li>
+    </ul>
   );
 }

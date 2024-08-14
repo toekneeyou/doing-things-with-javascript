@@ -1,7 +1,7 @@
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { classnames } from "../../util/classnames";
-import { debounce } from "../../util/debounce";
+import useDebounce from "../../hooks/useDebounce";
 
 type TooltipPosition = "top" | "right" | "bottom" | "left";
 
@@ -79,15 +79,12 @@ export default function Tooltip({
   }, [isOpen]);
 
   // add a short delay before closing so users can mouse over the tooltip if they want to
-  const debouncedHandleMouseLeave = useCallback(
-    debounce(
-      function () {
-        setIsOpen(false);
-      },
-      100,
-      { isLeading: false, isTrailing: true, isCancellable: true }
-    ),
-    []
+  const debouncedHandleMouseLeave = useDebounce(
+    function () {
+      setIsOpen(false);
+    },
+    100,
+    { isLeading: false, isTrailing: true, isCancellable: true }
   );
 
   const handleMouseEnter = () => {

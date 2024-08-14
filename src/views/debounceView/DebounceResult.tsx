@@ -10,12 +10,16 @@ interface DebounceResultProps {
 }
 
 const DebounceResult = forwardRef(({ result }: DebounceResultProps, ref) => (
-  <Card title={<h2 className="text-lg">Debounced Result</h2>}>
+  <Card
+    cardClassName="w-full"
+    title={<h2 className="text-lg">Debounced Result</h2>}
+  >
     <DebounceProgress ref={ref} />
     <div
       className={classnames(
         "debounce-result__content",
-        "rounded-b-xl w-96 p-4 min-h-32 centered"
+        "rounded-b-xl p-4 min-h-32 centered",
+        "w-full lg:w-96"
       )}
     >
       <p className="text-wrap" style={{ overflowWrap: "anywhere" }}>
