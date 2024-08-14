@@ -32,6 +32,9 @@ module.exports = merge(common, {
     static: {
       directory: path.join(__dirname, "public"), // Directory in which all static files are served from
     },
+    client: {
+      overlay: false,
+    },
   },
   optimization: {
     // runtimeChunk: true,
