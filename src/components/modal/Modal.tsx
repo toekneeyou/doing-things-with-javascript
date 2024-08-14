@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { classnames } from "../../util/classnames";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import Button from "../button/Button";
@@ -47,9 +47,7 @@ export default function Modal({ isOpen, children, handleClose }: ModalProps) {
 }
 
 function CloseModalButton({ onClose }: { onClose: () => void }) {
-  const Icon = useCallback((props: any) => {
-    return <XMarkIcon {...props} />;
-  }, []);
+  const Icon = (props?: any) => <XMarkIcon {...props} />;
 
   return <Button variant="icon" onClick={onClose} icon={Icon} />;
 }

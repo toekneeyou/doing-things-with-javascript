@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import TallArray from "../../features/tallArray/TallArray";
 import { classnames } from "../../util/classnames";
 import throttle from "../../util/throttle";
@@ -75,12 +75,9 @@ function QueueControls({
   isEmpty,
   isFull,
 }: QueueControlsProps) {
-  const EnqueueIcon = useCallback((props?: any) => <PlusIcon {...props} />, []);
-  const DequeueIcon = useCallback(
-    (props?: any) => <MinusIcon {...props} />,
-    []
-  );
-  const ClearIcon = useCallback((props?: any) => <XMarkIcon {...props} />, []);
+  const EnqueueIcon = (props?: any) => <PlusIcon {...props} />;
+  const DequeueIcon = (props?: any) => <MinusIcon {...props} />;
+  const ClearIcon = (props?: any) => <XMarkIcon {...props} />;
 
   return (
     <ul

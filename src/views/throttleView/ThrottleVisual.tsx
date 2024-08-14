@@ -48,10 +48,7 @@ export default function ThrottleVisual({ optionsModal }: ThrottleVisualProps) {
     });
   };
 
-  const IncrementIcon = useCallback(
-    (props?: any) => <PlusIcon {...props} />,
-    []
-  );
+  const IncrementIcon = (props?: any) => <PlusIcon {...props} />;
 
   return (
     <div className="w-full h-full centered flex-col gap-y-4">

@@ -187,16 +187,10 @@ export default function BubbleSortControls({
     speedButton.textContent = `${speedRef.current}x`;
   };
 
-  const RefreshIcon = useCallback(
-    (props?: any) => <ArrowPathIcon {...props} />,
-    []
-  );
-  const SortIcon = useCallback(
-    (props?: any) =>
-      isAutoSort ? <PauseIcon {...props} /> : <PlayIcon {...props} />,
-    [isAutoSort]
-  );
-  const NextIcon = useCallback((props?: any) => <ForwardIcon {...props} />, []);
+  const RefreshIcon = (props?: any) => <ArrowPathIcon {...props} />;
+  const SortIcon = (props?: any) =>
+    isAutoSort ? <PauseIcon {...props} /> : <PlayIcon {...props} />;
+  const NextIcon = (props?: any) => <ForwardIcon {...props} />;
 
   return (
     <div

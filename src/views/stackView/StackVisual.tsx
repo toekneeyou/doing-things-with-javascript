@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import TallArray from "../../features/tallArray/TallArray";
 import useStackOptions from "./useStackOptions";
 import Button from "../../components/button/Button";
@@ -80,9 +80,9 @@ function StackControls({
   isEmpty,
   isFull,
 }: StackControlsProps) {
-  const PushIcon = useCallback((props?: any) => <PlusIcon {...props} />, []);
-  const PopIcon = useCallback((props?: any) => <MinusIcon {...props} />, []);
-  const ClearIcon = useCallback((props?: any) => <XMarkIcon {...props} />, []);
+  const PushIcon = (props?: any) => <PlusIcon {...props} />;
+  const PopIcon = (props?: any) => <MinusIcon {...props} />;
+  const ClearIcon = (props?: any) => <XMarkIcon {...props} />;
 
   return (
     <ul
