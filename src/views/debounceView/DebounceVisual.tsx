@@ -5,7 +5,11 @@ import { debounce } from "../../util/debounce";
 import { useDebounceStateContext } from "../../context/DebounceContext";
 import DebounceResult from "./DebounceResult";
 
-export default function DebounceVisual() {
+interface DebounceVisualProps {
+  optionsModal: JSX.Element;
+}
+
+const DebounceVisual = ({ optionsModal }: DebounceVisualProps) => {
   const progressRef = useRef<HTMLDivElement>(null);
   const [inputString, setInputString] = useState("");
   const [result, setResult] = useState(inputString);
@@ -46,9 +50,18 @@ export default function DebounceVisual() {
   };
 
   return (
-    <div className={classnames("debounce-visual", "h-full w-full centered")}>
-      <div className="centered flex-col gap-y-8">
-        <div className="flex items-end space-x-2 w-96">
+    <div
+      className={classnames(
+        "debounce-visual",
+        "h-full w-full centered",
+        "p-8 lg:p-0"
+      )}
+    >
+      <div className="centered flex-col gap-y-8 w-full">
+        <div
+          className={classnames("flex items-end space-x-2", "w-full lg:w-96")}
+        >
+          {optionsModal}
           <InputGroup
             showLabel={true}
             labelPosition="top"
@@ -65,4 +78,6 @@ export default function DebounceVisual() {
       </div>
     </div>
   );
-}
+};
+
+export default DebounceVisual;
