@@ -2,10 +2,14 @@ import { Link } from "react-router-dom";
 import { classnames } from "../../util/classnames";
 import { navRoutes } from "../../services/routes";
 import Accordion from "../../components/accordion/Accordion";
-import { useSideNavigationValueContext } from "../../context/SideNavigationContext";
+import {
+  useSideNavigationActionContext,
+  useSideNavigationValueContext,
+} from "../../context/SideNavigationContext";
 
 export default function SideNavigation() {
   const { isShowing } = useSideNavigationValueContext();
+  const { toggleSideNavigation } = useSideNavigationActionContext();
 
   return (
     <nav
@@ -57,6 +61,7 @@ export default function SideNavigation() {
                           "w-full h-full flex items-center pl-8 pr-4 rounded-xl text-sm",
                           "hover:bg-slate-600"
                         )}
+                        onClick={toggleSideNavigation}
                       >
                         {child.name}
                       </Link>
