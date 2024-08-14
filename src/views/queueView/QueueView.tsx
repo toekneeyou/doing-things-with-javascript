@@ -4,9 +4,6 @@ import VisualizationLayout from "../../layouts/visualizationLayout/Visualization
 import QueueVisual from "./QueueVisual";
 
 export function QueueView() {
-  useEffect(() => {
-    console.log("unmounting QueueView");
-  }, []);
   return (
     <VisualizationLayout
       infoPanel={<QueueInfoPanel />}

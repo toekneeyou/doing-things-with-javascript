@@ -1,42 +1,23 @@
 import { useState } from "react";
 
-export default function useStackOptions({ maxLength }: { maxLength: number }) {
+export default function useStackOptions() {
   const [stack, setStack] = useState<number[]>([]);
-  const [num, setNum] = useState(1);
 
-  const push = () => {
-    if (size() < maxLength) {
-      setStack((p) => [...p, Number(num)]);
-      setNum((p) => p + 1);
-    }
+  const push = (stck: number[]) => {
+    const last = stck[stck.length - 1] ?? 0;
+    const newStack = [...stck, last + 1];
+    setStack(newStack);
   };
 
-  const pop = () => {
-    let lastItem: number | undefined;
-    setStack((p) => {
-      lastItem = p.pop();
-      return [...p];
-    });
-    return lastItem;
-  };
-
-  const peek = () => {
-    if (!isEmpty()) {
-      return stack[size() - 1];
-    }
-  };
-
-  const size = () => {
-    return stack.length;
-  };
-
-  const isEmpty = () => {
-    return size() === 0;
+  const pop = (stck: number[]) => {
+    const newStack = [...stck];
+    newStack.pop();
+    setStack(newStack);
   };
 
   const clear = () => {
     setStack([]);
   };
 
-  return { stack, push, pop, peek, size, isEmpty, clear };
+  return { stack, push, pop, clear };
 }

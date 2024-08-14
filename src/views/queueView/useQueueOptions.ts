@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function useQueueOptions({ maxLength }: { maxLength: number }) {
+export default function useQueueOptions() {
   const [queue, setQueue] = useState<number[]>([]);
 
   const enqueue = () => {

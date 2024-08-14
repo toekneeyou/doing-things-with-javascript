@@ -11,9 +11,7 @@ const MAX_QUEUE_LENGTH = 8;
 
 export default function QueueVisual() {
   const queueContainerRef = useRef<HTMLUListElement>(null);
-  const { queue, enqueue, dequeue, clear } = useQueueOptions({
-    maxLength: MAX_QUEUE_LENGTH,
-  });
+  const { queue, enqueue, dequeue, clear } = useQueueOptions();
 
   const animateDequeue = async () => {
     const firstEl = document.getElementById(`array-${queue[0]}`);
