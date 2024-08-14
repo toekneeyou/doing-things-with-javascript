@@ -19,7 +19,7 @@ const TallArray = forwardRef(({ array }: TallArrayProps, ref) => {
           <li
             key={num}
             id={`array-${num}`}
-            className="transition-transform transition-setting w-full centered h-10 bg-app-faded-blue z-[1]"
+            className="tall-array__item transition-transform transition-setting w-full centered h-10 bg-app-faded-blue z-[1]"
           >
             {num}
           </li>
