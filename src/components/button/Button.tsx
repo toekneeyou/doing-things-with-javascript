@@ -1,4 +1,4 @@
-import { forwardRef, LegacyRef, ReactNode, useMemo } from "react";
+import { forwardRef, LegacyRef, ReactNode } from "react";
 import { classnames } from "../../util/classnames";
 import {
   darkBlue,
@@ -71,6 +71,7 @@ const Button = forwardRef(
         className={classnames(
           "button",
           "centered  border-2 border-app rounded-full whitespace-nowrap text-app-dark-blue font-semibold transition-transform",
+          "hover:contrast-125",
           "disabled:pointer-events-none disabled:grayscale disabled:opacity-50",
           "active:translate-y-1 active:scale-[.99]",
           { "gap-x-2 h-10 px-4": !isIcon, "h-10 w-10": isIcon },

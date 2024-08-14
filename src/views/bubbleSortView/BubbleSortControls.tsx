@@ -126,6 +126,13 @@ export default function BubbleSortControls({
       let newI = isEndOfIteration ? localI + 1 : localI;
       const isFinishedSorting = newI >= array.length - 1;
       if (isFinishedSorting) {
+        // make the last el gray
+        const finalNum = unsortedArray.find((item) => item.position === 0)!;
+        const finalEl = document.getElementById(
+          `bubble-${finalNum.originalPosition}`
+        )!;
+        finalEl.classList.remove("bg-white", "bg-app-yellow");
+        finalEl.classList.add("bg-gray-600");
         setIsSorted(true);
         setIsAutoSorting(false);
       }
