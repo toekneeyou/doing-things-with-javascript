@@ -1,21 +1,21 @@
-import { MutableRefObject } from "react";
+import {
+  useBSArrayStateContext,
+  useBSRefContext,
+} from "../../context/BubbleSortContext";
 import { classnames } from "../../util/classnames";
-import { BubbleSortBar } from "./BubbleSortVisual";
 import { SORT_SPEED } from "./useBubbleSortSpeed";
 
-interface BubbleSortChartProps {
-  unsortedArray: BubbleSortBar[];
-  arrayKey: number;
-  speedRef: MutableRefObject<number>;
-}
+interface BubbleSortChartProps {}
 
-export default function BubbleSortChart({
-  unsortedArray,
-  arrayKey,
-  speedRef,
-}: BubbleSortChartProps) {
+export default function BubbleSortChart({}: BubbleSortChartProps) {
+  const { arrayKey, unsortedArray } = useBSArrayStateContext();
+  const { bubbleSortChartRef, speedRef } = useBSRefContext();
+
   return (
-    <div className="p-4 pb-0 rounded-xl bg-app-dark-blue">
+    <div
+      className="p-4 pb-0 rounded-xl bg-app-dark-blue"
+      ref={bubbleSortChartRef}
+    >
       <ul
         className={classnames(
           "h-72 flex items-end relative",

@@ -4,6 +4,7 @@ export const SORT_SPEED = 250;
 
 export default function useBubbleSortSpeed() {
   const speedRef = useRef(1);
+  const speedButtonRef = useRef<HTMLButtonElement>(null);
 
   const calculateSpeed = (speed: number) => {
     switch (speed) {
@@ -30,5 +31,5 @@ export default function useBubbleSortSpeed() {
     }
   };
 
-  return { speedRef, calculateSpeed };
+  return { speedRef, speedButtonRef, calculateSpeed };
 }
