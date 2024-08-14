@@ -1,17 +1,16 @@
-import { useEffect, useRef } from "react";
+import { ReactNode, useCallback, useEffect, useRef } from "react";
 import { classnames } from "../../util/classnames";
-import {
-  useModalActionContext,
-  useModalStateContext,
-} from "../../context/ModalContext";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import Button from "../Button";
+import Button from "../button/Button";
+import { createPortal } from "react-dom";
 
-interface ModalProps {}
+interface ModalProps {
+  isOpen: boolean;
+  children: ReactNode;
+  handleClose: (arg?: any) => void;
+}
 
-export default function Modal({}: ModalProps) {
-  const { isOpen, content } = useModalStateContext();
-  const { closeModal } = useModalActionContext();
+export default function Modal({ isOpen, children, handleClose }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -22,10 +21,10 @@ export default function Modal({}: ModalProps) {
     }
   }, [isOpen]);
 
-  return (
+  return createPortal(
     <dialog
       ref={dialogRef}
-      onClose={closeModal}
+      onClose={handleClose}
       className={classnames(
         "modal",
         "focus:border-none focus:outline-none bg-transparent",
@@ -37,15 +36,20 @@ export default function Modal({}: ModalProps) {
           "bg-app-dark-blue rounded-xl p-8 text-white relative"
         )}
       >
-        <Button
-          variant="icon"
-          onClick={closeModal}
-          className="absolute right-4 top-4"
-        >
-          <XMarkIcon className="size-6 text-app-yellow" />
-        </Button>
-        {content}
+        <div className="flex justify-end -mt-8 -mr-8">
+          <CloseModalButton onClose={handleClose} />
+        </div>
+        {children}
       </div>
-    </dialog>
+    </dialog>,
+    document.body
   );
+}
+
+function CloseModalButton({ onClose }: { onClose: () => void }) {
+  const Icon = useCallback((props: any) => {
+    return <XMarkIcon {...props} />;
+  }, []);
+
+  return <Button variant="icon" onClick={onClose} icon={Icon} />;
 }

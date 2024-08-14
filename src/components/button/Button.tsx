@@ -1,39 +1,50 @@
-import { forwardRef, LegacyRef, ReactNode } from "react";
-import { classnames } from "../util/classnames";
+import { forwardRef, LegacyRef, ReactNode, useMemo } from "react";
+import { classnames } from "../../util/classnames";
 import {
   darkBlue,
   error,
   fadedBlue,
   slateBlue,
   yellow,
-} from "../../tailwind.config";
+} from "../../../tailwind.config";
+import useButtonIcon from "./useButtonIcon";
+
+export type ButtonVariant =
+  | "filled"
+  | "outlined"
+  | "text"
+  | "icon-filled"
+  | "icon-outlined"
+  | "icon";
+
+export type ButtonColor =
+  | typeof yellow
+  | typeof slateBlue
+  | typeof error
+  | typeof darkBlue
+  | typeof fadedBlue
+  | "white";
 
 export interface ButtonProps
   extends React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  children: ReactNode;
+  iconLeft?: (props?: any) => JSX.Element;
+  iconRight?: (props?: any) => JSX.Element;
+  icon?: (props?: any) => JSX.Element;
+  children?: ReactNode;
   className?: string;
-  variant?:
-    | "filled"
-    | "outlined"
-    | "text"
-    | "icon-filled"
-    | "icon-outlined"
-    | "icon";
-  color?:
-    | typeof yellow
-    | typeof slateBlue
-    | typeof error
-    | typeof darkBlue
-    | typeof fadedBlue
-    | "white";
+  variant?: ButtonVariant;
+  color?: ButtonColor;
 }
 
 const Button = forwardRef(
   (
     {
+      iconLeft,
+      iconRight,
+      icon,
       children,
       className,
       variant = "filled",
@@ -42,6 +53,10 @@ const Button = forwardRef(
     }: ButtonProps,
     ref: LegacyRef<HTMLButtonElement>
   ) => {
+    const LeftIcon = useButtonIcon(iconLeft, { variant, color });
+    const RightIcon = useButtonIcon(iconRight, { variant, color });
+    const Icon = useButtonIcon(icon, { variant, color });
+
     const isFilled = variant === "filled" || variant === "icon-filled";
     const isBordered = variant === "outlined" || variant === "icon-outlined";
     const isText = variant === "text";
@@ -93,7 +108,9 @@ const Button = forwardRef(
         )}
         {...buttonAttributes}
       >
-        {children}
+        {LeftIcon}
+        {isIcon ? Icon : children}
+        {RightIcon}
       </button>
     );
   }
