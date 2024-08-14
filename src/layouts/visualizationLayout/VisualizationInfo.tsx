@@ -16,7 +16,8 @@ export default function VisualizationInfo({
     <div
       className={classnames(
         "visualization-info-panel",
-        "bg-[rgba(0,0,0,0.05)] h-full flex flex-col w-96"
+        "bg-[rgba(0,0,0,0.05)] h-full flex flex-col w-96",
+        "pt-8 lg:pt-0"
       )}
     >
       <div

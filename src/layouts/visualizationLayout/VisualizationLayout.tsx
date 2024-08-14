@@ -1,44 +1,33 @@
-import { lazy, ReactNode, Suspense } from "react";
+import { ReactNode } from "react";
 import { classnames } from "../../util/classnames";
-import VisualizationInfo from "./VisualizationInfo";
-
-const VisualizationOptionsPanel = lazy(
-  () => import("./VisualizationOptionsPanel")
-);
 
 interface VisualizationLayoutProps {
-  title: string;
-  children?: ReactNode;
-  options?: ReactNode;
-  moreInfo?: ReactNode;
-  description?: ReactNode;
+  visual?: ReactNode;
+  infoPanel?: ReactNode;
+  optionsPanel?: ReactNode;
 }
 
 export default function VisualizationLayout({
-  title,
-  children,
-  options,
-  moreInfo,
-  description,
+  visual,
+  infoPanel,
+  optionsPanel,
 }: VisualizationLayoutProps) {
   return (
     <div
       className={classnames(
         "visualization-layout",
-        "h-screen w-full flex flex-col text-sm 2xl:text-base"
+        "w-full flex flex-col text-sm 2xl:text-base",
+        "lg:h-screen lg:overflow-auto"
       )}
     >
       <div
         className={classnames(
           "visualization-layout__top",
-          "flex-grow flex overflow-hidden"
+          "flex-grow flex overflow-hidden",
+          "flex-col lg:flex-row"
         )}
       >
-        <VisualizationInfo
-          title={title}
-          description={description}
-          moreInfo={moreInfo}
-        />
+        {infoPanel}
 
         <div
           className={classnames(
@@ -46,15 +35,11 @@ export default function VisualizationLayout({
             "flex-grow flex flex-col bg-[rgba(0,0,0,0.2)]"
           )}
         >
-          {children}
+          {visual}
         </div>
       </div>
 
-      <Suspense>
-        {options !== undefined && (
-          <VisualizationOptionsPanel options={options} />
-        )}
-      </Suspense>
+      {optionsPanel}
     </div>
   );
 }
