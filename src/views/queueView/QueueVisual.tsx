@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import TallArray from "../../features/tallArray/TallArray";
+import TallArray, { TallArrayHandle } from "../../features/tallArray/TallArray";
 import { classnames } from "../../util/classnames";
 import throttle from "../../util/throttle";
 import Button from "../../components/button/Button";
@@ -10,11 +10,12 @@ import useQueueOptions from "./useQueueOptions";
 const MAX_QUEUE_LENGTH = 8;
 
 export default function QueueVisual() {
-  const queueContainerRef = useRef<HTMLUListElement>(null);
+  const queueContainerRef = useRef<TallArrayHandle>(null);
   const { queue, enqueue, dequeue, clear } = useQueueOptions();
 
   const animateDequeue = async () => {
-    const firstEl = document.getElementById(`array-${queue[0]}`);
+    const queueContainer = queueContainerRef.current!;
+    const firstEl = queueContainer.getChild(queue[0]);
     if (firstEl) {
       firstEl.style.transform = "translateX(100%)";
       firstEl.style.transitionDuration = "225ms";
@@ -26,7 +27,8 @@ export default function QueueVisual() {
   const throttledDequeue = throttle(animateDequeue, 500);
 
   const animateClear = async () => {
-    const items = document.querySelectorAll(".tall-array__item");
+    const queueContainer = queueContainerRef.current!;
+    const items = queueContainer.getAllChildren();
     let delay = 0;
     if (items) {
       for (let i = 0; i < items.length; i++) {

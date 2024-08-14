@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import TallArray from "../../features/tallArray/TallArray";
+import TallArray, { TallArrayHandle } from "../../features/tallArray/TallArray";
 import useStackOptions from "./useStackOptions";
 import Button from "../../components/button/Button";
 import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
@@ -10,7 +10,7 @@ import throttle from "../../util/throttle";
 const MAX_STACK_LENGTH = 8;
 
 export default function StackVisual() {
-  const stackContainerRef = useRef<HTMLUListElement>(null);
+  const stackContainerRef = useRef<TallArrayHandle>(null);
   const { stack, push, pop, clear } = useStackOptions();
 
   const handlePush = () => {
@@ -18,7 +18,8 @@ export default function StackVisual() {
   };
 
   const animatePop = async () => {
-    const lastEl = document.getElementById(`array-${stack[stack.length - 1]}`)!;
+    const stackContainer = stackContainerRef.current!;
+    const lastEl = stackContainer.getChild(stack[stack.length - 1]);
     if (lastEl) {
       lastEl.style.transform = "translateX(100%)";
       lastEl.style.transitionDuration = "225ms";
@@ -30,11 +31,12 @@ export default function StackVisual() {
   const throttlePop = throttle(animatePop, 500);
 
   const animateClear = async () => {
-    const items = document.querySelectorAll(".tall-array__item");
+    const stackContainer = stackContainerRef.current!;
+    const items = stackContainer.getAllChildren();
     let delay = 0;
     if (items) {
       for (let i = items.length - 1; i >= 0; i--) {
-        const liEl = items[i] as HTMLLIElement;
+        const liEl = items[i];
         liEl.style.transform = "translateX(100%)";
         liEl.style.transitionDelay = `${delay}ms`;
         delay += 50;

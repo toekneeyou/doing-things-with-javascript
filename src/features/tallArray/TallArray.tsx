@@ -1,14 +1,38 @@
-import { forwardRef, LegacyRef } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import { classnames } from "../../util/classnames";
 
 interface TallArrayProps {
   array: number[];
 }
 
+export interface TallArrayHandle {
+  getAllChildren: () => NodeListOf<HTMLLIElement>;
+  getChild: (num: number) => HTMLLIElement | null;
+}
+
 const TallArray = forwardRef(({ array }: TallArrayProps, ref) => {
+  const tallArrayRef = useRef<HTMLUListElement>(null);
+
+  useImperativeHandle(
+    ref,
+    () => {
+      const tallArray = tallArrayRef.current!;
+      const tallArrayHandle: TallArrayHandle = {
+        getAllChildren() {
+          return tallArray.querySelectorAll(".tall-array__item");
+        },
+        getChild(num: number) {
+          return tallArray.querySelector(`#array-${num}`) as HTMLLIElement;
+        },
+      };
+      return tallArrayHandle;
+    },
+    []
+  );
+
   return (
     <ul
-      ref={ref as LegacyRef<HTMLUListElement>}
+      ref={tallArrayRef}
       className={classnames(
         "tall-array",
         "relative overflow-hidden rounded-xl border-4 border-app-dark-blue gap-y-1 bg-app-dark-blue w-40 h-[356px] flex justify-start flex-col-reverse"
