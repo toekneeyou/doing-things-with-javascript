@@ -1,13 +1,15 @@
 import { useRef } from "react";
 import TallArray, { TallArrayHandle } from "../../features/tallArray/TallArray";
-import { classnames } from "../../util/classnames";
-import throttle from "../../util/throttle";
+import { classnames } from "../../lib/util/classnames";
+import throttle from "../../lib/util/throttle";
 import Button from "../../components/button/Button";
 import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import wait from "../../util/wait";
+import wait from "../../lib/util/wait";
 import useQueueOptions from "./useQueueOptions";
-
-const MAX_QUEUE_LENGTH = 8;
+import {
+  MAX_QUEUE_LENGTH,
+  QUEUE_TRANSITION_DURATION,
+} from "../../lib/constants";
 
 export default function QueueVisual() {
   const queueContainerRef = useRef<TallArrayHandle>(null);
@@ -18,7 +20,7 @@ export default function QueueVisual() {
     const firstEl = queueContainer.getChild(queue[0]);
     if (firstEl) {
       firstEl.style.transform = "translateX(100%)";
-      firstEl.style.transitionDuration = "225ms";
+      firstEl.style.transitionDuration = QUEUE_TRANSITION_DURATION;
       await wait(250);
       dequeue();
     }

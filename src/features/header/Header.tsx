@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import Button from "../../components/button/Button";
 import {
   useSideNavigationActionContext,

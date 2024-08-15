@@ -3,7 +3,7 @@ import {
   useBSArrayStateContext,
   useBSRefContext,
 } from "../../context/BubbleSortContext";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import { SORT_SPEED } from "./useBubbleSortSpeed";
 
 interface BubbleSortChartProps {}

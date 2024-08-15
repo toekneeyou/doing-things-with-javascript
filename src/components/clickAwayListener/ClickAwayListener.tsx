@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useRef } from "react";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 
 interface ClickAwayListenerProps {
   onClickAway: () => void;

@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useRef } from "react";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 
 interface ThrottleProgressProps {
   wait: number;

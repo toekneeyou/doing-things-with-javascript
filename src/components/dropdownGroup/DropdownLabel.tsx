@@ -1,5 +1,5 @@
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import Tooltip, { TooltipProps } from "../tooltip/Tooltip";
 
 interface DropdownLabelProps {

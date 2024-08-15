@@ -1,6 +1,6 @@
 import { ChangeEventHandler, useLayoutEffect, useRef, useState } from "react";
 import InputGroup from "../../components/inputGroup/InputGroup";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import { SearchResultItemProps } from "./SearchResultItem";
 import SearchResultsList from "./SearchResults";
 import ClickAwayListener from "../../components/clickAwayListener/ClickAwayListener";

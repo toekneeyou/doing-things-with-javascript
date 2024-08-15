@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import DebounceProgress from "./DebounceProgress";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import Card from "../../features/card/Card";
 
 interface DebounceResultProps {

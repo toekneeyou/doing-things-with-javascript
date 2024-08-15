@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { classnames } from "./util/classnames";
+import { classnames } from "./lib/util/classnames";
 import HomeView from "./views/homeView/HomeView";
 import { homeRoute } from "./services/routes";
 

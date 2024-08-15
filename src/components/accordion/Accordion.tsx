@@ -1,5 +1,5 @@
 import { ReactNode, useId, useLayoutEffect, useRef, useState } from "react";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 
 interface AccordionProps {

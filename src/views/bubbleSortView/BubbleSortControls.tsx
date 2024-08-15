@@ -5,7 +5,7 @@ import {
   PauseIcon,
   PlayIcon,
 } from "@heroicons/react/24/solid";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import {
   useBSArrayActionContext,
   useBSAutoSortContext,

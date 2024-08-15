@@ -3,11 +3,13 @@ import TallArray, { TallArrayHandle } from "../../features/tallArray/TallArray";
 import useStackOptions from "./useStackOptions";
 import Button from "../../components/button/Button";
 import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { classnames } from "../../util/classnames";
-import wait from "../../util/wait";
-import throttle from "../../util/throttle";
-
-const MAX_STACK_LENGTH = 8;
+import { classnames } from "../../lib/util/classnames";
+import wait from "../../lib/util/wait";
+import throttle from "../../lib/util/throttle";
+import {
+  MAX_STACK_LENGTH,
+  STACK_TRANSITION_DURATION,
+} from "../../lib/constants";
 
 export default function StackVisual() {
   const stackContainerRef = useRef<TallArrayHandle>(null);
@@ -22,7 +24,7 @@ export default function StackVisual() {
     const lastEl = stackContainer.getChild(stack[stack.length - 1]);
     if (lastEl) {
       lastEl.style.transform = "translateX(100%)";
-      lastEl.style.transitionDuration = "225ms";
+      lastEl.style.transitionDuration = STACK_TRANSITION_DURATION;
       await wait(250);
       pop(stack);
     }

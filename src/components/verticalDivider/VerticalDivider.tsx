@@ -1,4 +1,4 @@
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 
 interface VerticalDividerProps {
   className?: string;

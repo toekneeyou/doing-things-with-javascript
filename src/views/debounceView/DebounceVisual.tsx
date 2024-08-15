@@ -1,7 +1,7 @@
 import { ChangeEventHandler, useCallback, useRef, useState } from "react";
 import InputGroup from "../../components/inputGroup/InputGroup";
-import { classnames } from "../../util/classnames";
-import { debounce } from "../../util/debounce";
+import { classnames } from "../../lib/util/classnames";
+import { debounce } from "../../lib/util/debounce";
 import { useDebounceStateContext } from "../../context/DebounceContext";
 import DebounceResult from "./DebounceResult";
 

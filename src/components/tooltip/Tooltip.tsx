@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { classnames } from "../../util/classnames";
-import useDebounce from "../../hooks/useDebounce";
+import { classnames } from "../../lib/util/classnames";
+import useDebounce from "../../lib/hooks/useDebounce";
 
 type TooltipPosition = "top" | "right" | "bottom" | "left";
 

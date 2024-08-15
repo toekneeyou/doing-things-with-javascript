@@ -1,5 +1,5 @@
 import { forwardRef, LegacyRef } from "react";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 
 const DebounceProgress = forwardRef(({}, ref) => (
   <div

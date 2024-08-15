@@ -3,7 +3,7 @@ import ViewportContextProvider from "./context/ViewportContext";
 import Header from "./features/header/Header";
 import SideNavigation from "./features/sideNavigation/SideNavigation";
 import Main from "./Main";
-import { classnames } from "./util/classnames";
+import { classnames } from "./lib/util/classnames";
 import ErrorBoundary from "./features/errorBoundary/ErrorBoundary";
 
 import "./main.css";

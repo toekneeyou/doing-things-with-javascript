@@ -4,7 +4,7 @@ import { reactRouterRoutes } from "../../services/routes";
 import { ChangeEventHandler, useState } from "react";
 import Search from "../../features/search/Search";
 import useRouteSearch from "./useRouteSearch";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 
 export default function HomeView() {
   const [queryString, setQueryString] = useState("");

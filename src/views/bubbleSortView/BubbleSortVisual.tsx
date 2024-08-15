@@ -1,4 +1,4 @@
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 
 import BubbleSortControls from "./BubbleSortControls";
 import BubbleSortChart from "./BubbleSortChart";

@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import { TooltipProps } from "../tooltip/Tooltip";
 import DropdownLabel from "./DropdownLabel";
 
