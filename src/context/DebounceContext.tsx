@@ -6,7 +6,13 @@ import {
   useMemo,
   useState,
 } from "react";
-
+/**
+ *
+ *
+ * Context Creation
+ *
+ *
+ */
 interface DebounceStateContextValue {
   isLeading: boolean;
   isTrailing: boolean;
@@ -18,14 +24,21 @@ interface DebounceActionContextValue {
   handleTrailing: ChangeEventHandler<HTMLInputElement>;
   handleWait: ChangeEventHandler<HTMLInputElement>;
 }
-
 const DebounceStateContext = createContext<DebounceStateContextValue | null>(
   null
 );
+DebounceStateContext.displayName = "DebounceState";
 const DebounceActionContext = createContext<DebounceActionContextValue | null>(
   null
 );
-
+DebounceActionContext.displayName = "DebounceAction";
+/**
+ *
+ *
+ * Context Provider component
+ *
+ *
+ */
 export default function DebounceContextProvider({
   children,
 }: PropsWithChildren) {
@@ -68,7 +81,13 @@ export default function DebounceContextProvider({
     </DebounceActionContext.Provider>
   );
 }
-
+/**
+ *
+ *
+ * Hooks to consume context
+ *
+ *
+ */
 export const useDebounceStateContext = () => {
   const context = useContext(DebounceStateContext);
   if (!context) throw Error("useDebounceStateContext");

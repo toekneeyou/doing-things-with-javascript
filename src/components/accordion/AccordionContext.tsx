@@ -6,7 +6,13 @@ import {
   useMemo,
   useState,
 } from "react";
-
+/**
+ *
+ *
+ * Create Context
+ *
+ *
+ */
 interface AccordionContextValue {
   isExpanded: boolean;
   tabId: string;
@@ -15,11 +21,16 @@ interface AccordionContextValue {
 }
 const AccordionContext = createContext<AccordionContextValue | null>(null);
 AccordionContext.displayName = "Accordion";
-
+/**
+ *
+ *
+ * Create Context Provider component
+ *
+ *
+ */
 interface AccordionContextProviderProps extends PropsWithChildren {
   initialIsExpanded?: boolean;
 }
-
 const AccordionContextProvider: React.FC<AccordionContextProviderProps> = ({
   children,
   initialIsExpanded,
@@ -47,7 +58,13 @@ const AccordionContextProvider: React.FC<AccordionContextProviderProps> = ({
     </AccordionContext.Provider>
   );
 };
-
+/**
+ *
+ *
+ * Create hook to use Context
+ *
+ *
+ */
 export const useAccordionContext = () => {
   const context = useContext(AccordionContext);
   if (!context) throw new Error("useAccordionContext");
