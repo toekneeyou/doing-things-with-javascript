@@ -35,41 +35,49 @@ export default function SideNavigation() {
             key={route.category}
           >
             <Accordion
-              defaultIsExpanded={true}
-              title={
-                <h2 className="text-sm text-gray-400">{route.category}</h2>
+              initialIsExpanded={true}
+              tab={
+                <Accordion.Tab
+                  title={
+                    <h2 className="text-sm text-gray-400">{route.category}</h2>
+                  }
+                />
               }
-            >
-              {route.children !== undefined && (
-                <ul
-                  className={classnames(
-                    "navigation__list__category__links",
-                    "pb-2 bg-app-dark-blue"
-                  )}
-                >
-                  {route.children.map((child) => (
-                    <li
+              panel={
+                <Accordion.Panel>
+                  {" "}
+                  {route.children !== undefined && (
+                    <ul
                       className={classnames(
-                        "navigation__list__category__links__item",
-                        "h-12 px-2 py-1"
+                        "navigation__list__category__links",
+                        "pb-2 bg-app-dark-blue"
                       )}
-                      key={child.name}
                     >
-                      <Link
-                        to={child.path}
-                        className={classnames(
-                          "w-full h-full flex items-center pl-8 pr-4 rounded-xl text-sm",
-                          "hover:bg-slate-600"
-                        )}
-                        onClick={toggleSideNavigation}
-                      >
-                        {child.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </Accordion>
+                      {route.children.map((child) => (
+                        <li
+                          className={classnames(
+                            "navigation__list__category__links__item",
+                            "h-12 px-2 py-1"
+                          )}
+                          key={child.name}
+                        >
+                          <Link
+                            to={child.path}
+                            className={classnames(
+                              "w-full h-full flex items-center pl-8 pr-4 rounded-xl text-sm",
+                              "hover:bg-slate-600"
+                            )}
+                            onClick={toggleSideNavigation}
+                          >
+                            {child.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </Accordion.Panel>
+              }
+            />
           </li>
         ))}
       </ul>
