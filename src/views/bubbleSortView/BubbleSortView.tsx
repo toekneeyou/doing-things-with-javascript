@@ -8,12 +8,16 @@ import VisualizationInfo from "../../layouts/visualizationLayout/VisualizationIn
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
 import BubbleSortVisual from "./BubbleSortVisual";
 
+import BubbleSortContextProvider from "../../context/BubbleSortContext";
+
 export function BubbleSortView() {
   return (
-    <VisualizationLayout
-      infoPanel={<BubbleSortInfoPanel />}
-      visual={<BubbleSortVisual />}
-    />
+    <BubbleSortContextProvider>
+      <VisualizationLayout
+        infoPanel={<BubbleSortInfoPanel />}
+        visual={<BubbleSortVisual />}
+      />
+    </BubbleSortContextProvider>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, MouseEventHandler, useId, useRef } from "react";
 
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import NumberSpinButtons from "./NumberSpinButtons";
 import { TooltipProps } from "../tooltip/Tooltip";
 import InputLabel from "./InputLabel";

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import SearchResultsList from "./SearchResults";
 
 export interface SearchResultItemProps {

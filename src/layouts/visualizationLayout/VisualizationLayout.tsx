@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 
 interface VisualizationLayoutProps {
   visual?: ReactNode;
@@ -16,7 +16,8 @@ export default function VisualizationLayout({
     <div
       className={classnames(
         "visualization-layout",
-        "w-full flex flex-col text-sm 2xl:text-base",
+        "w-full flex flex-col",
+        "text-sm 2xl:text-base",
         "lg:h-screen lg:overflow-auto"
       )}
     >

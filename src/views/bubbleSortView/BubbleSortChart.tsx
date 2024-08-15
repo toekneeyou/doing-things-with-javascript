@@ -1,21 +1,38 @@
-import { MutableRefObject } from "react";
-import { classnames } from "../../util/classnames";
-import { BubbleSortBar } from "./BubbleSortVisual";
+import { Ref, useImperativeHandle, useRef } from "react";
+import {
+  useBSArrayStateContext,
+  useBSRefContext,
+} from "../../context/BubbleSortContext";
+import { classnames } from "../../lib/util/classnames";
 import { SORT_SPEED } from "./useBubbleSortSpeed";
 
-interface BubbleSortChartProps {
-  unsortedArray: BubbleSortBar[];
-  arrayKey: number;
-  speedRef: MutableRefObject<number>;
+interface BubbleSortChartProps {}
+export interface BubbleSortChartHandle {
+  getElement: (originalPosition: number) => HTMLLIElement;
 }
 
-export default function BubbleSortChart({
-  unsortedArray,
-  arrayKey,
-  speedRef,
-}: BubbleSortChartProps) {
+export default function BubbleSortChart({}: BubbleSortChartProps) {
+  const { arrayKey, unsortedArray } = useBSArrayStateContext();
+  const { bubbleSortChartRef, speedRef } = useBSRefContext();
+  const localBubbleSortChartRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(bubbleSortChartRef as Ref<unknown>, () => {
+    const bubbleSortChart = localBubbleSortChartRef.current!;
+    const bubbleSortChartHandle: BubbleSortChartHandle = {
+      getElement(originalPosition: number) {
+        return bubbleSortChart.querySelector(
+          `#${createId(originalPosition)}`
+        ) as HTMLLIElement;
+      },
+    };
+    return bubbleSortChartHandle;
+  });
+
   return (
-    <div className="p-4 pb-0 rounded-xl bg-app-dark-blue">
+    <div
+      className="p-4 pb-0 rounded-xl bg-app-dark-blue"
+      ref={localBubbleSortChartRef}
+    >
       <ul
         className={classnames(
           "h-72 flex items-end relative",
@@ -25,7 +42,7 @@ export default function BubbleSortChart({
         {unsortedArray.map((item) => {
           return (
             <li
-              id={`bubble-${item.originalPosition}`}
+              id={createId(item.originalPosition)}
               key={`${arrayKey}-${item.originalPosition}`}
               style={{
                 height: `${item.value}%`,
@@ -42,3 +59,5 @@ export default function BubbleSortChart({
     </div>
   );
 }
+
+const createId = (originalPosition: number) => `bubble-${originalPosition}`;

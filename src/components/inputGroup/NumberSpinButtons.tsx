@@ -1,6 +1,6 @@
 import { MouseEventHandler } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 
 interface NumberSpinButtonsProps {
   handleIncrement: MouseEventHandler;

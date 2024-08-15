@@ -1,7 +1,7 @@
 import { ChangeEventHandler, useCallback, useRef, useState } from "react";
 import InputGroup from "../../components/inputGroup/InputGroup";
-import { classnames } from "../../util/classnames";
-import { debounce } from "../../util/debounce";
+import { classnames } from "../../lib/util/classnames";
+import { debounce } from "../../lib/util/debounce";
 import { useDebounceStateContext } from "../../context/DebounceContext";
 import DebounceResult from "./DebounceResult";
 
@@ -14,6 +14,7 @@ const DebounceVisual = ({ optionsModal }: DebounceVisualProps) => {
   const [inputString, setInputString] = useState("");
   const [result, setResult] = useState(inputString);
   const { isLeading, isTrailing, wait } = useDebounceStateContext();
+  const [isWaiting, setIsWaiting] = useState(false);
 
   const debouncedSetResult = useCallback(
     debounce(
@@ -37,6 +38,7 @@ const DebounceVisual = ({ optionsModal }: DebounceVisualProps) => {
               progressEl.classList.remove("animate-slideRight");
             }
           }
+          setIsWaiting(newIsWaiting);
         },
       }
     ),
@@ -74,7 +76,11 @@ const DebounceVisual = ({ optionsModal }: DebounceVisualProps) => {
           />
         </div>
 
-        <DebounceResult result={result} ref={progressRef} />
+        <DebounceResult
+          result={result}
+          ref={progressRef}
+          isWaiting={isWaiting}
+        />
       </div>
     </div>
   );

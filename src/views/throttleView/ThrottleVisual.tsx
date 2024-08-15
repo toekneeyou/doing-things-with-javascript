@@ -3,10 +3,10 @@ import { useThrottleStateContext } from "../../context/ThrottleContext";
 import ThrottleProgress from "./ThrottleProgress";
 import Card from "../../features/card/Card";
 import Badge from "../../features/badge/Badge";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import Button from "../../components/button/Button";
 import { PlusIcon } from "@heroicons/react/24/solid";
-import throttle from "../../util/throttle";
+import throttle from "../../lib/util/throttle";
 
 interface ThrottleVisualProps {
   optionsModal: JSX.Element;

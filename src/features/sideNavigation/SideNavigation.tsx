@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import { navRoutes } from "../../services/routes";
 import Accordion from "../../components/accordion/Accordion";
 import {

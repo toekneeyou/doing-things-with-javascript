@@ -1,5 +1,5 @@
 import { forwardRef, LegacyRef, ReactNode } from "react";
-import { classnames } from "../../util/classnames";
+import { classnames } from "../../lib/util/classnames";
 import {
   darkBlue,
   error,

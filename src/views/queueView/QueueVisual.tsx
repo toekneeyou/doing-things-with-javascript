@@ -1,23 +1,26 @@
 import { useRef } from "react";
-import TallArray from "../../features/tallArray/TallArray";
-import { classnames } from "../../util/classnames";
-import throttle from "../../util/throttle";
+import TallArray, { TallArrayHandle } from "../../features/tallArray/TallArray";
+import { classnames } from "../../lib/util/classnames";
+import throttle from "../../lib/util/throttle";
 import Button from "../../components/button/Button";
 import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import wait from "../../util/wait";
+import wait from "../../lib/util/wait";
 import useQueueOptions from "./useQueueOptions";
-
-const MAX_QUEUE_LENGTH = 8;
+import {
+  MAX_QUEUE_LENGTH,
+  QUEUE_TRANSITION_DURATION,
+} from "../../lib/constants";
 
 export default function QueueVisual() {
-  const queueContainerRef = useRef<HTMLUListElement>(null);
+  const queueContainerRef = useRef<TallArrayHandle>(null);
   const { queue, enqueue, dequeue, clear } = useQueueOptions();
 
   const animateDequeue = async () => {
-    const firstEl = document.getElementById(`array-${queue[0]}`);
+    const queueContainer = queueContainerRef.current!;
+    const firstEl = queueContainer.getChild(queue[0]);
     if (firstEl) {
       firstEl.style.transform = "translateX(100%)";
-      firstEl.style.transitionDuration = "225ms";
+      firstEl.style.transitionDuration = QUEUE_TRANSITION_DURATION;
       await wait(250);
       dequeue();
     }
@@ -26,7 +29,8 @@ export default function QueueVisual() {
   const throttledDequeue = throttle(animateDequeue, 500);
 
   const animateClear = async () => {
-    const items = document.querySelectorAll(".tall-array__item");
+    const queueContainer = queueContainerRef.current!;
+    const items = queueContainer.getAllChildren();
     let delay = 0;
     if (items) {
       for (let i = 0; i < items.length; i++) {
@@ -75,10 +79,6 @@ function QueueControls({
   isEmpty,
   isFull,
 }: QueueControlsProps) {
-  const EnqueueIcon = (props?: any) => <PlusIcon {...props} />;
-  const DequeueIcon = (props?: any) => <MinusIcon {...props} />;
-  const ClearIcon = (props?: any) => <XMarkIcon {...props} />;
-
   return (
     <ul
       className={classnames(
@@ -87,37 +87,74 @@ function QueueControls({
       )}
     >
       <li className="w-full">
-        <Button
-          className="w-full"
-          onClick={enqueue}
-          disabled={isFull}
-          iconLeft={EnqueueIcon}
-        >
-          Enqueue
-        </Button>
+        <EnqueueButton enqueue={enqueue} isDisabled={isFull} />
       </li>
-
       <li className="w-full">
-        <Button
-          className="w-full"
-          onClick={dequeue}
-          disabled={isEmpty}
-          iconLeft={DequeueIcon}
-        >
-          Dequeue
-        </Button>
+        <DequeueButton dequeue={dequeue} isDisabled={isEmpty} />
       </li>
-
       <li className="w-full">
-        <Button
-          className="w-full"
-          onClick={clear}
-          disabled={isEmpty}
-          iconLeft={ClearIcon}
-        >
-          Clear
-        </Button>
+        <ClearButton clear={clear} isDisabled={isEmpty} />
       </li>
     </ul>
+  );
+}
+
+const EnqueueIcon = (props?: any) => <PlusIcon {...props} />;
+function EnqueueButton({
+  enqueue,
+  isDisabled,
+}: {
+  enqueue: () => void;
+  isDisabled: boolean;
+}) {
+  return (
+    <Button
+      className="w-full"
+      onClick={enqueue}
+      disabled={isDisabled}
+      iconLeft={EnqueueIcon}
+    >
+      Enqueue
+    </Button>
+  );
+}
+
+const DequeueIcon = (props?: any) => <MinusIcon {...props} />;
+function DequeueButton({
+  dequeue,
+  isDisabled,
+}: {
+  dequeue: () => void;
+  isDisabled: boolean;
+}) {
+  return (
+    <Button
+      className="w-full"
+      onClick={dequeue}
+      disabled={isDisabled}
+      iconLeft={DequeueIcon}
+    >
+      Dequeue
+    </Button>
+  );
+}
+
+const ClearIcon = (props?: any) => <XMarkIcon {...props} />;
+function ClearButton({
+  clear,
+  isDisabled,
+}: {
+  clear: () => void;
+  isDisabled: boolean;
+}) {
+  return (
+    <Button
+      className="w-full"
+      onClick={clear}
+      disabled={isDisabled}
+      iconLeft={ClearIcon}
+    >
+      Clear
+    </Button>
   );
 }
