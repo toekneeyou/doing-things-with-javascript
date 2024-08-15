@@ -1,12 +1,11 @@
-import { ReactNode, useEffect, useRef } from "react";
+import { PropsWithChildren, ReactNode, useEffect, useRef } from "react";
 import { classnames } from "../../lib/util/classnames";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import Button from "../button/Button";
 import { createPortal } from "react-dom";
 
-interface ModalProps {
+interface ModalProps extends PropsWithChildren {
   isOpen: boolean;
-  children: ReactNode;
   handleClose: (arg?: any) => void;
 }
 

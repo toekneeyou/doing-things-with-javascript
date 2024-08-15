@@ -1,13 +1,18 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import {
+  PropsWithChildren,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { classnames } from "../../lib/util/classnames";
 import useDebounce from "../../lib/hooks/useDebounce";
 
 type TooltipPosition = "top" | "right" | "bottom" | "left";
 
-export interface TooltipProps {
+export interface TooltipProps extends PropsWithChildren {
   className?: string;
-  children: ReactNode;
   content: ReactNode | string;
 }
 

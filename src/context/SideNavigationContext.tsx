@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { useViewportStateContext } from "./ViewportContext";
 
 const SideNavigationValueContext = createContext<SideNavigationValue | null>(
@@ -16,41 +22,9 @@ interface SideNavigationAction {
   toggleSideNavigation: () => void;
 }
 
-interface SideNavigationContextProviderProps {
-  children: ReactNode;
-}
-
-interface SideNavigationValueProviderProps
-  extends SideNavigationContextProviderProps {
-  values: SideNavigationValue;
-}
-
-interface SideNavigationActionProviderProps
-  extends SideNavigationContextProviderProps {
-  actions: SideNavigationAction;
-}
-
-const SideNavigationValueProvider = ({
-  children,
-  values,
-}: SideNavigationValueProviderProps) => (
-  <SideNavigationValueContext.Provider value={values}>
-    {children}
-  </SideNavigationValueContext.Provider>
-);
-
-const SideNavigationActionProvider = ({
-  children,
-  actions,
-}: SideNavigationActionProviderProps) => (
-  <SideNavigationActionContext.Provider value={actions}>
-    {children}
-  </SideNavigationActionContext.Provider>
-);
-
 export default function SideNavigationContextProvider({
   children,
-}: SideNavigationContextProviderProps) {
+}: PropsWithChildren) {
   const viewportSize = useViewportStateContext();
   const [isShowing, setIsShowing] = useState(
     viewportSize === "lg" || viewportSize === "xl" || viewportSize === "xxl"
@@ -71,11 +45,11 @@ export default function SideNavigationContextProvider({
   );
 
   return (
-    <SideNavigationValueProvider values={values}>
-      <SideNavigationActionProvider actions={actions}>
+    <SideNavigationValueContext.Provider value={values}>
+      <SideNavigationActionContext.Provider value={actions}>
         {children}
-      </SideNavigationActionProvider>
-    </SideNavigationValueProvider>
+      </SideNavigationActionContext.Provider>
+    </SideNavigationValueContext.Provider>
   );
 }
 

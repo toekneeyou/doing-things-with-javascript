@@ -1,9 +1,8 @@
-import { ReactNode, useEffect, useRef } from "react";
+import { PropsWithChildren, ReactNode, useEffect, useRef } from "react";
 import { classnames } from "../../lib/util/classnames";
 
-interface ClickAwayListenerProps {
+interface ClickAwayListenerProps extends PropsWithChildren {
   onClickAway: () => void;
-  children: ReactNode;
   className?: string;
 }
 

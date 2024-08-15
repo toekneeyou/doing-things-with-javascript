@@ -1,6 +1,6 @@
 import {
   createContext,
-  ReactNode,
+  PropsWithChildren,
   useContext,
   useEffect,
   useMemo,
@@ -19,9 +19,7 @@ const ViewportStateContext = createContext<ViewportSize | null>(null);
 
 export default function ViewportContextProvider({
   children,
-}: {
-  children: ReactNode;
-}) {
+}: PropsWithChildren) {
   const calculateViewportSize = () => {
     const { innerWidth } = window;
     if (innerWidth >= xxlViewport) {

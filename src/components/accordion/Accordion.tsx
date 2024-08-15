@@ -1,13 +1,19 @@
-import { ReactNode, useId, useLayoutEffect, useRef, useState } from "react";
+import {
+  PropsWithChildren,
+  ReactNode,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { classnames } from "../../lib/util/classnames";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 
-interface AccordionProps {
+interface AccordionProps extends PropsWithChildren {
   accordionClassName?: string;
   accordionTitleClassName?: string;
   accordionBodyClassName?: string;
   title: ReactNode;
-  children: ReactNode;
   defaultIsExpanded?: boolean;
 }
 

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 import { useThrottleStateContext } from "../../context/ThrottleContext";
 import ThrottleProgress from "./ThrottleProgress";
 import Card from "../../features/card/Card";
@@ -63,20 +63,12 @@ export default function ThrottleVisual({ optionsModal }: ThrottleVisualProps) {
           />
           <div>{wait}ms</div>
         </div>
+
         <div className="grid grid-cols-2 gap-2 relative rounded-xl overflow-hidden">
-          <Card cardClassName="w-64" title={<h2>Count</h2>}>
-            <div className="centered h-44">
-              <Badge
-                key={count}
-                size="xl"
-                className={classnames({
-                  "animate-yellowRing": count !== 0,
-                })}
-              >
-                {count}
-              </Badge>
-            </div>
-          </Card>
+          <IncrementCard
+            header={<RegularIncrementCardHeader />}
+            count={count}
+          />
 
           <Button
             onClick={handleIncrement}
@@ -85,21 +77,49 @@ export default function ThrottleVisual({ optionsModal }: ThrottleVisualProps) {
             iconLeft={IncrementIcon}
           />
 
-          <Card cardClassName="w-64" title={<h2>Throttled Count</h2>}>
-            <div className="centered h-44">
-              <Badge
-                key={throttledCount}
-                size="xl"
-                className={classnames({
-                  "animate-yellowRing": throttledCount !== 0,
-                })}
-              >
-                {throttledCount}
-              </Badge>
-            </div>
-          </Card>
+          <IncrementCard
+            header={<ThrottledIncrementCardHeader />}
+            count={throttledCount}
+          />
         </div>
       </div>
     </div>
   );
 }
+
+const IncrementCard = ({
+  count,
+  header,
+}: {
+  count: number;
+  header: ReactNode;
+}) => {
+  return (
+    <Card
+      className="w-64"
+      header={header}
+      body={<IncrementCardBody count={count} />}
+    />
+  );
+};
+const IncrementCardBody = ({ count }: { count: number }) => {
+  return (
+    <div className="centered h-44 bg-app-faded-blue">
+      <Badge
+        key={count}
+        size="xl"
+        className={classnames({
+          "animate-yellowRing": count !== 0,
+        })}
+      >
+        {count}
+      </Badge>
+    </div>
+  );
+};
+const RegularIncrementCardHeader = () => {
+  return <Card.Header title={<h2>Count</h2>} />;
+};
+const ThrottledIncrementCardHeader = () => {
+  return <Card.Header title={<h2>Throttled Count</h2>} />;
+};

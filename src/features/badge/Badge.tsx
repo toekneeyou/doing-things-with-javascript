@@ -1,8 +1,7 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import { classnames } from "../../lib/util/classnames";
 
-interface BadgeProps {
-  children: ReactNode;
+interface BadgeProps extends PropsWithChildren {
   size: "sm" | "md" | "lg" | "xl" | "xxl";
   className?: string;
   label?: string;

@@ -1,4 +1,4 @@
-import { forwardRef, LegacyRef, ReactNode } from "react";
+import { forwardRef, LegacyRef, PropsWithChildren, ReactNode } from "react";
 import { classnames } from "../../lib/util/classnames";
 import {
   darkBlue,
@@ -27,13 +27,13 @@ export type ButtonColor =
 
 export interface ButtonProps
   extends React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
+      React.ButtonHTMLAttributes<HTMLButtonElement>,
+      HTMLButtonElement
+    >,
+    PropsWithChildren {
   iconLeft?: (props?: any) => JSX.Element;
   iconRight?: (props?: any) => JSX.Element;
   icon?: (props?: any) => JSX.Element;
-  children?: ReactNode;
   className?: string;
   variant?: ButtonVariant;
   color?: ButtonColor;

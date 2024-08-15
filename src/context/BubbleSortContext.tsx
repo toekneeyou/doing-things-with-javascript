@@ -1,7 +1,9 @@
 import {
   createContext,
   Dispatch,
+  FC,
   MutableRefObject,
+  PropsWithChildren,
   ReactNode,
   SetStateAction,
   useCallback,
@@ -74,9 +76,7 @@ export interface BubbleSortBar {
 
 export default function BubbleSortContextProvider({
   children,
-}: {
-  children: ReactNode;
-}) {
+}: PropsWithChildren) {
   const [unsortedArray, setUnsortedArray] = useState<BubbleSortBar[]>(
     createArray(NUM_OF_ELEMENTS, MAX_VALUE)
   );
