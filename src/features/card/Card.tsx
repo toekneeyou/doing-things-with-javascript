@@ -1,10 +1,13 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { ReactNode } from "react";
 import { classnames } from "../../lib/util/classnames";
+import {
+  PropsWithClassName,
+  PropsWithClassNameAndChildren,
+} from "../../lib/types";
 
-interface CardProps {
+interface CardProps extends PropsWithClassName {
   header?: ReactNode;
   body?: ReactNode;
-  className?: string;
 }
 
 const Card = function ({ header, body, className }: CardProps) {
@@ -22,8 +25,7 @@ const Card = function ({ header, body, className }: CardProps) {
   );
 };
 
-interface CardHeaderProps {
-  className?: string;
+interface CardHeaderProps extends PropsWithClassName {
   title: ReactNode;
 }
 function CardHeader({ className, title }: CardHeaderProps) {
@@ -40,11 +42,7 @@ function CardHeader({ className, title }: CardHeaderProps) {
   );
 }
 
-interface CardBodyProps extends PropsWithChildren {
-  className?: string;
-}
-
-function CardBody({ className, children }: CardBodyProps) {
+function CardBody({ className, children }: PropsWithClassNameAndChildren) {
   return (
     <div
       className={classnames(

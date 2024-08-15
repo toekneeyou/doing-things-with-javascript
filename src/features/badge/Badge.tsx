@@ -1,9 +1,8 @@
-import { PropsWithChildren } from "react";
 import { classnames } from "../../lib/util/classnames";
+import { PropsWithClassNameAndChildren } from "../../lib/types";
 
-interface BadgeProps extends PropsWithChildren {
+interface BadgeProps extends PropsWithClassNameAndChildren {
   size: "sm" | "md" | "lg" | "xl" | "xxl";
-  className?: string;
   label?: string;
 }
 

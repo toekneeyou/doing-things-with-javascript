@@ -1,13 +1,9 @@
 import { classnames } from "../../lib/util/classnames";
-import { ReactNode } from "react";
-
-interface VisualizationOptionsPanelProps {
-  children: ReactNode;
-}
+import { PropsWithChildren } from "react";
 
 export default function VisualizationOptionsPanel({
   children,
-}: VisualizationOptionsPanelProps) {
+}: PropsWithChildren) {
   return (
     <div
       className={classnames(
