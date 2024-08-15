@@ -7,16 +7,27 @@ import {
   useState,
 } from "react";
 
+/**
+ *
+ *
+ * Context Creation
+ *
+ *
+ */
+type ViewportSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | null;
+const ViewportStateContext = createContext<ViewportSize | null>(null);
+/**
+ *
+ *
+ * Context Provider component
+ *
+ *
+ */
 export const smViewport = 640;
 export const mdViewport = 768;
 export const lgViewport = 1024;
 export const xlViewport = 1280;
 export const xxlViewport = 1536;
-
-type ViewportSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | null;
-
-const ViewportStateContext = createContext<ViewportSize | null>(null);
-
 export default function ViewportContextProvider({
   children,
 }: PropsWithChildren) {
@@ -61,7 +72,13 @@ export default function ViewportContextProvider({
     </ViewportStateContext.Provider>
   );
 }
-
+/**
+ *
+ *
+ * Hook to consume context
+ *
+ *
+ */
 export const useViewportStateContext = () => {
   const context = useContext(ViewportStateContext);
   if (!context) throw Error("useViewportStateContext");

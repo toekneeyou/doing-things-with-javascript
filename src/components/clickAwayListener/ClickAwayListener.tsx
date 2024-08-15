@@ -1,16 +1,16 @@
-import { PropsWithChildren, ReactNode, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { classnames } from "../../lib/util/classnames";
+import { PropsWithClassNameAndChildren } from "../../lib/types";
 
-interface ClickAwayListenerProps extends PropsWithChildren {
+interface ClickAwayListenerProps extends PropsWithClassNameAndChildren {
   onClickAway: () => void;
-  className?: string;
 }
 
-export default function ClickAwayListener({
+const ClickAwayListener: React.FC<ClickAwayListenerProps> = ({
   children,
   onClickAway,
   className,
-}: ClickAwayListenerProps) {
+}) => {
   const clickAwayListenerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -39,4 +39,6 @@ export default function ClickAwayListener({
       {children}
     </div>
   );
-}
+};
+
+export default ClickAwayListener;

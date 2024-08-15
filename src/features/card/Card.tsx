@@ -4,12 +4,17 @@ import {
   PropsWithClassName,
   PropsWithClassNameAndChildren,
 } from "../../lib/types";
-
+/**
+ *
+ *
+ * Card
+ *
+ *
+ */
 interface CardProps extends PropsWithClassName {
   header?: ReactNode;
   body?: ReactNode;
 }
-
 const Card = function ({ header, body, className }: CardProps) {
   return (
     <div
@@ -24,11 +29,17 @@ const Card = function ({ header, body, className }: CardProps) {
     </div>
   );
 };
-
+/**
+ *
+ *
+ * Card Header
+ *
+ *
+ */
 interface CardHeaderProps extends PropsWithClassName {
   title: ReactNode;
 }
-function CardHeader({ className, title }: CardHeaderProps) {
+const CardHeader: React.FC<CardHeaderProps> = ({ className, title }) => {
   return (
     <div
       className={classnames(
@@ -40,9 +51,18 @@ function CardHeader({ className, title }: CardHeaderProps) {
       {title}
     </div>
   );
-}
-
-function CardBody({ className, children }: PropsWithClassNameAndChildren) {
+};
+/**
+ *
+ *
+ * Card Body
+ *
+ *
+ */
+const CardBody: React.FC<PropsWithClassNameAndChildren> = ({
+  className,
+  children,
+}) => {
   return (
     <div
       className={classnames(
@@ -54,9 +74,8 @@ function CardBody({ className, children }: PropsWithClassNameAndChildren) {
       {children}
     </div>
   );
-}
+};
 
 Card.Header = CardHeader;
 Card.Body = CardBody;
-
 export default Card;

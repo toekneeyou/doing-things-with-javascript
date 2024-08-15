@@ -28,10 +28,10 @@ AccordionContext.displayName = "Accordion";
  *
  *
  */
-interface AccordionContextProviderProps extends PropsWithChildren {
+interface AccordionProviderProps extends PropsWithChildren {
   initialIsExpanded?: boolean;
 }
-const AccordionContextProvider: React.FC<AccordionContextProviderProps> = ({
+const AccordionProvider: React.FC<AccordionProviderProps> = ({
   children,
   initialIsExpanded,
 }) => {
@@ -71,4 +71,4 @@ export const useAccordionContext = () => {
   return context;
 };
 
-export default AccordionContextProvider;
+export default AccordionProvider;

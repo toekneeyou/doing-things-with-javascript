@@ -5,13 +5,12 @@ import {
   PropsWithClassName,
   PropsWithClassNameAndChildren,
 } from "../../lib/types";
-import AccordionContextProvider, {
-  useAccordionContext,
-} from "./AccordionContext";
+import AccordionProvider, { useAccordionContext } from "./AccordionContext";
 /**
  *
  *
  * Accordion With Provider
+ *
  *
  */
 interface AccordionProps extends PropsWithClassName {
@@ -21,9 +20,9 @@ interface AccordionProps extends PropsWithClassName {
 }
 const Accordion = ({ initialIsExpanded, tab, panel }: AccordionProps) => {
   return (
-    <AccordionContextProvider initialIsExpanded={initialIsExpanded}>
+    <AccordionProvider initialIsExpanded={initialIsExpanded}>
       <AccordionWithoutProvider tab={tab} panel={panel} />
-    </AccordionContextProvider>
+    </AccordionProvider>
   );
 };
 /**
@@ -60,6 +59,7 @@ const AccordionWithoutProvider: React.FC<AccordionWithoutProviderProps> = ({
  *
  *
  * Accordion Tab
+ *
  *
  */
 interface AccordionTabProps extends PropsWithClassName {

@@ -1,8 +1,8 @@
-import { ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary";
 import Fallback from "../../views/fallback/Fallback";
 
-export default function ErrorBoundary({ children }: { children: ReactNode }) {
+const ErrorBoundary: React.FC<PropsWithChildren> = ({ children }) => {
   const onReset: (
     details:
       | {
@@ -31,4 +31,6 @@ export default function ErrorBoundary({ children }: { children: ReactNode }) {
       {children}
     </ReactErrorBoundary>
   );
-}
+};
+
+export default ErrorBoundary;
