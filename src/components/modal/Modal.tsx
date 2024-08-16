@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode, useEffect, useRef } from "react";
+import { PropsWithChildren, useEffect, useRef } from "react";
 import { classnames } from "../../lib/util/classnames";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import Button from "../button/Button";
