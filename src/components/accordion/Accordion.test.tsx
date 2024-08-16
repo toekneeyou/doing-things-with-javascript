@@ -28,7 +28,6 @@ test("Accordion Tab should render title", async () => {
   );
 
   const accordionTab = screen.getByRole("tab");
-  expect(accordionTab).toBeInTheDocument();
   expect(accordionTab).toHaveTextContent(TITLE);
 });
 
@@ -44,11 +43,15 @@ test("Accordion Tab should toggle Accordion Panel", async () => {
       }
     />
   );
-
+  // expect Panel to not be expanded if initialIsExpanded is false
   const accordionTab = screen.getByRole("tab");
   expect(accordionTab.getAttribute("aria-expanded")).toBe("false");
+
+  // expect Panel to expand when user clicks on tab
   fireEvent.click(accordionTab);
   expect(accordionTab.getAttribute("aria-expanded")).toBe("true");
+
+  // expect Panel to collapse when user clicks on tab again
   fireEvent.click(accordionTab);
   expect(accordionTab.getAttribute("aria-expanded")).toBe("false");
 });
