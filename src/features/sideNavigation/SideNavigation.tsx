@@ -45,7 +45,6 @@ export default function SideNavigation() {
               }
               panel={
                 <Accordion.Panel>
-                  {" "}
                   {route.children !== undefined && (
                     <ul
                       className={classnames(
