@@ -1,16 +1,20 @@
-import { ReactNode, useEffect, useRef } from "react";
+import { PropsWithChildren, useEffect, useRef } from "react";
 import { classnames } from "../../lib/util/classnames";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import Button from "../button/Button";
 import { createPortal } from "react-dom";
-
-interface ModalProps {
+/**
+ *
+ *
+ * Modal
+ *
+ *
+ */
+interface ModalProps extends PropsWithChildren {
   isOpen: boolean;
-  children: ReactNode;
   handleClose: (arg?: any) => void;
 }
-
-export default function Modal({ isOpen, children, handleClose }: ModalProps) {
+const Modal: React.FC<ModalProps> = ({ isOpen, children, handleClose }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -44,10 +48,17 @@ export default function Modal({ isOpen, children, handleClose }: ModalProps) {
     </dialog>,
     document.body
   );
-}
-
+};
+/**
+ *
+ *
+ * CloseModalButton
+ *
+ *
+ */
 function CloseModalButton({ onClose }: { onClose: () => void }) {
   const Icon = (props?: any) => <XMarkIcon {...props} />;
-
   return <Button variant="icon" onClick={onClose} icon={Icon} />;
 }
+
+export default Modal;

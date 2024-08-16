@@ -1,7 +1,7 @@
 import {
   ChangeEventHandler,
   createContext,
-  ReactNode,
+  PropsWithChildren,
   useContext,
   useMemo,
   useState,
@@ -19,20 +19,6 @@ interface ThrottleActionContextValue {
   handleWait: ChangeEventHandler<HTMLInputElement>;
 }
 
-interface ThrottleStateContextProviderProps {
-  value: ThrottleStateContextValue;
-  children: ReactNode;
-}
-
-interface ThrottleActionContextProviderProps {
-  value: ThrottleActionContextValue;
-  children: ReactNode;
-}
-
-interface ThrottleContextProviderProps {
-  children: ReactNode;
-}
-
 const ThrottleStateContext = createContext<ThrottleStateContextValue | null>(
   null
 );
@@ -40,31 +26,9 @@ const ThrottleActionContext = createContext<ThrottleActionContextValue | null>(
   null
 );
 
-function ThrottleActionContextProvider({
-  value,
-  children,
-}: ThrottleActionContextProviderProps) {
-  return (
-    <ThrottleActionContext.Provider value={value}>
-      {children}
-    </ThrottleActionContext.Provider>
-  );
-}
-
-function ThrottleStateContextProvider({
-  value,
-  children,
-}: ThrottleStateContextProviderProps) {
-  return (
-    <ThrottleStateContext.Provider value={value}>
-      {children}
-    </ThrottleStateContext.Provider>
-  );
-}
-
 export default function ThrottleContextProvider({
   children,
-}: ThrottleContextProviderProps) {
+}: PropsWithChildren) {
   const [isLeading, setIsLeading] = useState(true);
   const [isTrailing, setIsTrailing] = useState(true);
   const [wait, setWait] = useState("1000");
@@ -97,11 +61,11 @@ export default function ThrottleContextProvider({
   };
 
   return (
-    <ThrottleActionContextProvider value={actionValue}>
-      <ThrottleStateContextProvider value={stateValue}>
+    <ThrottleActionContext.Provider value={actionValue}>
+      <ThrottleStateContext.Provider value={stateValue}>
         {children}
-      </ThrottleStateContextProvider>
-    </ThrottleActionContextProvider>
+      </ThrottleStateContext.Provider>
+    </ThrottleActionContext.Provider>
   );
 }
 

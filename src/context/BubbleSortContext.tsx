@@ -2,7 +2,7 @@ import {
   createContext,
   Dispatch,
   MutableRefObject,
-  ReactNode,
+  PropsWithChildren,
   SetStateAction,
   useCallback,
   useContext,
@@ -16,37 +16,37 @@ import useBubbleSortSpeed, {
 } from "../views/bubbleSortView/useBubbleSortSpeed";
 import wait from "../lib/util/wait";
 import { BubbleSortChartHandle } from "../views/bubbleSortView/BubbleSortChart";
-
+/**
+ *
+ *
+ * Context Creation
+ *
+ *
+ */
 interface BSArrayStateContextValue {
   unsortedArray: BubbleSortBar[];
   arrayKey: number;
 }
-
 interface BSArrayActionContextValue {
   setUnsortedArray: Dispatch<SetStateAction<BubbleSortBar[]>>;
   handleRefresh: () => void;
 }
-
 interface BSRefContextValue {
   bubbleSortChartRef: MutableRefObject<BubbleSortChartHandle | null>;
   speedRef: MutableRefObject<number>;
   speedButtonRef: MutableRefObject<HTMLButtonElement | null>;
 }
-
 interface BSSortStatusContextValue {
   isAutoSort: boolean;
   isSorted: boolean;
 }
-
 interface BSAutoSortContextValue {
   toggleAutoSort: () => void;
   handleSpeed: () => void;
 }
-
 interface BSManualSortContextValue {
   nextIteration: () => void;
 }
-
 const BSArrayStateContext = createContext<BSArrayStateContextValue | null>(
   null
 );
@@ -61,7 +61,13 @@ const BSAutoSortContext = createContext<BSAutoSortContextValue | null>(null);
 const BSManualSortContext = createContext<BSManualSortContextValue | null>(
   null
 );
-
+/**
+ *
+ *
+ * Context Provider component
+ *
+ *
+ */
 const NUM_OF_ELEMENTS = 20;
 const MAX_VALUE = 100;
 
@@ -71,12 +77,9 @@ export interface BubbleSortBar {
   value: number;
   className?: string;
 }
-
 export default function BubbleSortContextProvider({
   children,
-}: {
-  children: ReactNode;
-}) {
+}: PropsWithChildren) {
   const [unsortedArray, setUnsortedArray] = useState<BubbleSortBar[]>(
     createArray(NUM_OF_ELEMENTS, MAX_VALUE)
   );
@@ -217,23 +220,14 @@ export default function BubbleSortContextProvider({
   /**
    *
    *
-   *
-   *
-   *
    * Context Values!
    *
    *
-   *
-   *
-   *
-   *
    */
-
   const bsArrayStateValue: BSArrayStateContextValue = useMemo(
     () => ({ unsortedArray, arrayKey }),
     [unsortedArray, arrayKey]
   );
-
   const bsArrayActionValue: BSArrayActionContextValue = useMemo(
     () => ({
       setUnsortedArray,
@@ -248,7 +242,6 @@ export default function BubbleSortContextProvider({
     }),
     []
   );
-
   const bsRefValue: BSRefContextValue = useMemo(
     () => ({
       bubbleSortChartRef,
@@ -257,7 +250,6 @@ export default function BubbleSortContextProvider({
     }),
     []
   );
-
   const bsSortStatusValue: BSSortStatusContextValue = useMemo(
     () => ({
       isAutoSort,
@@ -265,7 +257,6 @@ export default function BubbleSortContextProvider({
     }),
     [isAutoSort, isSorted]
   );
-
   const bsAutoSortValue: BSAutoSortContextValue = useMemo(
     () => ({
       toggleAutoSort: () => {
@@ -279,7 +270,6 @@ export default function BubbleSortContextProvider({
     }),
     []
   );
-
   const bsManualSortValue: BSManualSortContextValue = useMemo(
     () => ({
       nextIteration: async () => {
@@ -308,7 +298,13 @@ export default function BubbleSortContextProvider({
     </BSArrayStateContext.Provider>
   );
 }
-
+/**
+ *
+ *
+ * Hooks to consume context
+ *
+ *
+ */
 export const useBSArrayStateContext = () => {
   const context = useContext(BSArrayStateContext);
   if (!context) throw new Error("useBSArrayStateContext");

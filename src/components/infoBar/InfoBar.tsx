@@ -1,9 +1,8 @@
-import { ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 import { classnames } from "../../lib/util/classnames";
 
-interface InfoBarProps {
+interface InfoBarProps extends PropsWithChildren {
   icon?: ReactNode;
-  children: ReactNode;
   className?: string;
 }
 

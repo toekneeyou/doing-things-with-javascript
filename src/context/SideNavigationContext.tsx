@@ -1,56 +1,40 @@
-import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { useViewportStateContext } from "./ViewportContext";
-
+/**
+ *
+ *
+ * Context Creation
+ *
+ *
+ */
 const SideNavigationValueContext = createContext<SideNavigationValue | null>(
   null
 );
+SideNavigationValueContext.displayName = "SideNavigationValue";
 const SideNavigationActionContext = createContext<SideNavigationAction | null>(
   null
 );
-
+SideNavigationActionContext.displayName = "SideNavigationAction";
 interface SideNavigationValue {
   isShowing: boolean;
 }
-
 interface SideNavigationAction {
   toggleSideNavigation: () => void;
 }
-
-interface SideNavigationContextProviderProps {
-  children: ReactNode;
-}
-
-interface SideNavigationValueProviderProps
-  extends SideNavigationContextProviderProps {
-  values: SideNavigationValue;
-}
-
-interface SideNavigationActionProviderProps
-  extends SideNavigationContextProviderProps {
-  actions: SideNavigationAction;
-}
-
-const SideNavigationValueProvider = ({
-  children,
-  values,
-}: SideNavigationValueProviderProps) => (
-  <SideNavigationValueContext.Provider value={values}>
-    {children}
-  </SideNavigationValueContext.Provider>
-);
-
-const SideNavigationActionProvider = ({
-  children,
-  actions,
-}: SideNavigationActionProviderProps) => (
-  <SideNavigationActionContext.Provider value={actions}>
-    {children}
-  </SideNavigationActionContext.Provider>
-);
-
-export default function SideNavigationContextProvider({
-  children,
-}: SideNavigationContextProviderProps) {
+/**
+ *
+ *
+ * Context Provider component
+ *
+ *
+ */
+const SideNavigationProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const viewportSize = useViewportStateContext();
   const [isShowing, setIsShowing] = useState(
     viewportSize === "lg" || viewportSize === "xl" || viewportSize === "xxl"
@@ -71,14 +55,20 @@ export default function SideNavigationContextProvider({
   );
 
   return (
-    <SideNavigationValueProvider values={values}>
-      <SideNavigationActionProvider actions={actions}>
+    <SideNavigationValueContext.Provider value={values}>
+      <SideNavigationActionContext.Provider value={actions}>
         {children}
-      </SideNavigationActionProvider>
-    </SideNavigationValueProvider>
+      </SideNavigationActionContext.Provider>
+    </SideNavigationValueContext.Provider>
   );
-}
-
+};
+/**
+ *
+ *
+ * Hooks to consume context
+ *
+ *
+ */
 export const useSideNavigationValueContext = () => {
   const values = useContext(SideNavigationValueContext);
   if (!values) throw Error("useSideNavigationValueContext error");
@@ -90,3 +80,5 @@ export const useSideNavigationActionContext = () => {
   if (!actions) throw Error("useSideNavigationActionContext error");
   return actions;
 };
+
+export default SideNavigationProvider;

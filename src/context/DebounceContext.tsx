@@ -1,12 +1,18 @@
 import {
   ChangeEventHandler,
   createContext,
-  ReactNode,
+  PropsWithChildren,
   useContext,
   useMemo,
   useState,
 } from "react";
-
+/**
+ *
+ *
+ * Context Creation
+ *
+ *
+ */
 interface DebounceStateContextValue {
   isLeading: boolean;
   isTrailing: boolean;
@@ -18,53 +24,24 @@ interface DebounceActionContextValue {
   handleTrailing: ChangeEventHandler<HTMLInputElement>;
   handleWait: ChangeEventHandler<HTMLInputElement>;
 }
-
-interface DebounceStateContextProviderProps {
-  value: DebounceStateContextValue;
-  children: ReactNode;
-}
-
-interface DebounceActionContextProviderProps {
-  value: DebounceActionContextValue;
-  children: ReactNode;
-}
-
-interface DebounceContextProviderProps {
-  children: ReactNode;
-}
-
 const DebounceStateContext = createContext<DebounceStateContextValue | null>(
   null
 );
+DebounceStateContext.displayName = "DebounceState";
 const DebounceActionContext = createContext<DebounceActionContextValue | null>(
   null
 );
-
-function DebounceActionContextProvider({
-  value,
-  children,
-}: DebounceActionContextProviderProps) {
-  return (
-    <DebounceActionContext.Provider value={value}>
-      {children}
-    </DebounceActionContext.Provider>
-  );
-}
-
-function DebounceStateContextProvider({
-  value,
-  children,
-}: DebounceStateContextProviderProps) {
-  return (
-    <DebounceStateContext.Provider value={value}>
-      {children}
-    </DebounceStateContext.Provider>
-  );
-}
-
+DebounceActionContext.displayName = "DebounceAction";
+/**
+ *
+ *
+ * Context Provider component
+ *
+ *
+ */
 export default function DebounceContextProvider({
   children,
-}: DebounceContextProviderProps) {
+}: PropsWithChildren) {
   const [isLeading, setIsLeading] = useState(false);
   const [isTrailing, setIsTrailing] = useState(true);
   const [wait, setWait] = useState("1000");
@@ -97,14 +74,20 @@ export default function DebounceContextProvider({
   };
 
   return (
-    <DebounceActionContextProvider value={actionValue}>
-      <DebounceStateContextProvider value={stateValue}>
+    <DebounceActionContext.Provider value={actionValue}>
+      <DebounceStateContext.Provider value={stateValue}>
         {children}
-      </DebounceStateContextProvider>
-    </DebounceActionContextProvider>
+      </DebounceStateContext.Provider>
+    </DebounceActionContext.Provider>
   );
 }
-
+/**
+ *
+ *
+ * Hooks to consume context
+ *
+ *
+ */
 export const useDebounceStateContext = () => {
   const context = useContext(DebounceStateContext);
   if (!context) throw Error("useDebounceStateContext");

@@ -7,7 +7,13 @@ import {
 } from "../../context/SideNavigationContext";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import VerticalDivider from "../../components/verticalDivider/VerticalDivider";
-
+/**
+ *
+ *
+ * Header
+ *
+ *
+ */
 export default function Header() {
   return (
     <header
@@ -21,7 +27,7 @@ export default function Header() {
         ]
       )}
     >
-      <ToggleMenuButton />
+      <ToggleNavButton />
 
       <VerticalDivider className="mr-2" />
 
@@ -29,8 +35,14 @@ export default function Header() {
     </header>
   );
 }
-
-function ToggleMenuButton({}) {
+/**
+ *
+ *
+ * ToggleNavButton shows and hides the Side Navigation
+ *
+ *
+ */
+const ToggleNavButton: React.FC = () => {
   const { toggleSideNavigation } = useSideNavigationActionContext();
   const { isShowing } = useSideNavigationValueContext();
 
@@ -45,9 +57,15 @@ function ToggleMenuButton({}) {
       icon={Icon}
     />
   );
-}
-
-function LogoLink() {
+};
+/**
+ *
+ *
+ * LogoLink that redirects user to Home page.
+ *
+ *
+ */
+const LogoLink: React.FC = () => {
   return (
     <h1 className={classnames("logo-link", "font-bold")}>
       <Link to="/" className="flex items-center">
@@ -61,4 +79,4 @@ function LogoLink() {
       </Link>
     </h1>
   );
-}
+};
