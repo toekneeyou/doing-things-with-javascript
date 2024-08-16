@@ -5,7 +5,7 @@ function Element() {
   return <div>element</div>;
 }
 
-test("Accordion Tab should render title", async () => {
+test("should call onClickAway when clicking outside the component", async () => {
   const handleClickAway = jest.fn();
 
   render(
