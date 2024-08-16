@@ -6,7 +6,5 @@ export default async function wait(
     timerId = setTimeout(resolve, ms);
   });
 
-  (promise as any).cancel = () => clearTimeout(timerId);
-
-  return promise as Promise<void> & { cancel: () => void };
+  return promise as Promise<void>;
 }

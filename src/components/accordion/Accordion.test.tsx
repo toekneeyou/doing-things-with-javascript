@@ -3,16 +3,8 @@ import Accordion from "./Accordion";
 
 const TITLE = "Accordion";
 
-function AccordionContent() {
-  return (
-    <ul style={{ height: "100px", width: "100%" }}>
-      {[1, 2, 3].map((num) => (
-        <li style={{ height: "2rem" }} key={num}>
-          {num}
-        </li>
-      ))}
-    </ul>
-  );
+function Element() {
+  return <div style={{ minHeight: "100px", minWidth: "100px" }} />;
 }
 
 test("Accordion Tab should render title", async () => {
@@ -21,7 +13,7 @@ test("Accordion Tab should render title", async () => {
       tab={<Accordion.Tab title={<span>{TITLE}</span>} />}
       panel={
         <Accordion.Panel>
-          <AccordionContent />
+          <Element />
         </Accordion.Panel>
       }
     />
@@ -38,7 +30,7 @@ test("Accordion Tab should toggle Accordion Panel", async () => {
       tab={<Accordion.Tab title={<span>{TITLE}</span>} />}
       panel={
         <Accordion.Panel>
-          <AccordionContent />
+          <Element />
         </Accordion.Panel>
       }
     />
