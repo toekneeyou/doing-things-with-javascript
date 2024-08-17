@@ -18,7 +18,7 @@ export default function VisualizationLayout({
         "visualization-layout",
         "w-full flex flex-col",
         "text-sm 2xl:text-base",
-        "lg:h-screen lg:overflow-auto"
+        "min-h-screen lg:h-screen overflow-auto"
       )}
     >
       <div
