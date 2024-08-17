@@ -5,12 +5,15 @@ import {
   useDebounceActionContext,
   useDebounceStateContext,
 } from "../../context/DebounceContext";
+import { useViewportStateContext } from "../../context/ViewportContext";
 import VisualizationOptionsPanel from "../../layouts/visualizationLayout/VisualizationOptionsPanel";
 
 export default function DebounceOptions() {
   const { wait, isLeading, isTrailing } = useDebounceStateContext();
   const { handleLeading, handleTrailing, handleWait } =
     useDebounceActionContext();
+  const viewport = useViewportStateContext();
+  const isMobile = viewport === "sm" || viewport == "md" || viewport === "xs";
 
   return (
     <VisualizationOptionsPanel>
@@ -21,26 +24,27 @@ export default function DebounceOptions() {
         showLabel={true}
         value={wait}
         onChange={handleWait}
-        inputClassName="w-28"
+        inputGroupClassName="w-44 justify-between"
+        inputClassName="w-24"
         step={100}
       />
-      <VerticalDivider />
+      {!isMobile && <VerticalDivider />}
       <SwitchGroup
         name="leading"
         label="isLeading"
         showLabel={true}
         checked={isLeading}
         onChange={handleLeading}
-        switchGroupClassName="flex items-center gap-x-standard"
+        switchGroupClassName="w-44 justify-between"
       />
-      <VerticalDivider />
+      {!isMobile && <VerticalDivider />}
       <SwitchGroup
         name="trailing"
         label="isTrailing"
         showLabel={true}
         checked={isTrailing}
         onChange={handleTrailing}
-        switchGroupClassName="flex items-center gap-x-standard"
+        switchGroupClassName="w-44 justify-between"
       />
     </VisualizationOptionsPanel>
   );

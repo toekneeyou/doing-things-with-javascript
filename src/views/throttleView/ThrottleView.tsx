@@ -1,19 +1,20 @@
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
 import ThrottleContextProvider from "../../context/ThrottleContext";
 import ThrottleVisual from "./ThrottleVisual";
-import ThrottleOptions from "./ThrottleOptions";
+
 import VisualizationInfo from "../../layouts/visualizationLayout/VisualizationInfo";
 import { useViewportStateContext } from "../../context/ViewportContext";
 import { lazy, Suspense } from "react";
 
 const ThrottleOptionsModal = lazy(() => import("./ThrottleOptionsModal"));
+const ThrottleOptions = lazy(() => import("./ThrottleOptions"));
 
 export function ThrottleView() {
   return (
     <ThrottleContextProvider>
       <VisualizationLayout
         infoPanel={<ThrottleInfoPanel />}
-        optionsPanel={<ThrottleOptions />}
+        optionsPanel={<LazyThrottleOptions />}
         visual={<ThrottleVisual optionsModal={<LazyThrottleOptionsModal />} />}
       />
     </ThrottleContextProvider>
@@ -65,6 +66,18 @@ function ThrottleInfo() {
       </li>
     </ul>
   );
+}
+
+function LazyThrottleOptions() {
+  const viewportSize = useViewportStateContext();
+  const isRendered =
+    viewportSize === "lg" || viewportSize === "xl" || viewportSize === "xxl";
+
+  return isRendered ? (
+    <Suspense>
+      <ThrottleOptions />
+    </Suspense>
+  ) : null;
 }
 
 function LazyThrottleOptionsModal() {

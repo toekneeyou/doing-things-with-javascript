@@ -51,9 +51,8 @@ export default function ThrottleVisual({ optionsModal }: ThrottleVisualProps) {
   const IncrementIcon = (props?: any) => <PlusIcon {...props} />;
 
   return (
-    <div className="w-full h-full centered flex-col gap-y-4">
-      <div className="w-[528px] space-y-4">
-        {optionsModal}
+    <div className={classnames("throttle-visual", "w-full h-full centered")}>
+      <div className={classnames("w-full lg:w-[528px] space-y-4")}>
         <div className="centered gap-x-standard">
           <div>0ms</div>
           <ThrottleProgress
@@ -62,20 +61,27 @@ export default function ThrottleVisual({ optionsModal }: ThrottleVisualProps) {
             start={isWaiting}
           />
           <div>{wait}ms</div>
+          {optionsModal}
         </div>
 
-        <div className="grid grid-cols-2 gap-2 relative rounded-xl overflow-hidden">
+        <div
+          className={classnames(
+            "flex rounded-xl w-full overflow-hidden",
+            "gap-1 lg:gap-2"
+          )}
+        >
           <IncrementCard
             header={<RegularIncrementCardHeader />}
             count={count}
           />
-
-          <Button
-            onClick={handleIncrement}
-            className="absolute left-[15.125rem] top-12"
-            variant="icon-filled"
-            iconLeft={IncrementIcon}
-          />
+          <div className="mx-[-20px] z-[1]">
+            <Button
+              onClick={handleIncrement}
+              className="mt-12"
+              variant="icon-filled"
+              iconLeft={IncrementIcon}
+            />
+          </div>
 
           <IncrementCard
             header={<ThrottledIncrementCardHeader />}
@@ -96,7 +102,7 @@ const IncrementCard = ({
 }) => {
   return (
     <Card
-      className="w-64"
+      className="md:w-64 basis-full"
       header={header}
       body={<IncrementCardBody count={count} />}
     />
@@ -118,8 +124,14 @@ const IncrementCardBody = ({ count }: { count: number }) => {
   );
 };
 const RegularIncrementCardHeader = () => {
-  return <Card.Header title={<h2>Count</h2>} />;
+  return (
+    <Card.Header title={<h2 className="text-sm lg:text-base">Count</h2>} />
+  );
 };
 const ThrottledIncrementCardHeader = () => {
-  return <Card.Header title={<h2>Throttled Count</h2>} />;
+  return (
+    <Card.Header
+      title={<h2 className="text-sm lg:text-base">Throttled Count</h2>}
+    />
+  );
 };

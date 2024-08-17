@@ -53,7 +53,7 @@ export default function SwitchGroup({
     <div
       className={classnames(
         "switch-group",
-        "relative space-x-4",
+        "relative flex items-center gap-x-standard",
         switchGroupClassName
       )}
     >

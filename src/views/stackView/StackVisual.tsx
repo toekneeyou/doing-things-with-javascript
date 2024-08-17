@@ -68,8 +68,7 @@ export default function StackVisual() {
     <div
       className={classnames(
         "stack-visual",
-        "w-full h-full centered flex-col gap-y-8",
-        "p-8 lg:p-0"
+        "w-full h-full centered flex-col gap-y-8"
       )}
     >
       <TallArray ref={stackContainerRef} array={stack} />

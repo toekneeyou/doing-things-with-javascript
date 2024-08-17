@@ -33,7 +33,8 @@ export default function VisualizationLayout({
         <div
           className={classnames(
             "visualization-layout__visual__content",
-            "flex-grow flex flex-col bg-[rgba(0,0,0,0.2)]"
+            "flex-grow flex flex-col bg-[rgba(0,0,0,0.2)]",
+            "p-8 lg:p-0"
           )}
         >
           {visual}

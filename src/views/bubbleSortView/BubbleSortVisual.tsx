@@ -8,8 +8,7 @@ export default function BubbleSortVisual() {
     <div
       className={classnames(
         "bubble-sort-visual",
-        "h-full w-full centered flex-col gap-y-8",
-        "p-8 lg:p-0"
+        "h-full w-full centered flex-col gap-y-8"
       )}
     >
       <div

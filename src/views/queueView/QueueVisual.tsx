@@ -68,8 +68,7 @@ export default function QueueVisual() {
     <div
       className={classnames(
         "queue-visual",
-        "w-full h-full centered flex-col gap-y-8",
-        "p-4"
+        "w-full h-full centered flex-col gap-y-8"
       )}
     >
       <TallArray ref={queueContainerRef} array={queue} />
