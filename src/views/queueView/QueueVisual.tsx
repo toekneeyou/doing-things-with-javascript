@@ -19,6 +19,16 @@ export default function QueueVisual() {
    */
   const doNotInteruptRef = useRef(false);
   /**
+   * handles enqueuing of an item
+   */
+  const handleEnqueue = () => {
+    if (queue.length === 0) {
+      enqueue(1);
+    } else {
+      enqueue(queue[queue.length - 1] + 1);
+    }
+  };
+  /**
    * animates dequeuing of an item
    */
   const animateDequeue = async () => {
@@ -30,7 +40,7 @@ export default function QueueVisual() {
         firstEl.style.transform = "translateX(100%)";
         firstEl.style.transitionDuration = QUEUE_TRANSITION_DURATION;
         await wait(250);
-        dequeue();
+        dequeue(queue[0]);
         doNotInteruptRef.current = false;
       }
     }
@@ -65,7 +75,7 @@ export default function QueueVisual() {
       <TallArray ref={queueContainerRef} array={queue} />
 
       <QueueControls
-        enqueue={enqueue}
+        enqueue={handleEnqueue}
         dequeue={animateDequeue}
         clear={animateClear}
         isEmpty={queue.length === 0}
