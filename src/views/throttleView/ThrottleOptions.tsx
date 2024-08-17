@@ -23,7 +23,7 @@ export default function ThrottleOptions() {
         showLabel={true}
         value={wait}
         onChange={handleWait}
-        inputGroupClassName="w-44 justify-between"
+        inputGroupClassName="w-44 lg:w-max justify-between"
         inputClassName="w-24"
         step={100}
       />
@@ -34,7 +34,7 @@ export default function ThrottleOptions() {
         showLabel={true}
         checked={isLeading}
         onChange={handleLeading}
-        switchGroupClassName="w-44 justify-between"
+        switchGroupClassName="w-44 lg:w-max justify-between"
       />
       {isDesktop && <VerticalDivider />}
       <SwitchGroup
@@ -43,7 +43,7 @@ export default function ThrottleOptions() {
         showLabel={true}
         checked={isTrailing}
         onChange={handleTrailing}
-        switchGroupClassName="w-44 justify-between"
+        switchGroupClassName="w-44 lg:w-max justify-between"
       />
     </VisualizationOptionsPanel>
   );
