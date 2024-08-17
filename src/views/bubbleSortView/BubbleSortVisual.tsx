@@ -8,11 +8,14 @@ export default function BubbleSortVisual() {
     <div
       className={classnames(
         "bubble-sort-visual",
-        "h-full w-full centered flex-col gap-y-8"
+        "h-full w-full max-w-[30rem] centered flex-col gap-y-8"
       )}
     >
       <div
-        className={classnames("bubble-sort-visual__top", "w-full lg:w-auto")}
+        className={classnames(
+          "bubble-sort-visual__top",
+          "w-full"
+        )}
       >
         <BubbleSortChart />
       </div>

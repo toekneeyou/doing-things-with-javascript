@@ -33,12 +33,7 @@ export default function BubbleSortChart({}: BubbleSortChartProps) {
       className="p-4 pb-0 rounded-xl bg-app-dark-blue"
       ref={localBubbleSortChartRef}
     >
-      <ul
-        className={classnames(
-          "h-72 flex items-end relative",
-          "w-full lg:min-w-96 lg:w-[30rem]"
-        )}
-      >
+      <ul className={classnames("h-72 flex items-end relative", "w-full")}>
         {unsortedArray.map((item) => {
           return (
             <li

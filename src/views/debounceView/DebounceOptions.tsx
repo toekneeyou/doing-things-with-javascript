@@ -12,8 +12,7 @@ export default function DebounceOptions() {
   const { wait, isLeading, isTrailing } = useDebounceStateContext();
   const { handleLeading, handleTrailing, handleWait } =
     useDebounceActionContext();
-  const viewport = useViewportStateContext();
-  const isMobile = viewport === "sm" || viewport == "md" || viewport === "xs";
+  const { isDesktop } = useViewportStateContext();
 
   return (
     <VisualizationOptionsPanel>
@@ -28,7 +27,7 @@ export default function DebounceOptions() {
         inputClassName="w-24"
         step={100}
       />
-      {!isMobile && <VerticalDivider />}
+      {isDesktop && <VerticalDivider />}
       <SwitchGroup
         name="leading"
         label="isLeading"
@@ -37,7 +36,7 @@ export default function DebounceOptions() {
         onChange={handleLeading}
         switchGroupClassName="w-44 justify-between"
       />
-      {!isMobile && <VerticalDivider />}
+      {isDesktop && <VerticalDivider />}
       <SwitchGroup
         name="trailing"
         label="isTrailing"

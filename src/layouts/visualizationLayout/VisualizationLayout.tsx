@@ -18,7 +18,8 @@ export default function VisualizationLayout({
         "visualization-layout",
         "w-full flex flex-col",
         "text-sm 2xl:text-base",
-        "min-h-screen lg:h-screen overflow-auto"
+        "min-h-screen lg:h-screen",
+        "overflow-y-auto md:overflow-hidden"
       )}
     >
       <div
@@ -33,7 +34,7 @@ export default function VisualizationLayout({
         <div
           className={classnames(
             "visualization-layout__visual__content",
-            "flex-grow flex flex-col bg-[rgba(0,0,0,0.2)]",
+            "flex-grow centered flex-col bg-[rgba(0,0,0,0.2)]",
             "p-8 lg:p-0"
           )}
         >

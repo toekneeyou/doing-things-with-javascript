@@ -49,11 +49,16 @@ export default function HomeView() {
 function Title() {
   return (
     <h1 className="mb-8 font-bold text-center">
-      <span className={classnames("inline-block mb-2", "text-3xl lg:text-6xl")}>
+      <span
+        className={classnames(
+          "inline-block mb-2",
+          "text-3xl md:text-4xl lg:text-6xl"
+        )}
+      >
         Doing Things with
       </span>
       <br />
-      <strong className="text-app-yellow text-5xl lg:text-8xl">
+      <strong className="text-app-yellow text-5xl md:text-6xl lg:text-8xl">
         JavaScript
       </strong>
     </h1>

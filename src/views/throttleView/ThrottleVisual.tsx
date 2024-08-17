@@ -52,7 +52,7 @@ export default function ThrottleVisual({ optionsModal }: ThrottleVisualProps) {
 
   return (
     <div className={classnames("throttle-visual", "w-full h-full centered")}>
-      <div className={classnames("w-full lg:w-[528px] space-y-4")}>
+      <div className={classnames("w-full max-w-[26rem] space-y-4")}>
         <div className="centered gap-x-standard">
           <div>0ms</div>
           <ThrottleProgress

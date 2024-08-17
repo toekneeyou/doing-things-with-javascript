@@ -35,10 +35,8 @@ interface SideNavigationAction {
  *
  */
 const SideNavigationProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const viewportSize = useViewportStateContext();
-  const [isShowing, setIsShowing] = useState(
-    viewportSize === "lg" || viewportSize === "xl" || viewportSize === "xxl"
-  );
+  const { isDesktop } = useViewportStateContext();
+  const [isShowing, setIsShowing] = useState(isDesktop);
 
   const actions = useMemo(
     () => ({

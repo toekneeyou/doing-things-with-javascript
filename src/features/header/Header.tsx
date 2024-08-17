@@ -7,6 +7,7 @@ import {
 } from "../../context/SideNavigationContext";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import VerticalDivider from "../../components/verticalDivider/VerticalDivider";
+import { useViewportStateContext } from "../../context/ViewportContext";
 /**
  *
  *
@@ -15,6 +16,8 @@ import VerticalDivider from "../../components/verticalDivider/VerticalDivider";
  *
  */
 export default function Header() {
+  const { isDesktop } = useViewportStateContext();
+
   return (
     <header
       className={classnames(
@@ -29,8 +32,7 @@ export default function Header() {
     >
       <ToggleNavButton />
 
-      <VerticalDivider className="mr-2" />
-
+      {isDesktop && <VerticalDivider className="mr-2" />}
       <LogoLink />
     </header>
   );

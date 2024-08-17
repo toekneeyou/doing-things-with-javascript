@@ -72,11 +72,8 @@ function DebounceInfo() {
 }
 
 function LazyDebounceOptions() {
-  const viewportSize = useViewportStateContext();
-  const isRendered =
-    viewportSize === "lg" || viewportSize === "xl" || viewportSize === "xxl";
-
-  return isRendered ? (
+  const { isDesktop } = useViewportStateContext();
+  return isDesktop ? (
     <Suspense>
       <DebounceOptions />
     </Suspense>
@@ -84,11 +81,8 @@ function LazyDebounceOptions() {
 }
 
 function LazyDebounceOptionsModal() {
-  const viewportSize = useViewportStateContext();
-  const isRendered =
-    viewportSize === "xs" || viewportSize === "sm" || viewportSize === "md";
-
-  return isRendered ? (
+  const { isTablet } = useViewportStateContext();
+  return isTablet ? (
     <Suspense>
       <DebounceOptionsModal />
     </Suspense>

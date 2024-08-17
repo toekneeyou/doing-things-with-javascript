@@ -69,11 +69,9 @@ function ThrottleInfo() {
 }
 
 function LazyThrottleOptions() {
-  const viewportSize = useViewportStateContext();
-  const isRendered =
-    viewportSize === "lg" || viewportSize === "xl" || viewportSize === "xxl";
+  const { isDesktop } = useViewportStateContext();
 
-  return isRendered ? (
+  return isDesktop ? (
     <Suspense>
       <ThrottleOptions />
     </Suspense>
@@ -81,11 +79,9 @@ function LazyThrottleOptions() {
 }
 
 function LazyThrottleOptionsModal() {
-  const viewportSize = useViewportStateContext();
-  const isRendered =
-    viewportSize === "xs" || viewportSize === "sm" || viewportSize === "md";
+  const { isTablet } = useViewportStateContext();
 
-  return isRendered ? (
+  return isTablet ? (
     <Suspense>
       <ThrottleOptionsModal />
     </Suspense>

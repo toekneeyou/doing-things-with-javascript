@@ -12,8 +12,7 @@ export default function ThrottleOptions() {
   const { wait, isLeading, isTrailing } = useThrottleStateContext();
   const { handleLeading, handleTrailing, handleWait } =
     useThrottleActionContext();
-  const viewport = useViewportStateContext();
-  const isMobile = viewport === "sm" || viewport == "md" || viewport === "xs";
+  const { isDesktop } = useViewportStateContext();
 
   return (
     <VisualizationOptionsPanel>
@@ -28,7 +27,7 @@ export default function ThrottleOptions() {
         inputClassName="w-24"
         step={100}
       />
-      {!isMobile && <VerticalDivider />}
+      {isDesktop && <VerticalDivider />}
       <SwitchGroup
         name="leading"
         label="isLeading"
@@ -37,7 +36,7 @@ export default function ThrottleOptions() {
         onChange={handleLeading}
         switchGroupClassName="w-44 justify-between"
       />
-      {!isMobile && <VerticalDivider />}
+      {isDesktop && <VerticalDivider />}
       <SwitchGroup
         name="trailing"
         label="isTrailing"

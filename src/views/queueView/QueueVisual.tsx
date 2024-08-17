@@ -99,8 +99,7 @@ function QueueControls({
   isEmpty,
   isFull,
 }: QueueControlsProps) {
-  const viewport = useViewportStateContext();
-  const isMobile = viewport === "xs" || viewport === "sm";
+  const { isMobile } = useViewportStateContext();
 
   return (
     <ul

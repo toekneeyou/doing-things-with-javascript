@@ -15,7 +15,13 @@ import {
  *
  */
 type ViewportSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | null;
-const ViewportStateContext = createContext<ViewportSize | null>(null);
+interface ViewportContextValue {
+  viewportSize: ViewportSize;
+  isMobile: boolean;
+  isTablet: boolean;
+  isDesktop: boolean;
+}
+const ViewportStateContext = createContext<ViewportContextValue | null>(null);
 /**
  *
  *
@@ -64,7 +70,18 @@ export default function ViewportContextProvider({
     };
   }, []);
 
-  const stateValue = useMemo(() => viewportSize, [viewportSize]);
+  const stateValue = useMemo(
+    () => ({
+      viewportSize,
+      isMobile: viewportSize === "xs" || viewportSize === "sm",
+      isTablet: viewportSize === "md",
+      isDesktop:
+        viewportSize === "lg" ||
+        viewportSize === "xl" ||
+        viewportSize === "xxl",
+    }),
+    [viewportSize]
+  );
 
   return (
     <ViewportStateContext.Provider value={stateValue}>
