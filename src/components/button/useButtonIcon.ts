@@ -15,11 +15,10 @@ export default function useButtonIcon(
   const iconProps = useMemo(() => {
     return isIconButton
       ? {
-          className: classnames("size-6 border-[1px]"),
+          className: classnames("size-6"),
           style: {
             color: variant === "icon-filled" ? darkBlue : color,
             backgroundColor: variant === "icon-filled" ? color : "transparent",
-            borderColor: variant === "icon" ? "transparent" : color,
           },
         }
       : {
@@ -27,7 +26,6 @@ export default function useButtonIcon(
           style: {
             color: variant === "filled" ? darkBlue : color,
             backgroundColor: variant === "filled" ? color : "transparent",
-            borderColor: variant === "text" ? "transparent" : color,
           },
         };
   }, [isIconButton, variant, color]);

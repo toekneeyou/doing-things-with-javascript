@@ -77,34 +77,58 @@ export interface BubbleSortBar {
   value: number;
   className?: string;
 }
-export default function BubbleSortContextProvider({
-  children,
-}: PropsWithChildren) {
+const BubbleSortContextProvider = ({ children }: PropsWithChildren) => {
+  /**
+   * unsortedArray remains unsorted, only the property `position` is changed to simulate sorting for much easier animations.
+   */
   const [unsortedArray, setUnsortedArray] = useState<BubbleSortBar[]>(
     createArray(NUM_OF_ELEMENTS, MAX_VALUE)
   );
-  const [arrayKey, setArrayKey] = useState(1); // this is used to create a brand new array
-  // sorting logic below
-  const [isAutoSort, setIsAutoSorting] = useState(false);
-  const [isSorted, setIsSorted] = useState(false);
-  const [i, setI] = useState(0);
-  const [j, setJ] = useState(0);
-  const { speedRef, speedButtonRef, calculateSpeed } = useBubbleSortSpeed();
-  const doNotInteruptManualSort = useRef(false); // prevents next from being called while bars are still animating
-  const isEarlyTermination = useRef(false);
-  const bubbleSortChartRef = useRef<BubbleSortChartHandle>(null);
-  const unsortedArrayCopy = useRef(unsortedArray);
-
   /**
-   * make a copy of unsorted array for sorting functions to use
+   * arrayKey is used to reset array.
+   */
+  const [arrayKey, setArrayKey] = useState(1);
+  /**
+   * autoSort controls autoSorting
+   */
+  const [isAutoSort, setIsAutoSorting] = useState(false);
+  /**
+   * isSorted indicates that sorting has concluded, users can only reset array when true
+   */
+  const [isSorted, setIsSorted] = useState(false);
+  /**
+   * loop represents the current iteration
+   */
+  const [loop, setLoop] = useState({ i: 0, j: 0 });
+  /**
+   * speed of sort is stored in a ref so speed can be increased in the middle of a sort without triggering a re-render
+   */
+  const { speedRef, speedButtonRef, calculateSpeed } = useBubbleSortSpeed();
+  /**
+   * doNotInteruptManualSort prevents `nextIteration` from being called while the bars are still moving
+   */
+  const doNotInteruptManualSort = useRef(false);
+  /**
+   * isEarlyTermination prevents unsortedArray from being updated if user pauses before bars have animated for ux consistency
+   */
+  const isEarlyTermination = useRef(false);
+  /**
+   * bubbleSortChartRef is attached the the chart and exposes methods for selecting its child elements
+   */
+  const bubbleSortChartRef = useRef<BubbleSortChartHandle>(null);
+  /**
+   * This to ensure `handleSort` has the most recent copy of unsortedArray
+   */
+  const unsortedArrayCopy = useRef(unsortedArray);
+  /**
+   * This effect makes a copy of unsorted array for `handleSort`
    */
   useEffect(() => {
     unsortedArrayCopy.current = [...unsortedArray];
   }, [unsortedArray]);
-
   /**
    * handleSort takes in a `localI` and `localJ` and swaps them and updates styling if necessary.
-   * It will also increment i and j according.
+   * It will also increment `loop` accordingly.
    */
   const handleSort = useCallback(
     async (localI: number, localJ: number, isManual: boolean) => {
@@ -135,7 +159,7 @@ export default function BubbleSortContextProvider({
       // make currEl yellow
       let currEl = bubbleSortChart.getElement(curr.originalPosition)!;
       makeElYellow(currEl);
-      // once colors are set, wait a little for user to see which bar is the current bar
+      // once colors are set, wait a little for user to see which bar is the current bar, unless manual sort and not on first bar
       if (!isManual || (isManual && localJ === 0)) {
         await wait(SORT_SPEED / speedRef.current);
       }
@@ -179,8 +203,7 @@ export default function BubbleSortContextProvider({
       const newJ = isEndOfIteration ? 0 : localJ + 1;
       let newI = isEndOfIteration ? localI + 1 : localI;
       const isFinishedSorting = newI >= array.length - 1;
-      setJ(newJ);
-      setI(newI);
+      setLoop({ i: newI, j: newJ });
 
       if (isFinishedSorting) {
         // make the last el gray
@@ -196,7 +219,6 @@ export default function BubbleSortContextProvider({
     },
     []
   );
-
   /**
    * This useEffect contains auto sorting logic
    */
@@ -204,6 +226,7 @@ export default function BubbleSortContextProvider({
     const array = unsortedArrayCopy.current!;
     if (isAutoSort && !isSorted) {
       const bubbleSort = async () => {
+        const { i, j } = loop;
         const shouldSort = i < array.length - 1 && j < array.length - 1 - i;
         if (shouldSort) {
           await handleSort(i, j, false);
@@ -215,8 +238,7 @@ export default function BubbleSortContextProvider({
     return () => {
       isEarlyTermination.current = true;
     };
-  }, [i, j, handleSort, isAutoSort, isSorted]);
-
+  }, [loop, handleSort, isAutoSort, isSorted]);
   /**
    *
    *
@@ -234,8 +256,7 @@ export default function BubbleSortContextProvider({
       handleRefresh: () => {
         setIsAutoSorting(false);
         setIsSorted(false);
-        setI(0);
-        setJ(0);
+        setLoop({ i: 0, j: 0 });
         setUnsortedArray(createArray(NUM_OF_ELEMENTS, MAX_VALUE));
         setArrayKey(Math.random());
       },
@@ -275,11 +296,12 @@ export default function BubbleSortContextProvider({
       nextIteration: async () => {
         // if previous sort isn't finished... don't call handleSort
         if (!doNotInteruptManualSort.current) {
+          const { i, j } = loop;
           await handleSort(i, j, true);
         }
       },
     }),
-    [i, j]
+    [loop]
   );
 
   return (
@@ -297,7 +319,7 @@ export default function BubbleSortContextProvider({
       </BSArrayActionContext.Provider>
     </BSArrayStateContext.Provider>
   );
-}
+};
 /**
  *
  *
@@ -350,3 +372,5 @@ const createArray = (numberOfElements: number, maxValue: number) => {
     className: "",
   }));
 };
+
+export default BubbleSortContextProvider;

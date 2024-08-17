@@ -3,17 +3,15 @@ import { useState } from "react";
 export default function useQueueOptions() {
   const [queue, setQueue] = useState<number[]>([]);
 
-  const enqueue = () => {
+  const enqueue = (value: number) => {
     setQueue((prevQueue) => {
-      const last = prevQueue[prevQueue.length - 1] ?? 0;
-      const newQueue = [...prevQueue, last + 1];
-      return newQueue;
+      return [...prevQueue, value];
     });
   };
 
-  const dequeue = () => {
+  const dequeue = (value: number) => {
     setQueue((prevQueue) => {
-      return prevQueue.slice(1) ?? [];
+      return prevQueue.filter((v) => v !== value);
     });
   };
 

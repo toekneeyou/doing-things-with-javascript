@@ -3,16 +3,14 @@ import { useState } from "react";
 export default function useStackOptions() {
   const [stack, setStack] = useState<number[]>([]);
 
-  const push = (stck: number[]) => {
-    const last = stck[stck.length - 1] ?? 0;
-    const newStack = [...stck, last + 1];
-    setStack(newStack);
+  const push = (value: number) => {
+    setStack((prevStack) => [...prevStack, value]);
   };
 
-  const pop = (stck: number[]) => {
-    const newStack = [...stck];
-    newStack.pop();
-    setStack(newStack);
+  const pop = (value: number) => {
+    setStack((prevStack) => {
+      return prevStack.filter((v) => v !== value);
+    });
   };
 
   const clear = () => {

@@ -8,13 +8,15 @@ export default function VisualizationOptionsPanel({
     <div
       className={classnames(
         "visualization-options-panel",
-        "w-full bg-[rgba(0,0,0,0.15)]"
+        "w-full lg:bg-[rgba(0,0,0,0.15)]"
       )}
     >
       <form
         className={classnames(
           "debounced-options__form",
-          "centered gap-x-6 h-16"
+          "centered gap-x-6 lg:h-16",
+          "flex flex-col lg:flex-row",
+          "gap-y-8 lg:gap-y-0"
         )}
       >
         {children}

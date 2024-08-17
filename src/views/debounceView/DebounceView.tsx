@@ -1,5 +1,4 @@
 import VisualizationLayout from "../../layouts/visualizationLayout/VisualizationLayout";
-import DebounceOptions from "./DebounceOptions";
 import DebounceVisual from "./DebounceVisual";
 import DebounceContextProvider from "../../context/DebounceContext";
 import { useViewportStateContext } from "../../context/ViewportContext";
@@ -7,13 +6,14 @@ import { lazy, Suspense } from "react";
 import VisualizationInfo from "../../layouts/visualizationLayout/VisualizationInfo";
 
 const DebounceOptionsModal = lazy(() => import("./DebounceOptionsModal"));
+const DebounceOptions = lazy(() => import("./DebounceOptions"));
 
 export function DebounceView() {
   return (
     <DebounceContextProvider>
       <VisualizationLayout
         infoPanel={<DebounceInfoPanel />}
-        optionsPanel={<DebounceOptions />}
+        optionsPanel={<LazyDebounceOptions />}
         visual={<DebounceVisual optionsModal={<LazyDebounceOptionsModal />} />}
       />
     </DebounceContextProvider>
@@ -71,12 +71,18 @@ function DebounceInfo() {
   );
 }
 
-function LazyDebounceOptionsModal() {
-  const viewportSize = useViewportStateContext();
-  const isRendered =
-    viewportSize === "xs" || viewportSize === "sm" || viewportSize === "md";
+function LazyDebounceOptions() {
+  const { isDesktop } = useViewportStateContext();
+  return isDesktop ? (
+    <Suspense>
+      <DebounceOptions />
+    </Suspense>
+  ) : null;
+}
 
-  return isRendered ? (
+function LazyDebounceOptionsModal() {
+  const { isTablet } = useViewportStateContext();
+  return isTablet ? (
     <Suspense>
       <DebounceOptionsModal />
     </Suspense>

@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import TallArray, { TallArrayHandle } from "../../features/tallArray/TallArray";
 import { classnames } from "../../lib/util/classnames";
-import throttle from "../../lib/util/throttle";
 import Button from "../../components/button/Button";
 import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import wait from "../../lib/util/wait";
@@ -10,24 +9,45 @@ import {
   MAX_QUEUE_LENGTH,
   QUEUE_TRANSITION_DURATION,
 } from "../../lib/constants";
+import { useViewportStateContext } from "../../context/ViewportContext";
 
 export default function QueueVisual() {
   const queueContainerRef = useRef<TallArrayHandle>(null);
   const { queue, enqueue, dequeue, clear } = useQueueOptions();
-
-  const animateDequeue = async () => {
-    const queueContainer = queueContainerRef.current!;
-    const firstEl = queueContainer.getChild(queue[0]);
-    if (firstEl) {
-      firstEl.style.transform = "translateX(100%)";
-      firstEl.style.transitionDuration = QUEUE_TRANSITION_DURATION;
-      await wait(250);
-      dequeue();
+  /**
+   * doNotInteruptRef prevents any actions that affect the queue while an animation is in progress
+   */
+  const doNotInteruptRef = useRef(false);
+  /**
+   * handles enqueuing of an item
+   */
+  const handleEnqueue = () => {
+    if (queue.length === 0) {
+      enqueue(1);
+    } else {
+      enqueue(queue[queue.length - 1] + 1);
     }
   };
-
-  const throttledDequeue = throttle(animateDequeue, 500);
-
+  /**
+   * animates dequeuing of an item
+   */
+  const animateDequeue = async () => {
+    if (!doNotInteruptRef.current) {
+      doNotInteruptRef.current = true;
+      const queueContainer = queueContainerRef.current!;
+      const firstEl = queueContainer.getChild(queue[0]);
+      if (firstEl) {
+        firstEl.style.transform = "translateX(100%)";
+        firstEl.style.transitionDuration = QUEUE_TRANSITION_DURATION;
+        await wait(250);
+        dequeue(queue[0]);
+        doNotInteruptRef.current = false;
+      }
+    }
+  };
+  /**
+   * animateClear animates clearing of the queue
+   */
   const animateClear = async () => {
     const queueContainer = queueContainerRef.current!;
     const items = queueContainer.getAllChildren();
@@ -54,8 +74,8 @@ export default function QueueVisual() {
       <TallArray ref={queueContainerRef} array={queue} />
 
       <QueueControls
-        enqueue={enqueue}
-        dequeue={throttledDequeue}
+        enqueue={handleEnqueue}
+        dequeue={animateDequeue}
         clear={animateClear}
         isEmpty={queue.length === 0}
         isFull={queue.length === MAX_QUEUE_LENGTH}
@@ -79,6 +99,8 @@ function QueueControls({
   isEmpty,
   isFull,
 }: QueueControlsProps) {
+  const { isMobile } = useViewportStateContext();
+
   return (
     <ul
       className={classnames(
@@ -87,13 +109,21 @@ function QueueControls({
       )}
     >
       <li className="w-full">
-        <EnqueueButton enqueue={enqueue} isDisabled={isFull} />
+        <EnqueueButton
+          enqueue={enqueue}
+          isDisabled={isFull}
+          isMobile={isMobile}
+        />
       </li>
       <li className="w-full">
-        <DequeueButton dequeue={dequeue} isDisabled={isEmpty} />
+        <DequeueButton
+          dequeue={dequeue}
+          isDisabled={isEmpty}
+          isMobile={isMobile}
+        />
       </li>
       <li className="w-full">
-        <ClearButton clear={clear} isDisabled={isEmpty} />
+        <ClearButton clear={clear} isDisabled={isEmpty} isMobile={isMobile} />
       </li>
     </ul>
   );
@@ -103,16 +133,18 @@ const EnqueueIcon = (props?: any) => <PlusIcon {...props} />;
 function EnqueueButton({
   enqueue,
   isDisabled,
+  isMobile,
 }: {
   enqueue: () => void;
   isDisabled: boolean;
+  isMobile: boolean;
 }) {
   return (
     <Button
       className="w-full"
       onClick={enqueue}
       disabled={isDisabled}
-      iconLeft={EnqueueIcon}
+      iconLeft={isMobile ? undefined : EnqueueIcon}
     >
       Enqueue
     </Button>
@@ -123,16 +155,18 @@ const DequeueIcon = (props?: any) => <MinusIcon {...props} />;
 function DequeueButton({
   dequeue,
   isDisabled,
+  isMobile,
 }: {
   dequeue: () => void;
   isDisabled: boolean;
+  isMobile: boolean;
 }) {
   return (
     <Button
       className="w-full"
       onClick={dequeue}
       disabled={isDisabled}
-      iconLeft={DequeueIcon}
+      iconLeft={isMobile ? undefined : DequeueIcon}
     >
       Dequeue
     </Button>
@@ -143,16 +177,18 @@ const ClearIcon = (props?: any) => <XMarkIcon {...props} />;
 function ClearButton({
   clear,
   isDisabled,
+  isMobile,
 }: {
   clear: () => void;
   isDisabled: boolean;
+  isMobile: boolean;
 }) {
   return (
     <Button
       className="w-full"
       onClick={clear}
       disabled={isDisabled}
-      iconLeft={ClearIcon}
+      iconLeft={isMobile ? undefined : ClearIcon}
     >
       Clear
     </Button>

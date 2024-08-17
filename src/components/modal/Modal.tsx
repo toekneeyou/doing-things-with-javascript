@@ -16,7 +16,9 @@ interface ModalProps extends PropsWithChildren {
 }
 const Modal: React.FC<ModalProps> = ({ isOpen, children, handleClose }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-
+  /**
+   * This effect controls the opening and closing of the modal.
+   */
   useEffect(() => {
     if (isOpen) {
       dialogRef.current?.showModal();

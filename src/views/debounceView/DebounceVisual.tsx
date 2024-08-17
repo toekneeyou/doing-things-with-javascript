@@ -52,17 +52,11 @@ const DebounceVisual = ({ optionsModal }: DebounceVisualProps) => {
   };
 
   return (
-    <div
-      className={classnames(
-        "debounce-visual",
-        "h-full w-full centered",
-        "p-8 lg:p-0"
-      )}
-    >
+    <div className={classnames("debounce-visual", "h-full w-full centered")}>
       <div
-        className={classnames("centered flex-col gap-y-8", "w-full lg:w-96")}
+        className={classnames("centered flex-col gap-y-8", "w-full md:w-96")}
       >
-        <div className={classnames("flex items-end space-x-2 w-full")}>
+        <div className={classnames("flex flex-col items-end space-x-2 w-full")}>
           {optionsModal}
           <InputGroup
             showLabel={true}

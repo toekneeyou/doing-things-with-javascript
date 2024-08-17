@@ -20,7 +20,7 @@ const Card = function ({ header, body, className }: CardProps) {
     <div
       className={classnames(
         "card",
-        "flex flex-col rounded-xl overflow-hidden min-w-48 shadow-md",
+        "flex flex-col rounded-xl overflow-hidden shadow-md",
         className
       )}
     >
