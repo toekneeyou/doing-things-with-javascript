@@ -11,8 +11,13 @@ const ClickAwayListener: React.FC<ClickAwayListenerProps> = ({
   onClickAway,
   className,
 }) => {
+  /**
+   * clickAwayListenerRef is used as reference in outside click detection
+   */
   const clickAwayListenerRef = useRef<HTMLDivElement>(null);
-
+  /**
+   * This effects adds an event listener to the document to listen for clicks outside the wrapped element
+   */
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (
