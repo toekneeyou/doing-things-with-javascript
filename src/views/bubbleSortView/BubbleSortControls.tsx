@@ -13,10 +13,12 @@ import {
   useBSRefContext,
   useBSSortStatusContext,
 } from "../../context/BubbleSortContext";
+import { useViewportStateContext } from "../../context/ViewportContext";
 
 interface BubbleSortControlsProps {}
 
 export default function BubbleSortControls({}: BubbleSortControlsProps) {
+  const { isMobile } = useViewportStateContext();
   return (
     <div
       className={classnames(
@@ -28,7 +30,7 @@ export default function BubbleSortControls({}: BubbleSortControlsProps) {
       <RefreshButton />
       <div className="flex gap-x-standard">
         <SortButton />
-        <NextIterationButton />
+        {!isMobile && <NextIterationButton />}
         <SpeedButton />
       </div>
     </div>
