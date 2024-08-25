@@ -12,7 +12,7 @@ export interface BubbleSortChartHandle {
 }
 
 export default function BubbleSortChart({}: BubbleSortChartProps) {
-  const { arrayKey, unsortedArray } = useBSArrayStateContext();
+  const { version, unsortedArray } = useBSArrayStateContext();
   const { bubbleSortChartRef, speedRef } = useBSRefContext();
   const localBubbleSortChartRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +38,7 @@ export default function BubbleSortChart({}: BubbleSortChartProps) {
           return (
             <li
               id={createId(item.originalPosition)}
-              key={`${arrayKey}-${item.originalPosition}`}
+              key={`${version}-${item.originalPosition}`}
               style={{
                 height: `${item.value}%`,
                 width: `calc(100% / ${unsortedArray.length} - 1px)`,

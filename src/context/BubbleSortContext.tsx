@@ -25,7 +25,7 @@ import { BubbleSortChartHandle } from "../views/bubbleSortView/BubbleSortChart";
  */
 interface BSArrayStateContextValue {
   unsortedArray: BubbleSortBar[];
-  arrayKey: number;
+  version: number;
 }
 interface BSArrayActionContextValue {
   setUnsortedArray: Dispatch<SetStateAction<BubbleSortBar[]>>;
@@ -81,13 +81,12 @@ const BubbleSortContextProvider = ({ children }: PropsWithChildren) => {
   /**
    * unsortedArray remains unsorted, only the property `position` is changed to simulate sorting for much easier animations.
    */
-  const [unsortedArray, setUnsortedArray] = useState<BubbleSortBar[]>(
-    createArray(NUM_OF_ELEMENTS, MAX_VALUE)
-  );
+  const [unsortedArray, setUnsortedArray] =
+    useState<BubbleSortBar[]>(createInitialState);
   /**
-   * arrayKey is used to reset array.
+   * version is used to reset array.
    */
-  const [arrayKey, setArrayKey] = useState(1);
+  const [version, setVersion] = useState(1);
   /**
    * autoSort controls autoSorting
    */
@@ -247,8 +246,8 @@ const BubbleSortContextProvider = ({ children }: PropsWithChildren) => {
    *
    */
   const bsArrayStateValue: BSArrayStateContextValue = useMemo(
-    () => ({ unsortedArray, arrayKey }),
-    [unsortedArray, arrayKey]
+    () => ({ unsortedArray, version }),
+    [unsortedArray, version]
   );
   const bsArrayActionValue: BSArrayActionContextValue = useMemo(
     () => ({
@@ -258,7 +257,7 @@ const BubbleSortContextProvider = ({ children }: PropsWithChildren) => {
         setIsSorted(false);
         setLoop({ i: 0, j: 0 });
         setUnsortedArray(createArray(NUM_OF_ELEMENTS, MAX_VALUE));
-        setArrayKey(Math.random());
+        setVersion(Math.random());
       },
     }),
     []
@@ -371,6 +370,10 @@ const createArray = (numberOfElements: number, maxValue: number) => {
     value: Math.ceil(Math.random() * maxValue),
     className: "",
   }));
+};
+
+const createInitialState = () => {
+  return createArray(NUM_OF_ELEMENTS, MAX_VALUE);
 };
 
 export default BubbleSortContextProvider;
