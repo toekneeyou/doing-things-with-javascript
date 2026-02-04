@@ -55,7 +55,7 @@ export default function ViewportContextProvider({
   };
 
   const [viewportSize, setViewportSize] = useState<ViewportSize>(
-    calculateViewportSize()
+    calculateViewportSize
   );
 
   useEffect(() => {

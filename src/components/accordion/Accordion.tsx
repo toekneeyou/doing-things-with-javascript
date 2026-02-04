@@ -1,4 +1,4 @@
-import { ReactNode, useLayoutEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { classnames } from "../../lib/util/classnames";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import {
@@ -7,11 +7,7 @@ import {
 } from "../../lib/types";
 import AccordionProvider, { useAccordionContext } from "./AccordionContext";
 /**
- *
- *
  * Accordion With Provider
- *
- *
  */
 interface AccordionProps extends PropsWithClassName {
   initialIsExpanded?: boolean;
@@ -26,11 +22,7 @@ const Accordion = ({ initialIsExpanded, tab, panel }: AccordionProps) => {
   );
 };
 /**
- *
- *
  * Accordion Without Provider
- *
- *
  */
 interface AccordionWithoutProviderProps extends PropsWithClassName {
   tab: ReactNode;
@@ -56,11 +48,7 @@ const AccordionWithoutProvider: React.FC<AccordionWithoutProviderProps> = ({
   );
 };
 /**
- *
- *
  * Accordion Tab
- *
- *
  */
 interface AccordionTabProps extends PropsWithClassName {
   title: ReactNode;
@@ -83,20 +71,18 @@ const AccordionTab: React.FC<AccordionTabProps> = ({ className, title }) => {
     >
       {title}
       <ChevronDownIcon
-        style={{ transition: "transform", transitionDuration: "300ms" }}
-        className={classnames("size-4 text-white", {
-          "-rotate-180": isExpanded,
-        })}
+        className={classnames(
+          "size-4 text-white transition-transform duration-300",
+          {
+            "-rotate-180": isExpanded,
+          }
+        )}
       />
     </button>
   );
 };
 /**
- *
- *
  * Accordion Panel
- *
- *
  */
 const AccordionPanel: React.FC<PropsWithClassNameAndChildren> = ({
   className,
@@ -105,12 +91,26 @@ const AccordionPanel: React.FC<PropsWithClassNameAndChildren> = ({
   const [maxHeight, setMaxHeight] = useState<number>();
   const { panelId, tabId, isExpanded } = useAccordionContext();
   const accordionPanelRef = useRef<HTMLDivElement>(null);
+  /**
+   * Calculate maxHeight for the panel since transitions require an explicit value.
+   */
+  useEffect(() => {
+    const accordionPanelEl = accordionPanelRef.current;
 
-  useLayoutEffect(() => {
-    const accordionBodyEl = accordionPanelRef.current;
-    if (accordionBodyEl) {
-      setMaxHeight(isExpanded ? accordionBodyEl.scrollHeight : 0);
-    }
+    if (!accordionPanelEl) return;
+
+    const observer = new ResizeObserver(() => {
+      /**
+       * scrollHeight is the total height of an element including overflow.
+       */
+      setMaxHeight(isExpanded ? accordionPanelEl.scrollHeight : 0);
+    });
+
+    observer.observe(accordionPanelEl);
+
+    return () => {
+      observer.disconnect();
+    };
   }, [isExpanded]);
 
   return (
