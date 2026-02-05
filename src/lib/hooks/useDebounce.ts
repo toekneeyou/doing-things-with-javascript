@@ -13,7 +13,7 @@ const useDebounce = <T extends (...args: any[]) => void>(
   delay: number,
   options: DebounceOptions
 ) => {
-  const fnRef = useRef<ReturnType<typeof debounce>>();
+  const fnRef = useRef<ReturnType<typeof debounce>>(undefined);
 
   if (!fnRef.current) {
     fnRef.current = debounce(fn, delay, options);
