@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, JSX } from "react";
 import { classnames } from "../../lib/util/classnames";
 import { ButtonColor, ButtonVariant } from "./Button";
 import { darkBlue } from "../../../tailwind.config";

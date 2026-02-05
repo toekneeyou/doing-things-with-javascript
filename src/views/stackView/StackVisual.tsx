@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { ComponentProps, useRef } from "react";
 import TallArray, { TallArrayHandle } from "../../features/tallArray/TallArray";
 import useStackOptions from "./useStackOptions";
 import Button from "../../components/button/Button";
@@ -68,7 +68,7 @@ export default function StackVisual() {
     <div
       className={classnames(
         "stack-visual",
-        "w-full h-full centered flex-col gap-y-8"
+        "w-full h-full centered flex-col gap-y-8",
       )}
     >
       <TallArray ref={stackContainerRef} array={stack} />
@@ -99,15 +99,21 @@ function StackControls({
   isEmpty,
   isFull,
 }: StackControlsProps) {
-  const PushIcon = (props?: any) => <PlusIcon {...props} />;
-  const PopIcon = (props?: any) => <MinusIcon {...props} />;
-  const ClearIcon = (props?: any) => <XMarkIcon {...props} />;
+  const PushIcon = (props?: ComponentProps<typeof PlusIcon>) => (
+    <PlusIcon {...props} />
+  );
+  const PopIcon = (props?: ComponentProps<typeof MinusIcon>) => (
+    <MinusIcon {...props} />
+  );
+  const ClearIcon = (props?: ComponentProps<typeof XMarkIcon>) => (
+    <XMarkIcon {...props} />
+  );
 
   return (
     <ul
       className={classnames(
         "stack-controls",
-        "grid grid-cols-3 gap-x-standard"
+        "grid grid-cols-3 gap-x-standard",
       )}
     >
       <li className="w-full">

@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useState } from "react";
+import { ComponentProps, JSX, ReactNode, useCallback, useState } from "react";
 import { useThrottleStateContext } from "../../context/ThrottleContext";
 import ThrottleProgress from "./ThrottleProgress";
 import Card from "../../features/card/Card";
@@ -36,9 +36,9 @@ export default function ThrottleVisual({ optionsModal }: ThrottleVisualProps) {
             setThrottleKey(tk);
           }
         },
-      }
+      },
     ),
-    [isLeading, isTrailing, wait]
+    [isLeading, isTrailing, wait],
   );
 
   const handleIncrement = () => {
@@ -48,7 +48,9 @@ export default function ThrottleVisual({ optionsModal }: ThrottleVisualProps) {
     });
   };
 
-  const IncrementIcon = (props?: any) => <PlusIcon {...props} />;
+  const IncrementIcon = (props?: ComponentProps<typeof PlusIcon>) => (
+    <PlusIcon {...props} />
+  );
 
   return (
     <div className={classnames("throttle-visual", "w-full h-full centered")}>
@@ -67,7 +69,7 @@ export default function ThrottleVisual({ optionsModal }: ThrottleVisualProps) {
         <div
           className={classnames(
             "flex rounded-xl w-full overflow-hidden",
-            "gap-1 lg:gap-2"
+            "gap-1 lg:gap-2",
           )}
         >
           <IncrementCard
