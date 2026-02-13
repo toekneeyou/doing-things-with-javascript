@@ -1,5 +1,7 @@
 import { useRef } from "react";
-import TallArray, { TallArrayHandle } from "../../features/tallArray/TallArray";
+import TallArray, {
+  type TallArrayHandle,
+} from "../../features/tallArray/TallArray";
 import { classnames } from "../../lib/util/classnames";
 import Button from "../../components/button/Button";
 import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";
@@ -68,7 +70,7 @@ export default function QueueVisual() {
     <div
       className={classnames(
         "queue-visual",
-        "w-full h-full centered flex-col gap-y-8"
+        "w-full h-full centered flex-col gap-y-8",
       )}
     >
       <TallArray ref={queueContainerRef} array={queue} />
@@ -105,7 +107,7 @@ function QueueControls({
     <ul
       className={classnames(
         "queue__controls",
-        "grid grid-cols-3 gap-x-standard"
+        "grid grid-cols-3 gap-x-standard",
       )}
     >
       <li className="w-full">

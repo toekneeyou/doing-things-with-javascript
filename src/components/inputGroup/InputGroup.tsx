@@ -1,18 +1,22 @@
-import React, { ChangeEvent, MouseEventHandler, useId, useRef } from "react";
+import React, {
+  type ChangeEvent,
+  type MouseEventHandler,
+  useId,
+  useRef,
+} from "react";
 
 import { classnames } from "../../lib/util/classnames";
 import NumberSpinButtons from "./NumberSpinButtons";
-import { TooltipProps } from "../tooltip/Tooltip";
+import { type TooltipProps } from "../tooltip/Tooltip";
 import InputLabel from "./InputLabel";
 
-export interface InputGroupProps
-  extends Omit<
-    React.DetailedHTMLProps<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      HTMLInputElement
-    >,
-    "className"
-  > {
+export interface InputGroupProps extends Omit<
+  React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >,
+  "className"
+> {
   label?: string;
   showLabel?: boolean;
   labelPosition?: "top" | "left";
@@ -106,7 +110,7 @@ export default function InputGroup({
           "gap-x-1": labelPosition === "left",
           "flex-col gap-y-1": labelPosition === "top",
         },
-        inputGroupClassName
+        inputGroupClassName,
       )}
     >
       {showLabel && label !== undefined && (
@@ -126,7 +130,7 @@ export default function InputGroup({
           "w-full border-slate-600 border-2 rounded-3xl bg-app-slate-blue text-white px-4 h-10",
           "focus:outline-none focus:border-app-yellow",
           "disabled:opacity-50",
-          inputClassName
+          inputClassName,
         )}
         {...inputAttributes}
       />

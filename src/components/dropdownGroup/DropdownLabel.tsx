@@ -1,6 +1,6 @@
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { classnames } from "../../lib/util/classnames";
-import Tooltip, { TooltipProps } from "../tooltip/Tooltip";
+import Tooltip, { type TooltipProps } from "../tooltip/Tooltip";
 
 interface DropdownLabelProps {
   labelClassName?: string;
@@ -19,14 +19,14 @@ export default function DropdownLabel({
     <div
       className={classnames(
         "dropdown-label",
-        "translate-x-4 flex items-center justify-start"
+        "translate-x-4 flex items-center justify-start",
       )}
     >
       <label
         className={classnames(
           "dropdown-label__label",
           "text-sm opacity-80",
-          labelClassName
+          labelClassName,
         )}
         htmlFor={id}
       >
@@ -36,7 +36,7 @@ export default function DropdownLabel({
         <Tooltip
           className={classnames(
             "dropdown-label__tooltip",
-            "ml-1 -translate-y-[2px]"
+            "ml-1 -translate-y-[2px]",
           )}
           {...tooltipProps}
         >

@@ -1,4 +1,4 @@
-import { Ref, useImperativeHandle, useRef } from "react";
+import { type Ref, useImperativeHandle, useRef } from "react";
 import {
   useBSArrayStateContext,
   useBSRefContext,
@@ -21,7 +21,7 @@ export default function BubbleSortChart({}: BubbleSortChartProps) {
     const bubbleSortChartHandle: BubbleSortChartHandle = {
       getElement(originalPosition: number) {
         return bubbleSortChart.querySelector(
-          `#${createId(originalPosition)}`
+          `#${createId(originalPosition)}`,
         ) as HTMLLIElement;
       },
     };

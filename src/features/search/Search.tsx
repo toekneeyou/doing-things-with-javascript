@@ -1,7 +1,12 @@
-import { ChangeEventHandler, useLayoutEffect, useRef, useState } from "react";
+import {
+  type ChangeEventHandler,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import InputGroup from "../../components/inputGroup/InputGroup";
 import { classnames } from "../../lib/util/classnames";
-import { SearchResultItemProps } from "./SearchResultItem";
+import { type SearchResultItemProps } from "./SearchResultItem";
 import SearchResultsList from "./SearchResults";
 import ClickAwayListener from "../../components/clickAwayListener/ClickAwayListener";
 
@@ -31,7 +36,7 @@ export default function Search({
     const addBorderToResultListItems = () => {
       const firstLis =
         resultsRef.current?.querySelectorAll(
-          `.${SEARCH_RESULTS_CLASS} > ul > li`
+          `.${SEARCH_RESULTS_CLASS} > ul > li`,
         ) ?? [];
 
       firstLis.forEach((li, i) => {
@@ -81,7 +86,7 @@ export default function Search({
             {
               "opacity-0 pointer-events-none":
                 !showResults || queryString.length === 0,
-            }
+            },
           )}
         >
           <SearchResultsList results={results} />

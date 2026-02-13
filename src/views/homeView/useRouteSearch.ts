@@ -1,17 +1,17 @@
 import { useNavigate } from "react-router-dom";
-import { SearchResultItemProps } from "../../features/search/SearchResultItem";
+import { type SearchResultItemProps } from "../../features/search/SearchResultItem";
 import { homeRoute, SiteRoute } from "../../services/routes";
 import { useCallback, useMemo, useState } from "react";
 
 export default function useRouteSearch() {
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState<SearchResultItemProps[]>(
-    []
+    [],
   );
 
   const standardizedRoutes = useMemo(() => {
     function standardizeRoute<T>(
-      siteRoute: SiteRoute<T>
+      siteRoute: SiteRoute<T>,
     ): SearchResultItemProps {
       const standardizedPath: SearchResultItemProps = {
         name: siteRoute.name,
@@ -45,7 +45,7 @@ export default function useRouteSearch() {
           return {
             name: categoryRoute.name,
             children: categoryRoute.children.filter((c) =>
-              matchNameToString(c.name)
+              matchNameToString(c.name),
             ),
           };
         })
@@ -53,7 +53,7 @@ export default function useRouteSearch() {
 
       setSearchResults(newResults);
     },
-    [standardizedRoutes]
+    [standardizedRoutes],
   );
 
   const routeSearchValues = useMemo(() => {

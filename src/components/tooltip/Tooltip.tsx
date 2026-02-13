@@ -1,8 +1,8 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { classnames } from "../../lib/util/classnames";
 import useDebounce from "../../lib/hooks/useDebounce";
-import { PropsWithClassNameAndChildren } from "../../lib/types";
+import { type PropsWithClassNameAndChildren } from "../../lib/types";
 
 type TooltipPosition = "top" | "right" | "bottom" | "left";
 
@@ -83,7 +83,7 @@ export default function Tooltip({
       setIsOpen(false);
     },
     100,
-    { isLeading: false, isTrailing: true, isCancellable: true }
+    { isLeading: false, isTrailing: true, isCancellable: true },
   );
 
   const handleMouseEnter = () => {
@@ -121,7 +121,7 @@ export default function Tooltip({
             {
               "opacity-0 pointer-events-none select-none": !isOpen,
               "opacity-95": isOpen,
-            }
+            },
           )}
           style={{
             ...tooltipPosition,
@@ -129,7 +129,7 @@ export default function Tooltip({
         >
           {content}
         </div>,
-        document.body
+        document.body,
       )}
     </div>
   );

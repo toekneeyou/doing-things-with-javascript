@@ -1,9 +1,9 @@
 import {
   createContext,
-  Dispatch,
-  MutableRefObject,
-  PropsWithChildren,
-  SetStateAction,
+  type Dispatch,
+  type PropsWithChildren,
+  type RefObject,
+  type SetStateAction,
   useCallback,
   useContext,
   useEffect,
@@ -15,7 +15,7 @@ import useBubbleSortSpeed, {
   SORT_SPEED,
 } from "../views/bubbleSortView/useBubbleSortSpeed";
 import wait from "../lib/util/wait";
-import { BubbleSortChartHandle } from "../views/bubbleSortView/BubbleSortChart";
+import { type BubbleSortChartHandle } from "../views/bubbleSortView/BubbleSortChart";
 /**
  *
  *
@@ -32,9 +32,9 @@ interface BSArrayActionContextValue {
   handleRefresh: () => void;
 }
 interface BSRefContextValue {
-  bubbleSortChartRef: MutableRefObject<BubbleSortChartHandle | null>;
-  speedRef: MutableRefObject<number>;
-  speedButtonRef: MutableRefObject<HTMLButtonElement | null>;
+  bubbleSortChartRef: RefObject<BubbleSortChartHandle | null>;
+  speedRef: RefObject<number>;
+  speedButtonRef: RefObject<HTMLButtonElement | null>;
 }
 interface BSSortStatusContextValue {
   isAutoSort: boolean;
@@ -48,18 +48,18 @@ interface BSManualSortContextValue {
   nextIteration: () => void;
 }
 const BSArrayStateContext = createContext<BSArrayStateContextValue | null>(
-  null
+  null,
 );
 const BSArrayActionContext = createContext<BSArrayActionContextValue | null>(
-  null
+  null,
 );
 const BSRefContext = createContext<BSRefContextValue | null>(null);
 const BSSortStatusContext = createContext<BSSortStatusContextValue | null>(
-  null
+  null,
 );
 const BSAutoSortContext = createContext<BSAutoSortContextValue | null>(null);
 const BSManualSortContext = createContext<BSManualSortContextValue | null>(
-  null
+  null,
 );
 /**
  *
@@ -216,7 +216,7 @@ const BubbleSortContextProvider = ({ children }: PropsWithChildren) => {
       // can interupt now
       doNotInteruptManualSort.current = false;
     },
-    []
+    [],
   );
   /**
    * This useEffect contains auto sorting logic
@@ -247,7 +247,7 @@ const BubbleSortContextProvider = ({ children }: PropsWithChildren) => {
    */
   const bsArrayStateValue: BSArrayStateContextValue = useMemo(
     () => ({ unsortedArray, version }),
-    [unsortedArray, version]
+    [unsortedArray, version],
   );
   const bsArrayActionValue: BSArrayActionContextValue = useMemo(
     () => ({
@@ -260,7 +260,7 @@ const BubbleSortContextProvider = ({ children }: PropsWithChildren) => {
         setVersion(Math.random());
       },
     }),
-    []
+    [],
   );
   const bsRefValue: BSRefContextValue = useMemo(
     () => ({
@@ -268,14 +268,14 @@ const BubbleSortContextProvider = ({ children }: PropsWithChildren) => {
       speedButtonRef,
       speedRef,
     }),
-    []
+    [],
   );
   const bsSortStatusValue: BSSortStatusContextValue = useMemo(
     () => ({
       isAutoSort,
       isSorted,
     }),
-    [isAutoSort, isSorted]
+    [isAutoSort, isSorted],
   );
   const bsAutoSortValue: BSAutoSortContextValue = useMemo(
     () => ({
@@ -288,7 +288,7 @@ const BubbleSortContextProvider = ({ children }: PropsWithChildren) => {
         speedButton.textContent = `${speedRef.current}x`;
       },
     }),
-    []
+    [],
   );
   const bsManualSortValue: BSManualSortContextValue = useMemo(
     () => ({
@@ -300,7 +300,7 @@ const BubbleSortContextProvider = ({ children }: PropsWithChildren) => {
         }
       },
     }),
-    [loop]
+    [loop],
   );
 
   return (

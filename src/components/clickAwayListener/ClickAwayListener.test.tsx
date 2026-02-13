@@ -1,17 +1,18 @@
 import { render, fireEvent, screen } from "@testing-library/react";
 import ClickAwayListener from "./ClickAwayListener";
+import { expect, test, vi } from "vitest";
 
 function Element() {
   return <div>element</div>;
 }
 
 test("should call onClickAway when clicking outside the component", async () => {
-  const handleClickAway = jest.fn();
+  const handleClickAway = vi.fn();
 
   render(
     <ClickAwayListener onClickAway={handleClickAway}>
       <Element />
-    </ClickAwayListener>
+    </ClickAwayListener>,
   );
 
   // Click inside the component

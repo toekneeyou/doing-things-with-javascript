@@ -1,9 +1,9 @@
-import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { classnames } from "../../lib/util/classnames";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import {
-  PropsWithClassName,
-  PropsWithClassNameAndChildren,
+  type PropsWithClassName,
+  type PropsWithClassNameAndChildren,
 } from "../../lib/types";
 import AccordionProvider, { useAccordionContext } from "./AccordionContext";
 /**
@@ -38,7 +38,7 @@ const AccordionWithoutProvider: React.FC<AccordionWithoutProviderProps> = ({
       className={classnames(
         "accordion",
         "min-h-12 bg-app-dark-blue",
-        className
+        className,
       )}
       role="tablist"
     >
@@ -65,7 +65,7 @@ const AccordionTab: React.FC<AccordionTabProps> = ({ className, title }) => {
       className={classnames(
         "accordion-tab",
         "h-12 w-full between px-4 cursor-pointer",
-        className
+        className,
       )}
       onClick={toggleAccordion}
     >
@@ -75,7 +75,7 @@ const AccordionTab: React.FC<AccordionTabProps> = ({ className, title }) => {
           "size-4 text-white transition-transform duration-300",
           {
             "-rotate-180": isExpanded,
-          }
+          },
         )}
       />
     </button>
@@ -120,7 +120,7 @@ const AccordionPanel: React.FC<PropsWithClassNameAndChildren> = ({
       aria-labelledby={tabId}
       className={classnames(
         "accordion__body-panel faded-blue transition-all transition-setting overflow-hidden",
-        className
+        className,
       )}
       ref={accordionPanelRef}
       style={{

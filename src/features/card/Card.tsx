@@ -1,8 +1,8 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { classnames } from "../../lib/util/classnames";
 import {
-  PropsWithClassName,
-  PropsWithClassNameAndChildren,
+  type PropsWithClassName,
+  type PropsWithClassNameAndChildren,
 } from "../../lib/types";
 /**
  *
@@ -21,7 +21,7 @@ const Card = function ({ header, body, className }: CardProps) {
       className={classnames(
         "card",
         "flex flex-col rounded-xl overflow-hidden shadow-md",
-        className
+        className,
       )}
     >
       {header}
@@ -45,7 +45,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({ className, title }) => {
       className={classnames(
         "card__header",
         "centered px-4 space-x-2 bg-app-dark-blue h-16 text-lg",
-        className
+        className,
       )}
     >
       {title}
@@ -68,7 +68,7 @@ const CardBody: React.FC<PropsWithClassNameAndChildren> = ({
       className={classnames(
         "card__body",
         "bg-app-faded-blue h-max min-h-24",
-        className
+        className,
       )}
     >
       {children}

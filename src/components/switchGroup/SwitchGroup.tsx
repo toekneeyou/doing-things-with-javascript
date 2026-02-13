@@ -1,20 +1,19 @@
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { classnames } from "../../lib/util/classnames";
-import Tooltip, { TooltipProps } from "../tooltip/Tooltip";
-import { MouseEventHandler, useId, useRef } from "react";
+import Tooltip, { type TooltipProps } from "../tooltip/Tooltip";
+import { type MouseEventHandler, useId, useRef } from "react";
 
 const SWITCH_TRACK_CLASS = "switch__track";
 const SWITCH_THUMB_CLASS = "switch__thumb";
 const SWITCH_INPUT_CLASS = "switch__input";
 
-export interface SwitchGroupProps
-  extends Omit<
-    React.DetailedHTMLProps<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      HTMLInputElement
-    >,
-    "className" | "type"
-  > {
+export interface SwitchGroupProps extends Omit<
+  React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >,
+  "className" | "type"
+> {
   label?: string;
   showLabel?: boolean;
   switchGroupClassName?: string;
@@ -54,14 +53,14 @@ export default function SwitchGroup({
       className={classnames(
         "switch-group",
         "relative flex items-center gap-x-standard",
-        switchGroupClassName
+        switchGroupClassName,
       )}
     >
       {showLabel && label !== undefined && (
         <div
           className={classnames(
             "switch-group__label",
-            "flex items-center gap-x-2 text-sm"
+            "flex items-center gap-x-2 text-sm",
           )}
         >
           {tooltipProps !== undefined && (
@@ -80,7 +79,7 @@ export default function SwitchGroup({
           className={classnames(
             "switch__track",
             "rounded-full w-8 h-3 transition-[background] transition-setting cursor-pointer",
-            { "bg-app-faded-blue": !checked, "bg-app-yellow": !!checked }
+            { "bg-app-faded-blue": !checked, "bg-app-yellow": !!checked },
           )}
         />
         <div
@@ -93,7 +92,7 @@ export default function SwitchGroup({
             {
               "left-0": !checked,
               "left-4": !!checked,
-            }
+            },
           )}
         />
         <input
@@ -106,7 +105,7 @@ export default function SwitchGroup({
           id={inputAttributes.id ?? id}
           className={classnames(
             "switch__input",
-            "opacity-0 pointer-events-none absolute"
+            "opacity-0 pointer-events-none absolute",
           )}
         />
       </div>

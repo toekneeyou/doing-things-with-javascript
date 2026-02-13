@@ -16,7 +16,7 @@ export default function App() {
           <div
             className={classnames(
               "app",
-              "h-screen w-full overflow-hidden text-white flex"
+              "h-screen w-full overflow-hidden text-white flex",
             )}
             style={{
               background:

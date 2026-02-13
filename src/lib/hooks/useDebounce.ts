@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { debounce, DebounceOptions } from "../util/debounce";
+import { debounce, type DebounceOptions } from "../util/debounce";
 
 /**
  *
@@ -11,7 +11,7 @@ import { debounce, DebounceOptions } from "../util/debounce";
 const useDebounce = <T extends (...args: any[]) => void>(
   fn: T,
   delay: number,
-  options: DebounceOptions
+  options: DebounceOptions,
 ) => {
   const fnRef = useRef<ReturnType<typeof debounce>>(undefined);
 

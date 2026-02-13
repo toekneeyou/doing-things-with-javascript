@@ -1,11 +1,11 @@
-import { useMemo, JSX } from "react";
+import { useMemo, type JSX } from "react";
 import { classnames } from "../../lib/util/classnames";
-import { ButtonColor, ButtonVariant } from "./Button";
+import { type ButtonColor, type ButtonVariant } from "./Button";
 import { darkBlue } from "../../../tailwind.config";
 
 export default function useButtonIcon(
   renderIcon: ((props?: Record<string, any>) => JSX.Element) | undefined,
-  { variant, color }: { variant: ButtonVariant; color: ButtonColor }
+  { variant, color }: { variant: ButtonVariant; color: ButtonColor },
 ) {
   const isIconButton =
     variant === "icon" ||
@@ -32,7 +32,7 @@ export default function useButtonIcon(
 
   const icon = useMemo(
     () => (renderIcon ? renderIcon(iconProps) : null),
-    [iconProps, renderIcon, variant, color]
+    [iconProps, renderIcon, variant, color],
   );
 
   return icon;
