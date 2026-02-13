@@ -1,4 +1,4 @@
-import { LazyRouteFunction, RouteObject } from "react-router-dom";
+import { type LazyRouteFunction, type RouteObject } from "react-router-dom";
 import App from "../App";
 
 export class SiteRoute<T> {
@@ -100,9 +100,8 @@ export const bubbleSortRoute = new SiteRoute({
   name: "Bubble Sort",
   path: "bubble-sort",
   lazy: async () => {
-    const { BubbleSortView } = await import(
-      "../views/bubbleSortView/BubbleSortView"
-    );
+    const { BubbleSortView } =
+      await import("../views/bubbleSortView/BubbleSortView");
     return { Component: BubbleSortView };
   },
   parent: algorithmsRoute,

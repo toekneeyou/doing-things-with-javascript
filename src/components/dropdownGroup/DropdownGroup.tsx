@@ -1,16 +1,15 @@
 import { useId } from "react";
 import { classnames } from "../../lib/util/classnames";
-import { TooltipProps } from "../tooltip/Tooltip";
+import { type TooltipProps } from "../tooltip/Tooltip";
 import DropdownLabel from "./DropdownLabel";
 
-export interface DropdownProps
-  extends Omit<
-    React.DetailedHTMLProps<
-      React.SelectHTMLAttributes<HTMLSelectElement>,
-      HTMLSelectElement
-    >,
-    "className"
-  > {
+export interface DropdownProps extends Omit<
+  React.DetailedHTMLProps<
+    React.SelectHTMLAttributes<HTMLSelectElement>,
+    HTMLSelectElement
+  >,
+  "className"
+> {
   label?: string;
   showLabel?: boolean;
   options: React.DetailedHTMLProps<
@@ -40,7 +39,7 @@ export default function DropdownGroup<T>({
       className={classnames(
         "dropdown-group",
         "min-w-32 flex flex-col gap-y-1",
-        dropdownGroupClassName
+        dropdownGroupClassName,
       )}
     >
       {showLabel && label !== undefined && (
@@ -58,7 +57,7 @@ export default function DropdownGroup<T>({
           "dropdown",
           "w-full bg-app-slate-blue border-2 border-slate-600 rounded-3xl px-4 h-10",
           "focus:outline-none focus:border-app-yellow",
-          selectClassName
+          selectClassName,
         )}
         {...selectAttributes}
       >

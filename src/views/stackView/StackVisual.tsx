@@ -1,5 +1,7 @@
-import { ComponentProps, useRef } from "react";
-import TallArray, { TallArrayHandle } from "../../features/tallArray/TallArray";
+import { type ComponentProps, useRef } from "react";
+import TallArray, {
+  type TallArrayHandle,
+} from "../../features/tallArray/TallArray";
 import useStackOptions from "./useStackOptions";
 import Button from "../../components/button/Button";
 import { MinusIcon, PlusIcon, XMarkIcon } from "@heroicons/react/24/solid";

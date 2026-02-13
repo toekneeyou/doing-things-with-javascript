@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { classnames } from "../../lib/util/classnames";
-import { PropsWithClassNameAndChildren } from "../../lib/types";
+import { type PropsWithClassNameAndChildren } from "../../lib/types";
 
 interface ClickAwayListenerProps extends PropsWithClassNameAndChildren {
   onClickAway: () => void;

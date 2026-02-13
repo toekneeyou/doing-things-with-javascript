@@ -1,10 +1,12 @@
-import { useRef, useState } from "react";
+import { ComponentProps, useRef, useState } from "react";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
 import Button from "../../components/button/Button";
 import Modal from "../../components/modal/Modal";
 import ThrottleOptions from "./ThrottleOptions";
 
-const CogIcon = (props?: any) => <Cog6ToothIcon {...props} />;
+const CogIcon = (props?: ComponentProps<typeof Cog6ToothIcon>) => (
+  <Cog6ToothIcon {...props} />
+);
 
 export default function ThrottleOptionsModal() {
   const [isOpen, setIsOpen] = useState(false);

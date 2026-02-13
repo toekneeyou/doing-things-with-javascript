@@ -1,5 +1,7 @@
 import { classnames } from "../../lib/util/classnames";
-import SearchResultItem, { SearchResultItemProps } from "./SearchResultItem";
+import SearchResultItem, {
+  type SearchResultItemProps,
+} from "./SearchResultItem";
 
 interface SearchResultsListProps {
   results: SearchResultItemProps[];

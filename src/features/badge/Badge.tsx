@@ -1,5 +1,5 @@
 import { classnames } from "../../lib/util/classnames";
-import { PropsWithClassNameAndChildren } from "../../lib/types";
+import { type PropsWithClassNameAndChildren } from "../../lib/types";
 
 interface BadgeProps extends PropsWithClassNameAndChildren {
   size: "sm" | "md" | "lg" | "xl" | "xxl";
@@ -25,7 +25,7 @@ export default function Badge({
           "h-12 w-12": size === "lg",
           "h-16 w-16": size === "xl",
         },
-        className
+        className,
       )}
     >
       {children}

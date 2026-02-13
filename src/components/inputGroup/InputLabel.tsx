@@ -1,6 +1,6 @@
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { classnames } from "../../lib/util/classnames";
-import Tooltip, { TooltipProps } from "../tooltip/Tooltip";
+import Tooltip, { type TooltipProps } from "../tooltip/Tooltip";
 
 interface InputLabelProps {
   labelClassName?: string;
@@ -23,7 +23,7 @@ export default function InputLabel({
         className={classnames(
           "input-label__label",
           "text-sm opacity-80",
-          labelClassName
+          labelClassName,
         )}
         htmlFor={id}
       >
